@@ -1,0 +1,27 @@
+.Container
+{
+    display               : grid;
+    gap                   : 15px;
+    grid-template-columns : repeat(2, 1fr);
+
+    & > .Project
+    {
+        width           : auto;
+        aspect-ratio    : 1.8/1;
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+        background      : rgba(0, 0, 0, 0.3);
+        font-size       : 20px;
+        border-radius   : 10px;
+        padding         : 10px;
+
+        &.Clicked
+        {
+            grid-column-start : 1;
+            grid-column-end   : 3;
+            grid-row-start    : calc(var(--clickedCellRow) + 1);
+            grid-row-end      : calc(var(--clickedCellRow) + 3);
+        };
+    };
+};

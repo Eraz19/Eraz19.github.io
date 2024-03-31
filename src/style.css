@@ -1,0 +1,13 @@
+body
+{
+    --blue-color   : #233D4D;
+    --orange-color : #FE7F2D;
+    --yellow-color : #FCCA46;
+    --light-green  : #A1C181;
+    --dark-green   : #619B8A;
+
+    margin  : 0;
+    padding : 0;
+    background : var(--blue-color);
+    font-family: Tahoma, sans-serif;
+};
