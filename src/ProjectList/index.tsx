@@ -15,6 +15,7 @@ export function Component(props : Types.T_Props) : JSX.Element
     React.useEffect(() =>
     {
         setProjects([...props.projects]);
+
     }, [props.projects]);
 
     React.useEffect(() =>
@@ -29,9 +30,8 @@ export function Component(props : Types.T_Props) : JSX.Element
                 const refHeight    : number = ref.clientHeight;
                 const screenHeight : number = screen.height;
 
-
                 // Calculate the vertical and horizontal scroll positions
-                window.scrollTo({ top: refOffsetTop + ((refHeight * 1.65) * .5) - (screenHeight * .5) })
+                window.scrollTo({ top: refOffsetTop + ((refHeight * 1.13) * .5) - (screenHeight * .5) })
             }
         }
     }, [clickedProjectIndex]);

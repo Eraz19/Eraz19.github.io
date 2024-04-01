@@ -1,6 +1,7 @@
-import * as ProjectList from "../ProjectList";
-import * as ProjectRasterizer from "../ProjectRasterizer";
-import      Style    from "./style.module.scss";
+import * as ProjectList          from "../ProjectList";
+import * as ProjectRasterizer    from "../ProjectRasterizer";
+import * as ProjectCollapseGraph from "../ProjectCollapseGraph";
+import      Style                from "./style.module.scss";
 
 
 const presentationFirstPart : string = 
@@ -33,6 +34,12 @@ export function Component() : JSX.Element
                                 component   : <ProjectRasterizer.Component/>,
                                 description : "",
                             },
+                            {
+                                id          : "2",
+                                title       : "2",
+                                component   : <ProjectCollapseGraph.Component/>,
+                                description : "",
+                            }
                         ]
                     }
                 />

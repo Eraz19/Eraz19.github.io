@@ -8,7 +8,7 @@
 		"build": "webpack --config webpack.config.js"
 	},
 	"dependencies": {
-		"eraz-lib": "^1.0.26",
+		"eraz-lib": "^1.0.28",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
