@@ -1,0 +1,117 @@
+@keyframes SlideInFromLeft
+{
+    from { left : -70%; };
+    to   { left : 100px; };    
+};
+
+@keyframes SlideInFromTop
+{
+    from { top : -70%; };
+    to   { top : 20px;  };  
+};
+
+@keyframes CharacterFadeIn
+{
+    from { opacity : 0; };
+    to   { opacity : 1; };  
+};
+
+.Container
+{
+    background     : linear-gradient(var(--blue-color), var(--dark-blue-color) 30%);
+    width          : 100%;
+    padding-top    : calc(450px / 1.5);
+    padding-bottom : 200px;
+    clip-path      : polygon(0% 0%, 100% 0%, 100% 90%, 0% 100%);
+
+    & > .TextContainer
+    {
+        position       : relative;
+        background     : var(--light-green);
+        color          : #ffff;
+        height         : 50vh;
+        aspect-ratio   : 2/1;
+        left           : 100px;
+        font-size      : 20px;
+        padding        : 60px;
+        padding-bottom : 30px;
+        border-radius  : 5px;
+        animation      : SlideInFromLeft 2.5s;
+
+        & > .PresentationTitle
+        {
+            font-size     : 3.5rem;
+            margin-bottom : 30px;
+        };
+
+        & > .PresentationFristPart
+        {
+            font-size     : 1em;
+            margin-bottom : 20px;
+        };
+
+        & > .EmtyBorder
+        {
+            position       : absolute;
+            width          : 100%;
+            height         : 105%;
+            top            : 20px;
+            left           : 30px;
+            border         : var(--dark-green) solid 2.5px;
+            animation      : SlideInFromTop 2s;
+            pointer-events : none;
+        };
+
+        & > .Contact
+        {
+            position       : absolute;
+            display        : flex;
+            flex-direction : row-reverse;
+            align-items    : center;
+            margin-top     : 20px;
+            padding        : 0px 20px;
+            bottom         : 15px;
+            right          : 20px;
+            gap            : 20px;
+
+            & > .Button
+            {
+                position    : relative;
+                display     : flex;
+                align-items : center;
+                gap         : 8px;
+                cursor      : pointer;
+                border      : #fff solid 1px;
+                padding     : 8px 10px;
+                top         : 0px;
+                transition  : top .2s;
+
+                & > .ContactIcon { height: 30px; };
+
+                & > .ContactText
+                {
+                    position : relative;
+                    overflow : hidden;
+                };
+
+                &:hover
+                {
+                    top        : -4px;
+                    transition : top .2s;
+                };
+            }
+        };
+
+        & > .Image
+        {
+            position  : absolute;
+            top       : -260px;
+            left      : 70%; 
+            height    : 450px;
+            opacity   : 0;
+            animation : CharacterFadeIn 1s linear 2.5s forwards;
+
+            & > img { height: 100%; };
+        };
+    };  
+};
