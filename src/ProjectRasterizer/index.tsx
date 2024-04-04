@@ -3,9 +3,11 @@ import * as ErazLib             from "eraz-lib";
 import * as ErazReactComponents from "eraz-react-components/dist";
 
 
-import * as OBJFiles from "../OBJ_Files";
-import * as Types    from "./types";
-import      Style    from "./style.module.scss";
+import * as OBJFiles   from "../OBJ_Files";
+import * as SidePanel  from "./SidePanel";
+import      Animation1 from "../assets/Animation1.gif";
+import * as Types      from "./types";
+import      Style      from "./style.module.scss";
 
 
 export function Component() : JSX.Element
@@ -38,19 +40,32 @@ export function Component() : JSX.Element
         return () => { worker.terminate(); };
     }, []);
 
+    function HandleMouseEnter() : void
+    {
+        document.body.style.overflowY = "hidden";
+    };
+
+    function HandleMouseLeave() : void
+    {
+        document.body.style.overflowY = "auto";
+    };
+
     return (
         <div className={Style.Container}>
             <div className={Style.Rasterizer}>
                 <div
-                    onMouseEnter={() => { document.body.style.overflow = "hidden" }}
-                    onMouseLeave={() => { document.body.style.overflow = "auto" }}
+                    onMouseEnter = {HandleMouseEnter}
+                    onMouseLeave = {HandleMouseLeave}
                 >
                 {
                     (onLoad)
                     ?   <div className={Style.LoaderPage}>
                             <div className={Style.Loader}>
-                                <div className={Style.Spinner}><ErazReactComponents.LoaderSpinner.Component/></div>
-                                <div className={Style.Text}>Wait few sec ...</div>
+                                <img
+                                    className = {Style.StyleLoaderImage}
+                                    src       = {Animation1}
+                                />
+
                             </div>
                         </div>
                     :   <ErazReactComponents.RasterizerDisplay.Component
@@ -93,16 +108,10 @@ export function Component() : JSX.Element
                 }
                 </div>
             </div>
-            <div className={Style.SidePanel}>
-                <div className={Style.SidePanelPage}>
-                {
-                    Object.keys(objMeshes).map((key : string) : JSX.Element=>
-                    {
-                        return (<div className={Style.ObjOptions} onClick={() => { setSelectedObj(key); }}>{key}</div>);
-                    })
-                }
-                </div>
-            </div>
+            <SidePanel.Component
+                OBJModelOptions   = {Object.keys(objMeshes)}
+                getOBJModelOption = {setSelectedObj}
+            />
         </div>
     );
 };

@@ -7,19 +7,17 @@ const config = (env) =>
 
 	return {
 		devServer: {
-			static: {
-				directory: path.join(__dirname, 'build'),
-			},
+			static  : { directory: path.join(__dirname, 'build') },
 			compress: true,
-			port: 8080,
+			port    : 8080,
 		},
 		entry : "./src/index.tsx",
 		mode  : mode,
 		cache : true,
 		output:
 		{
-			path    : path.resolve(__dirname, "build"),
-			filename: "index.js",
+			filename: 'bundle.js',
+			path: path.resolve(__dirname, 'dist'),
 		},
 		plugins:
 		[
@@ -27,7 +25,7 @@ const config = (env) =>
 		],
 		resolve:
 		{
-			extensions: [".ts", ".tsx", ".js", ".jsx"],
+			extensions: [".ts", ".tsx", ".js", ".jsx", ".gif", "jpg"],
 		},
 		module:
 		{
@@ -63,8 +61,8 @@ const config = (env) =>
 					use    : ["style-loader", "css-loader"],
 				},
 				{
-					test: /\.(png|svg|ttf)$/i,
-					type: "asset/resource",
+					test: /\.(png|svg|jpg|jpeg|gif)$/i,
+					type: 'asset/resource',
 				},
 			],
 		},
@@ -72,3 +70,5 @@ const config = (env) =>
 };
 
 module.exports = config;
+
+

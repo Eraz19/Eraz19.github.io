@@ -1,13 +1,19 @@
 body
 {
-    --blue-color   : #233D4D;
-    --orange-color : #FE7F2D;
-    --yellow-color : #FCCA46;
-    --light-green  : #A1C181;
-    --dark-green   : #619B8A;
+    --blue-color      : #233D4D;
+    --dark-blue-color : #172933;
+    --orange-color    : #FE7F2D;
+    --yellow-color    : #FCCA46;
+    --light-green     : #A1C181;
+    --dark-green      : #619B8A;
 
-    margin  : 0;
-    padding : 0;
-    background : var(--blue-color);
-    font-family: Tahoma, sans-serif;
+    margin      : 0;
+    padding     : 0;
+    font-family : Verdana, sans-serif;
+
+    width      : 100vw;
+    height     : 100vh;
+
+    overflow-x : hidden;
+    overflow-y : auto;
 };

@@ -1,15 +1,17 @@
 .Container
 {
-    width   : 100%;
-    height  : 100%;
-    display : flex;
+    width         : 100%;
+    height        : 100%;
+    display       : flex;
+    gap           : 4px;
+    background    : #2e2e2e;
+    border-radius : 10px;
 
     & > .Rasterizer
     {
         width      : 80%;
         height     : 100%;
-        background : #3d3d3d;
-        padding    : 5px;
+        padding    : 10px 0px 10px 10px;
         box-sizing : border-box;
 
         & > div
@@ -23,64 +25,17 @@
                 display         : flex; 
                 justify-content : center; 
                 align-items     : center;
-                background      : #575757;
+                background      : #3c3c3c;
 
                 & > .Loader
                 {
-                    position: relative;
+                    position : relative;
 
-                    & > .Spinner
+                    & > .LoaderImage
                     {
-                        height : 35px;
-                        width  : 35px;
+                        height : 150px;
+                        width  : 150px;
                     };
-
-                    & > .Text
-                    {
-                        position    : absolute;
-                        white-space : nowrap; 
-                        left        : 50%;
-                        transform   : translateX(-50%);
-                        margin-top  : 10px;
-                    };
-                };
-            };
-        };
-    };
-
-    & > .SidePanel
-    {
-        width          : 20%;
-        height         : 100%;
-        background     : #3d3d3d;
-        padding        : 5px;
-        box-sizing     : border-box;
-
-        & > .SidePanelPage
-        {
-            height          : 100%;
-            display        : flex;
-            flex-direction : column;
-            padding        : 5px;
-            gap            : 5px;
-
-            box-sizing     : border-box;
-            background      : #575757;
-
-            & > .ObjOptions
-            {
-                width         : 100%;
-                background    : #353535;
-                color         : #ffffff;
-                border-radius : 3px;
-                padding       : 12px 20px;
-                box-sizing    : border-box;
-                font-size     : 1rem;
-                cursor        : pointer;
-
-                &:hover
-                {
-                    background : #414141;
                 };
             };
         };
