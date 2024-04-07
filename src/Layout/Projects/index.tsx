@@ -85,7 +85,7 @@ export function Component() : JSX.Element
                 return (false);
             };
 
-            if (e.target && !(e.target as HTMLDivElement).className.includes("ProjectContainer") && !IsClickInsideSelectedProject())
+            if (e.target && !IsClickInsideSelectedProject())
                 setSelectedProject(undefined);
         };
 

@@ -16,7 +16,7 @@ export function Component(props : Types.T_Props) : JSX.Element
     }, []);
 
     return (
-        <div className={`${Style.Content} ${(isLoadingEnded) ? Style.Loaded : ""}`}>
+        <div className={`${Style.Container} ${(isLoadingEnded) ? Style.Loaded : ""}`}>
             <div className={Style.LoaderPage}>
                 <div className={Style.Loader}>
                     <img
@@ -25,7 +25,7 @@ export function Component(props : Types.T_Props) : JSX.Element
                     />
                 </div>
             </div>
-            <div className={Style.Content2}>{ props.children({ onLoadEnd : () => { setIsLoadingEnded(true); } })}</div>
+            <div className={Style.Content}>{ props.children({ onLoadEnd : () => { setIsLoadingEnded(true); } })}</div>
         </div>
     );
 };
