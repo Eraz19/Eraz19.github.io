@@ -12,6 +12,7 @@ export * as MobileTablette from "./MobileTablette";
 export * as NodeJs         from "./NodeJs";
 export * as Python         from "./Python";
 export * as ReactJs        from "./ReactJs";
+export * as Resize         from "./Resize";
 export * as Sass           from "./Sass";
 export * as Ts             from "./Ts";
 export * as VueJs          from "./VueJs"

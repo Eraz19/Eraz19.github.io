@@ -1,6 +1,10 @@
 import * as React from "react";
 
 
+import RasterizerThumbnail    from "../../assets/RasterizerThumbnail.png";
+import GraphCollapseThumbnail from "../../assets/GraphCollapseThumbnail.png";
+
+import * as Icons                from "../../Icons";
 import * as ProjectRasterizer    from "./ProjectRasterizer";
 import * as ProjectCollapseGraph from "./ProjectCollapseGraph";
 import * as LoadingProject       from "./LoadingProject";
@@ -15,6 +19,7 @@ const tests =
         title      : "Title1",
         subtitle   : "Subtitble • Subtitle",
         children   : ProjectRasterizer.Component,
+        thumbnail  : RasterizerThumbnail,
         needLoading: true,
         clickable  : true,
         link       :
@@ -28,6 +33,7 @@ const tests =
         title      : "Title2",
         subtitle   : "Subtitble • Subtitle",
         children   : ProjectCollapseGraph.Component,
+        thumbnail  : GraphCollapseThumbnail,
         needLoading: false,
         clickable  : true,
         link       :
@@ -79,7 +85,7 @@ export function Component() : JSX.Element
                 return (false);
             };
 
-            if (!(e.target as HTMLDivElement).className.includes("ProjectContainer") && !IsClickInsideSelectedProject())
+            if (e.target && !(e.target as HTMLDivElement).className.includes("ProjectContainer") && !IsClickInsideSelectedProject())
                 setSelectedProject(undefined);
         };
 
@@ -132,7 +138,14 @@ export function Component() : JSX.Element
                                 {
                                     (selectedProject === index)
                                     ?   <LoadingProject.Component type={(test.needLoading) ? "loading" : "standard"}>{test.children as React.FC<any>}</LoadingProject.Component>
-                                    :   <div style={{ background: "red", width : "100%", height: "100%" }}></div>
+                                    :   <div className={Style.Thumbnail}><img src={test.thumbnail}/>
+                                            <div>
+                                                <div className={Style.ResizeIcon}>
+                                                    <Icons.Resize.Component/>
+                                                    <div className={Style.ResizeIconText}>Click to extends</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 }
                                 </Projet.Component>
                         }

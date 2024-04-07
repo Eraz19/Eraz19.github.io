@@ -1,3 +1,10 @@
+@keyframes Pulse
+{
+    0%   { scale : 1.2; }
+    50%  { scale : 1;   }
+    100% { scale : 1.2; }
+};
+
 .Container
 {
     $selected-height-animation-time  : .5s;
@@ -40,6 +47,69 @@
                 height     : 90vh;
                 transition : height $selected-height-animation-time $selected-height-animation-delay;
             }
+        };
+    };
+};
+
+
+.Thumbnail
+{
+    position      : relative;
+    width         : 100%;
+    height        : 100%;
+    overflow      : hidden;
+    border-radius : 10px;
+
+    & > img
+    {
+        width         : 100%;
+        height        : 100%;
+        object-fit    : cover;
+        border-radius : 10px;
+    };
+
+    & > div
+    {
+        position        : absolute;
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+        width           : 100%;
+        height          : 100%;
+        left            : 0;
+        top             : -100%;
+        transition      : top .5s;
+        background      : rgba(254, 127, 45, .7);
+
+        & > .ResizeIcon
+        {
+            position : relative;
+            width    : 60px;
+            height   : 60px;
+            color    : white;
+
+            & > svg
+            {
+                animation: Pulse 2s ease-out  infinite;
+            };
+
+            & > .ResizeIconText
+            {
+                position : absolute;
+                color    : white;
+                bottom   : -30px;
+                left     : -55%;
+                white-space: nowrap;
+            }
+        };
+    };
+
+    &:hover
+    {
+        & > div
+        {
+            top        : 0%;
+            transition : top .5s;
         };
     };
 };

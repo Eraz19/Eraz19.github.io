@@ -167,13 +167,6 @@
             height         : 100%;
             border-radius  : 10px;
             cursor         : pointer;
-            transition     : background .3s;
-
-            &:hover
-            {
-                background : rgba(0, 0, 0, .4);
-                transition : background .3s;
-            }
         };
     };
 
