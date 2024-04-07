@@ -1,6 +1,11 @@
+@keyframes SlideInFromBottom
+{
+    from { transform : translateY(100%); };
+    to   { transform : translateY(0%);   };
+};
+
 .Container
 {
-    margin          : 10% 0px 6% 0%;
     display         : flex;
     justify-content : center;
     padding         : 0 10%; 
@@ -34,19 +39,21 @@
             font-size   : 17px;
             font-weight : 300;
             text-align  : center; 
-        }
+        };
     };
 
     &.Animate
     {
-        & > div:nth-of-type(1) { animation: SlideInFromBottom .8s ease-in .4s forwards; };
-        & > div:nth-of-type(2) { animation: SlideInFromBottom .8s ease-in .6s forwards; };
-        & > div:nth-of-type(3) { animation: SlideInFromBottom .8s ease-in .8s forwards; };
+        & > div:nth-of-type(1) { animation : SlideInFromBottom .8s ease-in .4s forwards; };
+        & > div:nth-of-type(2) { animation : SlideInFromBottom .8s ease-in .6s forwards; };
+        & > div:nth-of-type(3) { animation : SlideInFromBottom .8s ease-in .8s forwards; };
     };
-};
 
-@keyframes SlideInFromBottom
-{
-    from { transform : translateY(100%); };
-    to   { transform : translateY(0%);   };
+    @media screen and (max-width : 900px)
+    {
+        flex-direction : column;
+        align-items    : center;
+
+        & > .Proposition { width : 100%; };
+    };
 };

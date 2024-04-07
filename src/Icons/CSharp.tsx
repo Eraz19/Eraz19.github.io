@@ -25,10 +25,10 @@ export function Component() : JSX.Element
                 fill = {"white"}
             />
             <path
-                fill-rule = {"evenodd"}
-                clip-rule = {"evenodd"}
-                d         = {"M25.0001 13V13.9974H22.9999V13H22.0001V13.9974H21V15H22.0001V16.9948H21V18H22.0001V19H22.9999L23 18H25.0001V19H25.9999V18H27V17H25.9999V15H27V13.9974H25.9999V13H25.0001ZM25.0001 17V15H22.9999V16.9948L25.0001 17Z"}
-                fill      = {"white"}
+                fillRule = {"evenodd"}
+                clipRule = {"evenodd"}
+                d        = {"M25.0001 13V13.9974H22.9999V13H22.0001V13.9974H21V15H22.0001V16.9948H21V18H22.0001V19H22.9999L23 18H25.0001V19H25.9999V18H27V17H25.9999V15H27V13.9974H25.9999V13H25.0001ZM25.0001 17V15H22.9999V16.9948L25.0001 17Z"}
+                fill     = {"white"}
             />
         </svg>
     );

@@ -1,0 +1,45 @@
+.Container
+{
+    $selected-height-animation-time  : .5s;
+    $selected-height-animation-delay : .65s;
+
+    & > .Title
+    {
+        display        : flex;
+        flex-direction : row-reverse;
+        margin-right   : 10%;
+        margin-bottom  : 3%;
+
+        & > div
+        {
+            font-size     : 100px;
+            font-weight   : 10;
+            margin-left   : 10%;
+            margin-top    : 5%;
+            margin-bottom : 3%;
+            color         : var(--light-green);
+        };
+    };
+
+    & > .Projects
+    {
+        width          : 100%;
+        padding        : 0 5%;
+        box-sizing     : border-box;
+        display        : flex;
+        flex-direction : column;
+        gap            : 10vh;
+
+        & > .Project
+        {
+            height     : 50vh;
+            transition : height $selected-height-animation-time;
+
+            &.Selected
+            {
+                height     : 90vh;
+                transition : height $selected-height-animation-time $selected-height-animation-delay;
+            }
+        };
+    };
+};

@@ -1,0 +1,11 @@
+.Image
+{
+    position  : absolute;
+    height    : 23vw;
+    top       : -13vw;
+    left      : 55vw; 
+    opacity   : 0;
+    animation : CharacterFadeIn 1s linear 2.5s forwards;
+
+    & > img { height : 100%; };
+};

@@ -1,7 +1,7 @@
 import * as ErazLib from "eraz-lib";
 
 
-import * as Types from "./ProjectRasterizer/types";
+import * as Types from "./types";
 
 
 self.addEventListener("message", (event : MessageEvent) =>

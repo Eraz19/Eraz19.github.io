@@ -1,0 +1,264 @@
+@keyframes Typing
+{
+    from { width : 0; };
+};
+
+.Container
+{
+    $project-slide-in-duration         : 1s;
+    $description-slide-out-duration    : 1s;
+    $description-slide-out-delay       : .2s;
+    $selected-size-animation-duration  : .5s;
+    $selected-size-animation-delay     : .65s;
+
+    position : relative;
+    width    : 100%;
+    height   : 100%;
+    display  : flex;
+    gap      : 15px;
+
+    &.Left 
+    {
+        flex-direction : row;
+
+        & > .ProjectSection { left : -100%; };
+
+        &.Animate
+        {
+            & > .ProjectSection
+            {
+                left       : 0%;
+                transition : left $project-slide-in-duration, width $selected-size-animation-duration;
+            };
+
+            & > .Description
+            {
+                transition : width $selected-size-animation-duration, padding $selected-size-animation-duration, right $description-slide-out-duration $description-slide-out-delay;
+                right      : 0px;
+
+                & > .Text
+                {
+                    text-align: right;
+
+                    & > .Contact
+                    {
+                        justify-content: start;
+
+                        & > .Button
+                        {
+                            transition : right 1.5s, top .4s;
+                            right      : 0%;
+                        };
+                    };
+                }
+            };
+
+            &.Selected
+            {
+                gap        : 0px;
+                transition : gap $selected-size-animation-duration $selected-size-animation-delay;
+
+                & > .ProjectSection
+                {
+                    height     : 100%;
+                    width      : 100%;
+                    transition : width $selected-size-animation-duration $selected-size-animation-delay;
+
+                    & > .ProjectContainer:hover { background : none; }
+                };
+
+                & > .Description
+                {
+                    transition : right $description-slide-out-duration, width 0s $selected-size-animation-delay, padding 0s $selected-size-animation-delay;
+                    width      : 0%;
+                    padding    : 0px;
+                    right      : -45%;
+                    overflow   : hidden;
+                };
+            };
+        };
+
+        & > .Description
+        {
+            & > .TitleContainer            { text-align : right; };
+            & > .Text > .Contact > .Button { right      : -110%; };
+        };
+    };
+
+    &.Right 
+    {
+        flex-direction : row-reverse;
+
+        & > .ProjectSection { right : -100%; };
+
+        &.Animate
+        {
+            & > .ProjectSection
+            {
+                right      : 0%;
+                transition : right $project-slide-in-duration, width $selected-size-animation-duration;
+            };
+
+            & > .Description
+            {
+                transition : width $selected-size-animation-duration, padding $selected-size-animation-duration, left $description-slide-out-duration $description-slide-out-delay;
+                left       : 0px;
+
+                & > .Text
+                {
+                    text-align: left;
+
+                    & > .Contact
+                    {
+                        justify-content: end;
+
+                        & > .Button
+                        {
+                            transition : left 1.5s, top .4s;
+                            left       : 0%;
+                        };
+                    };
+                }
+            };
+
+            &.Selected
+            {
+                gap        : 0px;
+                transition : gap $selected-size-animation-duration $selected-size-animation-delay;
+
+                & > .ProjectSection
+                {
+                    width      : 100%;
+                    height     : 100%;
+                    transition : width $selected-size-animation-duration $selected-size-animation-delay;
+
+                    & > .ProjectContainer:hover { background : none; }
+                };
+
+                & > .Description
+                {
+                    transition : left $description-slide-out-duration, width 0s $selected-size-animation-delay, padding 0s $selected-size-animation-delay;
+                    width      : 0%;
+                    padding    : 0px;
+                    left       : -45%;
+                    overflow   : hidden;
+                };
+            };
+        };
+
+        & > .Description
+        {
+            & > .TitleContainer            { text-align : left; };
+            & > .Text > .Contact > .Button { left       : -110%; };
+        };
+    };
+
+    & > .ProjectSection
+    {
+        position        : relative;
+        width           : 55%;
+        display         : flex;
+        justify-content : center;
+        align-items     : center;
+
+        & > .ProjectContainer
+        {
+            width          : 100%;
+            height         : 100%;
+            border-radius  : 10px;
+            cursor         : pointer;
+            transition     : background .3s;
+
+            &:hover
+            {
+                background : rgba(0, 0, 0, .4);
+                transition : background .3s;
+            }
+        };
+    };
+
+    &.Animate > .Description
+    {
+        & > .TitleContainer > .Title > div
+        {
+            animation : Typing 1s steps(var(--numberLetter)) forwards;
+        };
+
+        & > .Text > .Contact > .Button
+        {
+            top : 0;
+
+            &:hover
+            {
+                top        : -6px;
+                transition : top .4s;
+            };
+        }
+    };
+
+    & > .Description
+    {
+        position       : relative;
+        width          : 45%;
+        padding        : 50px;
+        box-sizing     : border-box;
+        display        : flex;
+        flex-direction : column;
+        gap            : 30px;
+        overflow       : visible;
+
+        & > .TitleContainer
+        {
+            & > .Title
+            {   
+                display : inline-block;
+    
+                & > div
+                {
+                    width       : 100%;
+                    white-space : nowrap;
+                    white-space : nowrap;
+                    overflow-x  : hidden;
+                    font-size   : 3.5rem;
+                    font-weight : 500;
+                };
+            };
+
+            & > .Subtitle
+            {
+                font-size : 1.7rem;
+                padding   : 7px 5px;
+            };
+        };
+
+        & > .Text
+        {
+            padding     : 1% 6%;
+            font-size   : 1.3rem;
+            font-weight : 300;
+
+            & > .Contact
+            {
+                display     : flex;
+                font-size   : 1.1rem;
+                margin-top  : 3vh;
+                font-weight : 400; 
+    
+                & > .Button
+                {
+                    position      : relative;
+                    padding       : 5px 8px;
+                    border-radius : 1px;
+                    border        : black solid 1px;
+                    width         : fit-content;
+
+                    & > a
+                    {
+                        all    : unset;
+                        cursor : pointer;
+                    };
+                };
+            };
+        };
+    };
+};

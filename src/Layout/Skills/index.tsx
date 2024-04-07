@@ -26,10 +26,13 @@ export function Component() : JSX.Element
             <div className={Style.Title}>SKILLS</div>
             <div className={Style.SkillCards}>
             {
-                skills.map((skill : Types.T_SkillCard) : JSX.Element =>
+                skills.map((skill : Types.T_SkillCard, index : number) : JSX.Element =>
                 {
                     return (
-                        <div className={Style.CardContainer}>
+                        <div
+                            key       = {`Skill_${index}`}
+                            className = {Style.CardContainer}
+                        >
                             <div className={Style.Card}>
                                 <div className={Style.CardIcon} >{skill.icon} </div>
                                 <div className={Style.CardTitle}>{skill.title}</div>

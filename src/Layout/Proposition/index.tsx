@@ -51,10 +51,13 @@ export function Component() : JSX.Element
             className = {Style.Container}
         >
         {
-            propositions.map((proposition : Types.T_Proposition) : JSX.Element =>
+            propositions.map((proposition : Types.T_Proposition, index : number) : JSX.Element =>
             {
                 return (
-                    <div className={Style.Proposition}>
+                    <div
+                        key       = {`Proposition_${index}`}
+                        className = {Style.Proposition}
+                    >
                         <div className={Style.Icon} >{proposition.icon} </div>
                         <div className={Style.Title}>{proposition.title}</div>
                         <div className={Style.Text} >{proposition.text} </div>

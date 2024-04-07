@@ -2,12 +2,11 @@ export function Component() : JSX.Element
 {
 	return (
         <svg
-            xmlns      = {"http://www.w3.org/2000/svg"}
-            aria-label = {"Sass"}
-            role       = {"img"}
-            viewBox    = {"0 0 512 512"}
-            width      = {"100%"}
-            height     = {"100%"}
+            xmlns   = {"http://www.w3.org/2000/svg"}
+            role    = {"img"}
+            viewBox = {"0 0 512 512"}
+            width   = {"100%"}
+            height  = {"100%"}
         >
             <rect
                 width  = {"512"}

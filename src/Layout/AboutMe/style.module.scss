@@ -1,0 +1,78 @@
+.Container
+{
+    position       : relative;
+    padding        : 0% 5%;
+    display        : flex;
+    flex-direction : row;
+    gap            : 20px;
+
+    & > .Title
+    {
+        color        : var(--light-green);
+        opacity      : .2;
+        writing-mode : vertical-rl;
+        transform    : rotate(180deg);
+        font-size    : 8rem;
+        font-weight  : 500;
+    };
+
+    & > div
+    {
+        & > .Text
+        {
+            display        : flex;
+            flex-direction : column;
+            gap            : 3vw;
+            color          : var(--dark-green);
+            font-weight    : 200;
+            font-size      : 1.5rem;
+            margin         : 5% 0%;
+            width          : 70%;
+        };
+    
+        & > .Contact
+        {
+            display         : flex;
+            flex-direction  : row;
+            justify-content : end;
+            align-items     : center;
+            gap             : 20px;
+            width           : 70%;
+            padding-right   : 8%;
+            box-sizing      : border-box;
+    
+            & > .Button
+            {
+                position      : relative;
+                display       : flex;
+                align-items   : center;
+                gap           : 8px;
+                cursor        : pointer;
+                border        : var(--light-green) solid 1px;
+                border-radius : 5px;
+                top           : 0;
+                transition    : top .3s;
+                padding       : 4px 8px;
+    
+                & > .ContactIcon
+                {
+                    height : 30px;
+    
+                    & > svg
+                    {
+                        color : var(--light-green);
+                        width : 25px;
+                    };
+                };
+    
+                & > .ContactText { color : var(--light-green); };
+    
+                &:hover
+                {
+                    top        : -4px;
+                    transition : top .3s;
+                };
+            };
+        };
+    };
+};
