@@ -4,7 +4,7 @@ import      Style from "./style.module.scss";
 
 const presentationFirstPart : string = 
 `I am a software engineer with 5 years of experience in the field. My expertise lies in full-stack development, where I enjoy using my skills in both 
-front-end and back-endtechnologies to create dynamic and user-friendly applications. I am a dedicated learner and am constantly seeking to expand my 
+front-end and back-end technologies to create dynamic and user-friendly applications. I am a dedicated learner and am constantly seeking to expand my 
 knowledge and skills. One area of software engineering that I am particularly passionate about is the development of graphical software. I enjoy the 
 challenge of creating visually appealing and intuitive interfaces that make it easy for users to interact with the underlying data and logic.`;
 

@@ -23,13 +23,14 @@
 
         & > .Icon
         {
-            width  : 70px;
-            height : 70px;
+            width      : 70px;
+            height     : 70px;
+            transition : width .5s ease-in-out, height .5s ease-in-out;
         };
 
         & > .Title
         {
-            font-size   : 18px;
+            font-size   : 1.1rem;
             font-weight : 600;
             color       : var(--orange-color);
         };
@@ -49,11 +50,19 @@
         & > div:nth-of-type(3) { animation : SlideInFromBottom .8s ease-in .8s forwards; };
     };
 
+    @media screen and (max-width : 1200px)
+    {
+        & > .Proposition > .Icon
+        {
+            width  : 50px;
+            height : 50px;
+        };
+    }
     @media screen and (max-width : 900px)
     {
         flex-direction : column;
         align-items    : center;
 
-        & > .Proposition { width : 100%; };
+        & > .Proposition { width : 80%; };
     };
 };

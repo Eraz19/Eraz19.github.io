@@ -9,8 +9,8 @@
 {
     $selected-height-animation-time  : .5s;
     $selected-height-animation-delay : .65s;
-
-    & > .Title
+ 
+    & >.Title
     {
         display        : flex;
         flex-direction : row-reverse;
@@ -19,7 +19,8 @@
 
         & > div
         {
-            font-size     : 100px;
+            font-size     : 6.5rem;
+            transition    : font-size .5s ease-in-out;
             font-weight   : 10;
             margin-left   : 10%;
             margin-top    : 5%;
@@ -39,7 +40,7 @@
 
         & > .Project
         {
-            height     : 50vh;
+            height     : fit-content;
             transition : height $selected-height-animation-time;
 
             &.Selected
@@ -47,6 +48,35 @@
                 height     : 90vh;
                 transition : height $selected-height-animation-time $selected-height-animation-delay;
             }
+        };
+    };
+
+    @media screen and (max-width: 900px)
+    {
+        & >.Title > div
+        {
+            font-size: 5.5rem;
+        };
+    };
+    @media screen and (max-width: 850px)
+    {
+        & >.Title > div
+        {
+            font-size: 5rem;
+        };
+    };
+    @media screen and (max-width: 650px)
+    {
+        & >.Title > div
+        {
+            font-size: 4rem;
+        };
+    };
+    @media screen and (max-width: 500px)
+    {
+        & >.Title > div
+        {
+            font-size: 3.5rem;
         };
     };
 };

@@ -17,6 +17,7 @@ export function Component() : JSX.Element
                     <div className={`${Style.Title} ${Style.Title2}`}>SOFTWARE ENGINEER</div>
                 </div>
             </div>
+            <div className={Style.Name}>ALEXANDER DOUIEB</div>
         </div>
     );
 };

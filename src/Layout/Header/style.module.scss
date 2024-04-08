@@ -10,8 +10,13 @@
 
 @keyframes FadeIn
 {
-    from { opacity : 0; };
-    to   { opacity : 1; };
+    0%   { opacity : 0; };
+    100% { opacity : 1; };
+};
+
+@keyframes FadeOut
+{
+    100% { opacity : 0; };
 };
 
 .Container
@@ -44,10 +49,11 @@
 
     & > .PresentationTitle
     {
-        color         : var(--light-green);
-        font-size     : 7.5rem;
-        font-weight   : 200;
-        margin-bottom : 6%;
+        color       : var(--light-green);
+        font-size   : 7.5rem;
+        font-weight : 200;
+        width       : 80%;
+        transition  : font-size .5s ease-out;
 
         & > .TitleContainer
         {
@@ -65,5 +71,70 @@
                 &.Title2 { animation : Typing 1.5s 1s steps(17) forwards; };
             };
         };
+    };
+
+    & > .Name
+    {
+        font-size   : 5rem;
+        font-weight : 300;
+        color       : var(--dark-green);
+        opacity     : 0;
+        animation   : FadeIn .5s linear 3s forwards;
+        transition  : font-size .5s ease-out;
+    };
+
+    @media screen and (max-width: 1800px)
+    {
+        & > .PresentationTitle { font-size : 5rem;   };
+        & > .Name              { font-size : 4.5rem; };
+    };
+    @media screen and (max-width: 1400px)
+    {
+        & > .PresentationTitle
+        {
+            font-size : 4rem;
+            width     : 60%;
+        };
+        & > .Name
+        {
+            font-size : 3rem;
+        };
+    };
+    @media screen and (max-width: 1300px)
+    {
+        height : 440px;
+
+        & > .Image
+        {
+            animation: FadeOut 1s forwards;
+        };
+    };
+    @media screen and (max-width: 900px)
+    {
+        height : 380px;
+
+        & > .PresentationTitle { font-size : 3.5rem; };
+        & > .Name              { font-size : 3rem;   };
+    };
+    @media screen and (max-width: 750px)
+    {
+        height : 350px;
+
+        & > .PresentationTitle { font-size : 3rem; };
+        & > .Name              { font-size : 2.5rem;   };
+    };
+    @media screen and (max-width: 650px)
+    {
+        height : 280px;
+
+        & > .PresentationTitle { font-size : 2.5rem; };
+        & > .Name              { font-size : 2rem;   };
+    };
+    @media screen and (max-width: 500px)
+    {
+        height : 230px;
+
+        & > .PresentationTitle { font-size : 2rem; };
+        & > .Name              { font-size : 1.5rem;   };
     };
 };

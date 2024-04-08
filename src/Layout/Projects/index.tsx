@@ -15,45 +15,33 @@ import      Style                from "./style.module.scss";
 const tests =
 [
     {
-        text       : "test",
-        title      : "Title1",
-        subtitle   : "Subtitble • Subtitle",
-        children   : ProjectRasterizer.Component,
-        thumbnail  : RasterizerThumbnail,
-        needLoading: true,
-        clickable  : true,
-        link       :
-        {
-            label: "Rasterizer",
-            url  : ""
-        }
-    },
-    {
-        text       : "test",
-        title      : "Title2",
-        subtitle   : "Subtitble • Subtitle",
+        title      : "Graph Collapse",
+        subtitle   : "Graphics",
+        text       : "This is a graphic project demonstrating my ability to work with the HTMLCanvas and graph structures. This project combines mathematics and motion physics in the code, serving as my first foray into this type of project. I am excited to showcase my newfound skills.",
         children   : ProjectCollapseGraph.Component,
         thumbnail  : GraphCollapseThumbnail,
         needLoading: false,
         clickable  : true,
         link       :
         {
-            label : "Rasterizer",
-            url   : ""
+            label : "Graph Collapse GitHub",
+            url   : "https://github.com/Eraz19/Portfolio/tree/main/src/Layout/Projects/ProjectCollapseGraph",
         }
     },
     {
-        text  : "test",
-        title : "Title3",
-        subtitle : "Subtitble • Subtitle",
-        children : <></>,
-        clickable: false,
-        link :
+        title      : "Rasterizer",
+        subtitle   : "Graphics • Mathematics",
+        text       : "This is a rasterizer project that runs on the CPU, displaying 3D models from OBJ files at 30 frames per second. This project utilizes an HTMLCanvas and a custom CGI pipeline, all built from scratch. It provides a basic understanding of CGI and linear algebra. I am excited to showcase my skills in rasterization and CGI development.",
+        children   : ProjectRasterizer.Component,
+        thumbnail  : RasterizerThumbnail,
+        needLoading: true,
+        clickable  : true,
+        link       :
         {
-            label : "Rasterizer",
-            url   : ""
+            label: "Rasterizer GitHub",
+            url  : "https://github.com/Eraz19/ErazReactComponents/tree/master/src/Components/RasterizerDisplay",
         }
-    }
+    },
 ]
 
 export function Component() : JSX.Element
