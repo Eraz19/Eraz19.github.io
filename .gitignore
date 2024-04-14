@@ -13,6 +13,8 @@
 /android
 /ios
 
+.env
+
 # mobile app build
 /build_mobile_app/variables.sh
 /build_mobile_app/keystore.keystore 

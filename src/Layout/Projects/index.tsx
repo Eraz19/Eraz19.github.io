@@ -12,7 +12,7 @@ import * as Projet               from "./Project";
 import      Style                from "./style.module.scss";
 
 
-const tests =
+const projects =
 [
     {
         title      : "Graph Collapse",
@@ -46,8 +46,7 @@ const tests =
 
 export function Component() : JSX.Element
 {
-    const refs                                                            = React.useRef(tests.map(() => { return (React.createRef<HTMLDivElement>()); }));
-    const selectedProjectIndex : React.MutableRefObject<number|undefined> = React.useRef();
+    const refs = React.useRef(projects.map(() => { return (React.createRef<HTMLDivElement>()); }));
 
     const [selectedProject, setSelectedProject] = React.useState<number>();
 
@@ -55,88 +54,98 @@ export function Component() : JSX.Element
     {
         function HandleClick(e : MouseEvent)
         {
-            function IsClickInsideSelectedProject() : boolean
+            function IsClickInsideElement(element : Element) : boolean
             {
-                if (selectedProjectIndex.current != null && refs.current.length > selectedProjectIndex.current)
-                {
-                    const selectedElement : HTMLDivElement | null = refs.current[selectedProjectIndex.current].current;
+                const elemBounds : DOMRect = element.getBoundingClientRect();
 
-                    if (selectedElement != null)
-                    {
-                        const elemBounds : DOMRect = selectedElement.getBoundingClientRect();
-
-                        if (e.clientX >= elemBounds.left && e.clientX <= elemBounds.left + elemBounds.width && e.clientY >= elemBounds.top && e.clientY <= elemBounds.top + elemBounds.height)
-                            return (true);
-                    }
-                }
+                if (e.clientX >= elemBounds.left && e.clientX <= elemBounds.left + elemBounds.width && e.clientY >= elemBounds.top && e.clientY <= elemBounds.top + elemBounds.height)
+                    return (true);
 
                 return (false);
             };
 
-            if (e.target && !IsClickInsideSelectedProject())
-                setSelectedProject(undefined);
+            function IndexOfElementClicked(elements : (Element | null | undefined)[]) : number | undefined
+            {
+                for (const [index, element] of elements.entries())
+                {
+                    if (element && IsClickInsideElement(element))
+                        return (index);
+                }
+
+                return (undefined);
+            };
+
+            if (refs.current != null)
+            {
+                const indexElement : number | undefined = IndexOfElementClicked(refs.current.map((ref : React.RefObject<HTMLDivElement>) => { return (ref.current?.children[0]?.children[0]); }));
+
+                if (indexElement != null && projects[indexElement].clickable && window.innerWidth > 1100)
+                {
+                    setSelectedProject(indexElement);
+
+                    setTimeout(() =>
+                    {
+                        if (refs.current)
+                        {
+                            const selectedElement : HTMLDivElement | null = refs.current[indexElement].current;
+
+                            setTimeout(() =>
+                            {
+                                if (selectedElement)
+                                    window.scrollTo({ top: selectedElement.offsetTop - ((window.innerHeight) * 5 / 100), behavior : "smooth" });
+                            }, 530);
+                        }                            
+                    }, 500);
+                }
+                else
+                    setSelectedProject(undefined);
+            }
         };
 
         window.addEventListener("click", HandleClick);
 
         return (() => { window.removeEventListener("click", HandleClick);  });
     }, []);
-
-    React.useEffect(() =>
-    {
-        selectedProjectIndex.current = selectedProject;
-    }, [selectedProject])
     
     return (
         <div className={Style.Container}>
             <div className={Style.Title}><div>PROJECTS</div></div>
             <div className={Style.Projects}>
             {
-                tests.map((test, index) : JSX.Element =>
+                projects.map((project, index) : JSX.Element =>
                 {
                     return (
                         <div
                             key       = {`Project_${index}`}
                             ref       = {refs.current[index]}
-                            className = {`${Style.Project} ${(selectedProject === index) ? Style.Selected : ""}`}
+                            className = {Style.Project}
                         >
-                        {
                             <Projet.Component
-                                    isSelected = {(selectedProject === index) ? true : false}
-                                    text       = {test.text}
-                                    title      = {test.title}
-                                    subtitle   = {test.subtitle}
-                                    side       = {(index % 2) ? "right" : "left"}
-                                    link       = {test.link}
-                                    onClick    = {
-                                        (test.clickable)
-                                        ?   (elem ?: HTMLDivElement) =>
-                                            {
-                                                setSelectedProject(index);
-
-                                                setTimeout(() =>
-                                                {
-                                                    if (elem)
-                                                        window.scrollTo({ top: elem.offsetTop - ((window.innerHeight * 5) / 100), behavior : "smooth" });
-                                                }, 450);
-                                            }
-                                        :   undefined
-                                    }
-                                >
-                                {
-                                    (selectedProject === index)
-                                    ?   <LoadingProject.Component type={(test.needLoading) ? "loading" : "standard"}>{test.children as React.FC<any>}</LoadingProject.Component>
-                                    :   <div className={Style.Thumbnail}><img src={test.thumbnail}/>
-                                            <div>
+                                isSelected = {(selectedProject === index) ? true : false}
+                                text       = {project.text}
+                                title      = {project.title}
+                                subtitle   = {project.subtitle}
+                                side       = {(index % 2) ? "right" : "left"}
+                                link       = {project.link}
+                                clickable  = {project.clickable}
+                            >
+                            {
+                                (selectedProject === index)
+                                ?   <LoadingProject.Component type={(project.needLoading) ? "loading" : "standard"}>{project.children as React.FC<any>}</LoadingProject.Component>
+                                :   <div className={Style.Thumbnail}>
+                                        
+                                            <div className={Style.ThumbnailImage}>
+                                                <img src={project.thumbnail}/>
+                                            </div>
+                                            <div className={Style.ResizeBackground}>
                                                 <div className={Style.ResizeIcon}>
                                                     <Icons.Resize.Component/>
                                                     <div className={Style.ResizeIconText}>Click to extends</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                }
-                                </Projet.Component>
-                        }
+                                    </div>
+                            }
+                            </Projet.Component>
                         </div>
                     )
                 })          

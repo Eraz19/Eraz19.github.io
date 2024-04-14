@@ -4,29 +4,123 @@
     height         : 100%;
     display        : flex;
     flex-direction : column;
+    padding        : 5px;
+    box-sizing     : border-box;
+    gap            : 10px;
 
-    & > .OBJModelsList
+    & > .Separator
     {
-        height         : 100%;
-        display        : flex;
-        flex-direction : column;
-        padding        : 5px;
-        gap            : 5px;
-        box-sizing     : border-box;
-        background     : #4a4a4a;
+        height : 0px;
+        width  : 100%;
+        color  : #575656;
+    };
 
-        & > .OBJModelOption
+    & > .Section
+    {
+        width   : 100%;
+        padding : 0px 10px;
+        box-sizing: border-box;
+
+        & > .Title
         {
-            width         : 100%;
-            background    : #353535;
-            color         : #ffffff;
-            border-radius : 3px;
-            padding       : 12px 20px;
-            box-sizing    : border-box;
-            font-size     : 1rem;
-            cursor        : pointer;
+            margin-bottom   : 25px;
+            display         : flex;
+            justify-content : space-between;
+            align-items     : center;
 
-            &:hover { background : #414141; };
+            & > div:nth-of-type(1)
+            {
+                font-size     : .9rem;
+                font-weight   : 200;
+                color         : var(--light-green);
+            };
+            & > div:nth-of-type(2)
+            {
+                width  : 30px;
+                height : 30px;
+                color  : var(--light-green);
+                cursor : pointer;
+
+                &.Folded
+                {
+                    transform: rotate(-180deg);
+                };
+            };
+        };
+
+        & > .Values
+        {
+            display        : flex;
+            flex-direction : column;
+            gap            : 20px;
+
+            &.Folded
+            {
+                height   : 0px;
+                overflow : hidden;
+            };
+
+            & > .Value
+            {
+                display : flex;
+                align-items: center;
+
+                & > div:nth-of-type(1)
+                {
+                    flex        : .6;
+                    color       : #ffffff;
+                    font-size   : .7rem;
+                    font-weight : 300;
+                    text-align  : center;
+                };
+                & > div:nth-of-type(2)
+                {
+                    flex       : 1;
+                    background : #575656;
+                    padding    : 6px 0px;
+                    color      : #ffffff;
+                    font-size   : 1rem;
+                    font-weight : 300;
+                    text-align  : center;
+                };
+            };
+        };
+
+        & > .OBJModelsList
+        {
+            height         : fit-content;
+            display        : flex;
+            flex-direction : column;
+            padding        : 5px;
+            gap            : 5px;
+            box-sizing     : border-box;
+            
+            &.Folded
+            {
+                height   : 0px;
+                padding  : 0px;
+                overflow : hidden;
+            }
+
+            & > .OBJModelOption
+            {
+                width         : 100%;
+                background    : #474747;
+                color         : #ffffff;
+                border-radius : 3px;
+                padding       : 12px 20px;
+                box-sizing    : border-box;
+                font-size     : 1rem;
+                font-weight   : 300;
+                cursor        : pointer;
+
+                &:hover { background : #414141; };
+                
+                &.Selected
+                {
+                    background : var(--light-green);
+                };
+            };
         };
     };
 };

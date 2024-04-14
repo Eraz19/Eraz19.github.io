@@ -13,6 +13,7 @@ export function Component(props : Types.T_Props) : JSX.Element
 {
     const [objMeshes  , setObjMeshes  ] = React.useState<Types.T_ObjContentList<ErazLib.Parser.OBJ.Types.T_OBJParsingResult>>({});
     const [selectedObj, setSelectedObj] = React.useState<string>("");
+    const [cameraState, setCameraState] = React.useState<ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera>();
 
     React.useEffect(() =>
     {    
@@ -39,15 +40,8 @@ export function Component(props : Types.T_Props) : JSX.Element
         return () => { worker.terminate(); };
     }, []);
 
-    function HandleMouseEnter() : void
-    {
-        document.body.style.overflowY = "hidden";
-    };
-
-    function HandleMouseLeave() : void
-    {
-        document.body.style.overflowY = "auto";
-    };
+    function HandleMouseEnter() : void { document.body.style.overflowY = "hidden"; };
+    function HandleMouseLeave() : void { document.body.style.overflowY = "auto";   };
 
     return (
         <div className={Style.Container}>
@@ -92,12 +86,19 @@ export function Component(props : Types.T_Props) : JSX.Element
                             polarCoord : [22,25,1.5]
                         }
                     }
+                    cameraDebug={(value: ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera) =>
+                        {
+                            if (value)
+                                setCameraState({...value});
+                        }
+                    }
                 />
             </div>
-            <div style={{ width : "20%" }}>
+            <div className={Style.SidePanel}>
                 <SidePanel.Component
                     OBJModelOptions   = {Object.keys(objMeshes)}
                     getOBJModelOption = {setSelectedObj}
+                    cameraDetails     = {cameraState}
                 />
             </div>
         </div>

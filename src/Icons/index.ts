@@ -3,6 +3,9 @@ export * as C              from "./C";
 export * as CapacitorJs    from "./CapacitorJs";
 export * as CSharp         from "./CSharp";
 export * as Css            from "./Css";
+export * as DownArrowHead  from "./DownArrowHead";
+export * as Error          from "./Error";
+export * as Failure        from "./Failure";
 export * as FrontEnd       from "./FrontEnd";
 export * as GitHub         from "./GitHub";
 export * as Gmail          from "./Gmail";
@@ -14,6 +17,8 @@ export * as Python         from "./Python";
 export * as ReactJs        from "./ReactJs";
 export * as Resize         from "./Resize";
 export * as Sass           from "./Sass";
+export * as Success        from "./Success";
+export * as TopArrow       from "./TopArrow";
 export * as Ts             from "./Ts";
 export * as VueJs          from "./VueJs"
 export * as Webpack        from "./Webpack";

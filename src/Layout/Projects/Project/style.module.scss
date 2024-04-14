@@ -5,188 +5,63 @@
 
 .Container
 {
-    $project-slide-in-duration         : 1s;
-    $description-slide-out-duration    : 1s;
-    $description-slide-out-delay       : .2s;
-    $selected-size-animation-duration  : .5s;
-    $selected-size-animation-delay     : .65s;
+    position   : relative;
+    width      : 100%;
+    height     : 550px;
+    display    : flex;
+    gap        : 15px;
+    transition : gap .5s .3s, height .5s ease-in-out;
 
-    position : relative;
-    width    : 100%;
-    height   : 100%;
-    display  : flex;
-    gap      : 15px;
+    &.Left  { flex-direction : row;         };
+    &.Right { flex-direction : row-reverse; };
 
-    &.Left 
+    &.Selected
     {
-        flex-direction : row;
-
-        & > .ProjectSection { left : -100%; };
-
-        &.Animate
-        {
-            & > .ProjectSection
-            {
-                left       : 0%;
-                transition : left $project-slide-in-duration, width $selected-size-animation-duration;
-            };
-
-            & > .Description
-            {
-                transition : width $selected-size-animation-duration, padding $selected-size-animation-duration, right $description-slide-out-duration $description-slide-out-delay;
-                right      : 0px;
-
-                & > .Text
-                {
-                    text-align: right;
-
-                    & > .Contact
-                    {
-                        justify-content: start;
-
-                        & > .Button
-                        {
-                            transition : right 1.5s, top .4s;
-                            right      : 0%;
-                        };
-                    };
-                }
-            };
-
-            &.Selected
-            {
-                gap        : 0px;
-                transition : gap $selected-size-animation-duration $selected-size-animation-delay;
-
-                & > .ProjectSection
-                {
-                    height     : 100%;
-                    width      : 100%;
-                    transition : width $selected-size-animation-duration $selected-size-animation-delay;
-
-                    & > .ProjectContainer:hover { background : none; }
-                };
-
-                & > .Description
-                {
-                    transition : right $description-slide-out-duration, width 0s $selected-size-animation-delay, padding 0s $selected-size-animation-delay;
-                    width      : 0%;
-                    padding    : 0px;
-                    right      : -45%;
-                    overflow   : hidden;
-                };
-            };
-        };
-
-        & > .Description
-        {
-            & > .TitleContainer            { text-align : right; };
-            & > .Text > .Contact > .Button { right      : -110%; };
-        };
-    };
-
-    &.Right 
-    {
-        flex-direction : row-reverse;
-
-        & > .ProjectSection { right : -100%; };
-
-        &.Animate
-        {
-            & > .ProjectSection
-            {
-                right      : 0%;
-                transition : right $project-slide-in-duration, width $selected-size-animation-duration;
-            };
-
-            & > .Description
-            {
-                transition : width $selected-size-animation-duration, padding $selected-size-animation-duration, left $description-slide-out-duration $description-slide-out-delay;
-                left       : 0px;
-
-                & > .Text
-                {
-                    text-align: left;
-
-                    & > .Contact
-                    {
-                        justify-content: end;
-
-                        & > .Button
-                        {
-                            transition : left 1.5s, top .4s;
-                            left       : 0%;
-                        };
-                    };
-                }
-            };
-
-            &.Selected
-            {
-                gap        : 0px;
-                transition : gap $selected-size-animation-duration $selected-size-animation-delay;
-
-                & > .ProjectSection
-                {
-                    width      : 100%;
-                    height     : 100%;
-                    transition : width $selected-size-animation-duration $selected-size-animation-delay;
-
-                    & > .ProjectContainer:hover { background : none; }
-                };
-
-                & > .Description
-                {
-                    transition : left $description-slide-out-duration, width 0s $selected-size-animation-delay, padding 0s $selected-size-animation-delay;
-                    width      : 0%;
-                    padding    : 0px;
-                    left       : -45%;
-                    overflow   : hidden;
-                };
-            };
-        };
-
-        & > .Description
-        {
-            & > .TitleContainer            { text-align : left; };
-            & > .Text > .Contact > .Button { left       : -110%; };
-        };
+        gap        : 0px;
+        height     : 90vh;
+        transition : height .5s .6s ease-in-out, gap .5s 1s;
     };
 
     & > .ProjectSection
     {
-        position        : relative;
+        position        : absolute;
         width           : 55%;
+        height          : 100%;
         display         : flex;
         justify-content : center;
         align-items     : center;
+        transition      : width .5s ease-in-out;
+
+        &.Selected
+        {
+            width      : 100%;
+            transition : width .5s .6s ease-in-out;
+        };
 
         & > .ProjectContainer
         {
+            position       : relative;
             width          : 100%;
             height         : 100%;
             border-radius  : 10px;
-            cursor         : pointer;
-        };
-    };
 
-    &.Animate > .Description
-    {
-        & > .TitleContainer > .Title > div
-        {
-            animation : Typing 1s steps(var(--numberLetter)) forwards;
-        };
-
-        & > .Text > .Contact > .Button
-        {
-            top : 0;
-
-            &:hover
+            &.Left 
             {
-                top        : -6px;
-                transition : top .4s;
+                left : -100%;
+
+                &.Animate { left : 0%; };
+
+                transition : left 1s;
             };
-        }
+            &.Right
+            {
+                right : -100%;
+
+                &.Animate { right : 0%; };
+
+                transition : right 1s;
+            };
+        };
     };
 
     & > .Description
@@ -194,14 +69,44 @@
         position       : relative;
         width          : 45%;
         padding        : 50px;
+        height         : fit-content;
         box-sizing     : border-box;
         display        : flex;
         flex-direction : column;
         gap            : 30px;
         overflow       : visible;
+        transition     : padding .5s ease-in-out, left .5s .1s ease-in-out, right .5s .1s ease-in-out, width 0s .1s;
+
+        &.Left
+        {
+            left: 55%;
+
+            &.Selected
+            {
+                left       : 140%;
+                width      : 0%;
+                padding    : 0%;
+                transition : left 1s ease-in-out, width 0s 1.1s, padding 0s 1.1s;
+            };
+        };
+        &.Right
+        {
+            right: 55%;
+
+            &.Selected
+            {
+                right      : 140%;
+                width      : 0%;
+                padding    : 0%;
+                transition : right 1s ease-in-out, width 0s 1.1s, padding 0s 1.1s;
+            };
+        };
 
         & > .TitleContainer
         {
+            &.Left  { text-align: right; };
+            &.Right { text-align: left ; };
+
             & > .Title
             {   
                 display : inline-block;
@@ -213,67 +118,246 @@
                     white-space : nowrap;
                     overflow-x  : hidden;
                     font-size   : 3.5rem;
+                    transition  : font-size .5s ease-in-out;
                     font-weight : 500;
+
+                    &.Animate { animation : Typing 1s steps(var(--numberLetter)) forwards; };
                 };
             };
 
             & > .Subtitle
             {
-                font-size : 1.7rem;
-                padding   : 7px 5px;
+                font-size  : 1.7rem;
+                transition : font-size .5s ease-in-out;
+                padding    : 7px 5px;
             };
         };
 
         & > .Text
         {
             padding     : 1% 6%;
-            font-size   : 1.3rem;
-            font-weight : 300;
+            font-size   : 1.5rem;
+            gap         : 20px;
+            font-weight : 200;
+            transition  : font-size .5s ease-in-out, padding .5s ease-in-out;
+
+            &.Left  { text-align: right; };
+            &.Right { text-align: left;  };
 
             & > .Contact
             {
+                position    : relative;
                 display     : flex;
+                width       : 100%;
+                align-items : center;
                 font-size   : 1.1rem;
-                margin-top  : 3vh;
-                font-weight : 400; 
+                margin-top  : 50px;
+                gap         : 20px;
+                font-weight : 300; 
+                transition  : font-size .5s ease-in-out, margin-top .5s ease-in-out;
+
+                &.Left 
+                {
+                    justify-content: start;
+                    right          : -140%;
+                    transition     : right .9s ease-in-out;
+
+                    &.Animate
+                    {
+                        right      : 0%;
+                        transition : right .9s ease-in-out;
+                    };
+                };
+                &.Right
+                {
+                    justify-content: end;
+                    left           : -140%;
+                    transition     : left .9s ease-in-out;
+
+                    &.Animate
+                    {
+                        left       : 0%;
+                        transition : left .9s ease-in-out;
+                    };
+                };
     
                 & > .Button
                 {
                     position      : relative;
-                    padding       : 5px 8px;
-                    border-radius : 1px;
-                    border        : black solid 1px;
                     width         : fit-content;
+                    cursor        : pointer;
+                    border        : black solid 1px;
+                    border-radius : 1px;
+                    padding       : 5px 8px;
+                    top           : 0px;
+                    transition    : top .4s ease-in-out;
 
-                    & > a
+                    & > a { all : unset; };
+
+                    &:hover
                     {
-                        all    : unset;
-                        cursor : pointer;
+                        top        : -6px;
+                        transition : top .4s ease-in-out;
                     };
                 };
             };
         };
     };
 
-    @media screen and (max-width: 1500px)
+    @media screen and (max-width: 1650px)
     {
-        &.Left
+        & > .Description 
         {
-            flex-direction: column;
-
-            & > .ProjectSection
+            & > .TitleContainer
             {
-                width : 100%;
+                & > .Title > div { font-size : 3rem;   };
+                & > .Subtitle    { font-size : 1.5rem; };
+            };
+        
+            & > .Text
+            {
+                font-size: 1.3rem;
+
+                & > .Contact { font-size : 1rem; };
             }
         };
-        &.Right
+    };
+    @media screen and (max-width: 1500px)
+    {
+        height         : 1000px;
+        flex-direction : column;
+
+        & > .ProjectSection
         {
-            flex-direction: column;
-            
-            & > .ProjectSection
+            width  : 100%;
+            height : 60%;
+            transition: height .5s ease-in-out;
+
+            &.Selected
             {
-                width : 100%;
-            }
+                height : 90vh;
+                transition: height .5s .5s ease-in-out;
+            };
+        };
+
+        & > .Description 
+        {        
+            width   : 100%;
+            padding : 30px;
+            top     : 60%;
+
+            &.Left  { left  : 0%; };
+            &.Right { right : 0%; };
+
+            & > .TitleContainer > .Title > div { font-size : 2.8rem; };
+        
+            & > .Text > .Contact { font-size : .9rem; };
+        };
+    };
+    @media screen and (max-width: 1200px)
+    {
+        height : 950px;
+
+        & > .Description
+        {
+            & > .Text { font-size : 1.3rem; };
+
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 2.7rem; };
+                & > .Subtitle    { font-size : 1.4rem; };
+            };
+        };
+    };
+    @media screen and (max-width: 1000px)
+    {
+        height : 850px;
+        
+        & > .ProjectSection { height : 55%; };
+
+        & > .Description
+        {
+            padding : 25px;
+            top     : 55%;
+
+            & > .TitleContainer > .Title > div { font-size : 2.6rem; }; 
+        
+            & > .Text
+            {
+                font-size : 1.1rem;
+
+                & > .Contact
+                {
+                    font-size  : .85rem;
+                    margin-top : 35px;
+                };
+            };
+        };
+    };
+    @media screen and (max-width: 800px)
+    {
+        height : 750px;
+
+        & > .Description 
+        {        
+            padding : 20px;
+            top     : 56%;
+
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 2.5rem; };
+                & > .Subtitle    { font-size : 1.3rem; };
+            };
+        
+            & > .Text
+            {
+                font-size : 1rem;
+
+                & > .Contact
+                {
+                    font-size  : .8rem;
+                    margin-top : 40px;
+                };
+            };
+        };
+    };
+    @media screen and (max-width: 700px)
+    {
+        height : 700px;
+        
+        & > .ProjectSection { height : 50%; };
+
+        & > .Description 
+        {        
+            padding : 10px;
+            top     : 53%;
+
+            & > .TitleContainer > .Title > div { font-size  : 2.4rem; }; 
+            & > .Text > .Contact               { margin-top : 28px;   };
+        };
+    };
+    @media screen and (max-width: 550px)
+    {
+        height : 650px;
+        
+        & > .ProjectSection { height : 40%; };
+
+        & > .Description
+        {
+            top : 43%;
+
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 2.4rem; };
+                & > .Subtitle    { font-size : 1.2rem; };
+            };
+
+            & > .Text
+            {
+                padding : 0% 4%;
+
+                & > .Contact { margin-top : 30px; }
+            };
         };
     };
 };

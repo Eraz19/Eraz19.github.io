@@ -3,17 +3,38 @@ import * as AboutMe     from "./AboutMe";
 import * as Proposition from "./Proposition";
 import * as Projects    from "./Projects";
 import * as Skills      from "./Skills";
+import * as Icons       from "../Icons";
+
+import Style from "./style.module.scss";
 
 
 export function Component() : JSX.Element
 {
+    function HandleGoBackToTop(e : React.MouseEvent<HTMLDivElement, MouseEvent>) : void
+    {
+        e.preventDefault();
+
+        window.scrollTo(
+            {
+                top     : 0,
+                behavior: "smooth",
+            }
+        );
+    };
+
     return (
-        <div>
+        <div className={Style.Container}>
             <Header.Component/>
-            <div style={{ margin: "10% 0%" }}><AboutMe.Component/></div>
-            <div style={{ margin: "4% 0%" }}><Proposition.Component/></div>
-            <Projects.Component/>
-            <Skills.Component/>
+            <div className={Style.AboutMe       }><AboutMe.Component/></div>
+            <div className={Style.Proposition   }><Proposition.Component/></div>
+            <div className={Style.Skill         }><Skills.Component/></div>
+            <div className={Style.Project       }><Projects.Component/></div>
+            <div
+                className = {Style.TopArrowButton}
+                onClick   = {HandleGoBackToTop}
+            >
+                <Icons.TopArrow.Component/>
+            </div>
         </div>
     );
 };

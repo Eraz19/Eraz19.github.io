@@ -1,5 +1,8 @@
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const path              = require("path");
+const Dotenv            = require('dotenv-webpack');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 
 const config = (env) =>
 {
@@ -22,10 +25,26 @@ const config = (env) =>
 		plugins:
 		[
 			new HTMLWebpackPlugin({ template: "./public/index.html" }),
+			new Dotenv(),
+			new CopyWebpackPlugin(
+				{
+					patterns:
+					[
+						{
+							from: path.resolve(__dirname, "public/favicon.ico"),
+							to  : path.resolve(__dirname, "build")
+						}
+					]
+			  	}
+			)
 		],
 		resolve:
 		{
-			extensions: [".ts", ".tsx", ".js", ".jsx", ".gif", "jpg"],
+			extensions: [".ts", ".tsx", ".js", ".jsx", ".gif", ".jpg"],
+			fallback:
+			{
+				"path": false,
+			}
 		},
 		module:
 		{
