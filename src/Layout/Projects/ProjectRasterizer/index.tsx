@@ -55,8 +55,6 @@ export function Component(props : Types.T_Props) : JSX.Element
             {
                 worker.onmessage = (e : MessageEvent) =>
                 {
-                    console.log("worker result");
-
                     setObjMeshes(e.data);
                     
                     if (props.onLoadEnd)

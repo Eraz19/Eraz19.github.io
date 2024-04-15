@@ -8,14 +8,10 @@ self.addEventListener("message", (event : MessageEvent) =>
 {
     let result : Types.T_ObjContentList<ErazLib.Parser.OBJ.Types.T_OBJParsingResult> = {};
 
-    console.log(event.data);
-
     const objFilesContent : [string,ErazLib.Parser.OBJ.Types.T_OBJParsingResult][] = Object
         .entries(event.data as Types.T_ObjContentList<string>)
         .map((objFileContent : [string,string]) : [string,ErazLib.Parser.OBJ.Types.T_OBJParsingResult] =>
         {
-            console.log(objFileContent);
-
             return ([objFileContent[0],ErazLib.Parser.OBJ.ParseOBJFile(objFileContent[1])]);
         });
 
