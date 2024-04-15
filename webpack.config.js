@@ -6,11 +6,11 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const config = (env) =>
 {
-	const mode = "development"; //"production"
+	const mode = "production";
 
 	return {
 		devServer: {
-			static  : { directory: path.join(__dirname, 'build') },
+			static  : { directory: path.join(__dirname, "build") },
 			compress: true,
 			port    : 8080,
 		},
@@ -20,7 +20,7 @@ const config = (env) =>
 		output:
 		{
 			filename: 'bundle.js',
-			path: path.resolve(__dirname, 'build'),
+			path: path.resolve(__dirname, "build"),
 		},
 		plugins:
 		[
