@@ -1,7 +1,7 @@
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-const path              = require("path");
-const Dotenv            = require('dotenv-webpack');
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const HTMLWebpackPlugin    = require("html-webpack-plugin");
+const path                 = require("path");
+const Dotenv               = require('dotenv-webpack');
+const CopyWebpackPlugin    = require("copy-webpack-plugin");
 
 
 const config = (env) =>
@@ -36,8 +36,9 @@ const config = (env) =>
 						}
 					]
 			  	}
-			)
+			),
 		],
+		performance: { hints: false },
 		resolve:
 		{
 			extensions: [".ts", ".tsx", ".js", ".jsx", ".gif", ".jpg"],
