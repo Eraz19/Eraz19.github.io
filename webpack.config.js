@@ -10,7 +10,7 @@ const config = (env) =>
 
 	return {
 		devServer: {
-			static  : { directory: path.join(__dirname, "build") },
+			static  : { directory: path.join(__dirname, "doc") },
 			compress: true,
 			port    : 8080,
 		},
@@ -20,7 +20,7 @@ const config = (env) =>
 		output:
 		{
 			filename: 'bundle.js',
-			path: path.resolve(__dirname, "build"),
+			path: path.resolve(__dirname, "doc"),
 		},
 		plugins:
 		[
@@ -32,7 +32,7 @@ const config = (env) =>
 					[
 						{
 							from: path.resolve(__dirname, "public/favicon.ico"),
-							to  : path.resolve(__dirname, "build")
+							to  : path.resolve(__dirname, "doc")
 						}
 					]
 			  	}

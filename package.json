@@ -8,7 +8,7 @@
 		"start": "webpack server --open",
 		"build": "webpack --config webpack.config.js",
 		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build"
+		"deploy": "gh-pages -d doc"
 	},
 	"dependencies": {
 		"copy-webpack-plugin": "^12.0.2",
