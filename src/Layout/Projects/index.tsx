@@ -7,32 +7,35 @@ import GraphCollapseThumbnail from "../../assets/GraphCollapseThumbnail.png";
 import * as Icons                from "../../Icons";
 import * as ProjectRasterizer    from "./ProjectRasterizer";
 import * as ProjectCollapseGraph from "./ProjectCollapseGraph";
+import * as AnimatedCube         from "./AnimatedCube";
 import * as LoadingProject       from "./LoadingProject";
 import * as Projet               from "./Project";
+import * as AppText              from "../../AppText";
+import * as Types                from "./types";
 import      Style                from "./style.module.scss";
 
 
-const projects =
+const projects : Types.T_ProjectModel[] =
 [
     {
         title      : "Graph Collapse",
-        subtitle   : "Graphics",
-        text       : "This is a graphic project demonstrating my ability to work with the HTMLCanvas and graph structures. This project combines mathematics and motion physics in the code, serving as my first foray into this type of project. I am excited to showcase my newfound skills.",
-        children   : ProjectCollapseGraph.Component,
+        subtitle   : "Algorithmics",
+        text       : AppText.projectGraphCollapse,
+        children   : <ProjectCollapseGraph.Component/>,
         thumbnail  : GraphCollapseThumbnail,
-        needLoading: false,
+        needLoading: true,
         clickable  : true,
         link       :
         {
             label : "Graph Collapse GitHub",
             url   : "https://github.com/Eraz19/Portfolio/tree/main/src/Layout/Projects/ProjectCollapseGraph",
-        }
+        },
     },
     {
         title      : "Rasterizer",
-        subtitle   : "Graphics • Mathematics",
-        text       : "This is a rasterizer project that runs on the CPU, displaying 3D models from OBJ files at 30 frames per second. This project utilizes an HTMLCanvas and a custom CGI pipeline, all built from scratch. It provides a basic understanding of CGI and linear algebra. I am excited to showcase my skills in rasterization and CGI development.",
-        children   : ProjectRasterizer.Component,
+        subtitle   : "Mathematics",
+        text       : AppText.projectRasterizer,
+        children   : <ProjectRasterizer.Component/>,
         thumbnail  : RasterizerThumbnail,
         needLoading: true,
         clickable  : true,
@@ -40,9 +43,17 @@ const projects =
         {
             label: "Rasterizer GitHub",
             url  : "https://github.com/Eraz19/ErazReactComponents/tree/master/src/Components/RasterizerDisplay",
-        }
+        },
     },
-]
+    {
+        title      : "Animated Cube",
+        subtitle   : "CSS",
+        text       : AppText.projectAnimatedCube,
+        children   : <AnimatedCube.Component/>,
+        needLoading: false,
+        clickable  : false,
+    }
+];
 
 export function Component() : JSX.Element
 {
@@ -112,7 +123,7 @@ export function Component() : JSX.Element
             <div className={Style.Title}><div>PROJECTS</div></div>
             <div className={Style.Projects}>
             {
-                projects.map((project, index) : JSX.Element =>
+                projects.map((project : Types.T_ProjectModel, index : number) : JSX.Element =>
                 {
                     return (
                         <div
@@ -130,20 +141,23 @@ export function Component() : JSX.Element
                                 clickable  = {project.clickable}
                             >
                             {
-                                (selectedProject === index)
-                                ?   <LoadingProject.Component type={(project.needLoading) ? "loading" : "standard"}>{project.children as React.FC<any>}</LoadingProject.Component>
-                                :   <div className={Style.Thumbnail}>
-                                        
-                                            <div className={Style.ThumbnailImage}>
-                                                <img src={project.thumbnail}/>
-                                            </div>
-                                            <div className={Style.ResizeBackground}>
-                                                <div className={Style.ResizeIcon}>
-                                                    <Icons.Resize.Component/>
-                                                    <div className={Style.ResizeIconText}>Click to extends</div>
+                                (project.clickable)
+                                ?   (selectedProject === index)
+                                    ?   <LoadingProject.Component>{project.children}</LoadingProject.Component>
+                                    :   <div className={Style.Thumbnail}>
+                                            
+                                                <div className={Style.ThumbnailImage}>
+                                                    <img src={project.thumbnail}/>
                                                 </div>
-                                            </div>
-                                    </div>
+                                                <div className={Style.ResizeBackground}>
+                                                    <div className={Style.ResizeIcon}>
+                                                        <Icons.Resize.Component/>
+                                                        <div className={Style.ResizeIconText}>Click to extends</div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                :   project.children
+                                
                             }
                             </Projet.Component>
                         </div>

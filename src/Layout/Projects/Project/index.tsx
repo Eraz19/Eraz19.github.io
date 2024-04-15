@@ -53,18 +53,16 @@ export function Component(props : Types.T_Props) : JSX.Element
                 `}
             >
             {
-                (props.clickable)
-                ?   <div
-                        className =
-                        {`
-                            ${Style.ProjectContainer}
-                            ${(props.side === "left") ? Style.Left     : Style.Right}
-                            ${(animate    === true  ) ? Style.Animate  : ""         }
-                        `}
-                    >
-                        {props.children}
-                    </div>
-                :   props.children
+                <div
+                    className =
+                    {`
+                        ${Style.ProjectContainer}
+                        ${(props.side === "left") ? Style.Left     : Style.Right}
+                        ${(animate    === true  ) ? Style.Animate  : ""         }
+                    `}
+                >
+                    {props.children}
+                </div>
             }
             </div>
             <div

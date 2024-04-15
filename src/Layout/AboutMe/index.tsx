@@ -4,17 +4,8 @@ import * as Emailjs from "emailjs-com";
 
 import * as Icons       from "../../Icons";
 import * as ContactForm from "./ContactForm";
+import * as AppText     from "../../AppText";
 import      Style       from "./style.module.scss";
-
-
-const presentationFirstPart : string = 
-`I am a software engineer with 5 years of experience in the field. My expertise lies in full-stack development, where I enjoy using my skills in both 
-front-end and back-end technologies to create dynamic and user-friendly applications. I am a dedicated learner and am constantly seeking to expand my 
-knowledge and skills. One area of software engineering that I am particularly passionate about is the development of graphical software. I enjoy the 
-challenge of creating visually appealing and intuitive interfaces that make it easy for users to interact with the underlying data and logic.`;
-
-const presentationSecondPart : string = `I am confident in my ability to provide high-quality solutions to meet the needs of any project and I am always
-eager to take on new challenges.Thank you for considering my portfolio. I look forward to the opportunity to work with you.`;
 
 
 export function Component() : JSX.Element
@@ -68,8 +59,8 @@ export function Component() : JSX.Element
             <div className={Style.Title}>About Me</div>
             <div className={Style.Content}>
                 <div className={Style.Text}>
-                    <div>{presentationFirstPart}</div>
-                    <div>{presentationSecondPart}</div>
+                    <div>{AppText.aboutMe_1}</div>
+                    <div>{AppText.aboutMe_2}</div>
                 </div>
 
                 <div className={Style.Contact}>

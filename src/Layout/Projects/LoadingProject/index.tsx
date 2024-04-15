@@ -11,8 +11,7 @@ export function Component(props : Types.T_Props) : JSX.Element
 
     React.useEffect(() =>
     {
-        if (props.type === "standard")
-            setTimeout(() => { setIsLoadingEnded(true); }, 1000);
+        setTimeout(() => { setIsLoadingEnded(true); }, 1000);
     }, []);
 
     return (
@@ -25,7 +24,11 @@ export function Component(props : Types.T_Props) : JSX.Element
                     />
                 </div>
             </div>
-            <div className={Style.Content}>{ props.children({ onLoadEnd : () => { setIsLoadingEnded(true); } })}</div>
+            {
+                (isLoadingEnded)
+                ?   <div className={Style.Content}>{ props.children }</div>
+                :   null
+            }
         </div>
     );
 };

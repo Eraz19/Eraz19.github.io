@@ -23,9 +23,9 @@
 {
     position   : relative;
     width      : 100vw;
-    height     : 105vh;
+    height     : 110vh;
     background : linear-gradient(var(--blue-color), var(--dark-blue-color) 30%);
-    clip-path  : polygon(0% 0%, 100% 0%, 100% 95.5%, 0% 100%);
+    clip-path  : polygon(0% 0%, 100% 0%, 100% 93%, 0% 100%);
     padding    : 10% 8%;
     box-sizing : border-box;
     transition : height .5s ease-out;
