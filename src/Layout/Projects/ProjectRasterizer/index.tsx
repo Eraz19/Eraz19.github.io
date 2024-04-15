@@ -15,28 +15,66 @@ export function Component(props : Types.T_Props) : JSX.Element
     const [cameraState, setCameraState] = React.useState<ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera>();
 
     React.useEffect(() =>
+    {
+        console.log(objMeshes);
+    }, [objMeshes]);
+
+    React.useEffect(() =>
     {    
-        /*const worker = new Worker(new URL("./worker.ts", import.meta.url));
+        const worker = new Worker(new URL("./worker.ts", import.meta.url));
 
-        worker.onmessage = (e : MessageEvent) =>
+        let modelNames : string[] = [];
+
+        fetch("https://api.github.com/repos/Eraz19/Portfolio/contents/src/OBJ_Files")
+        .then((response : Response) =>
         {
-            setObjMeshes(e.data);
-            
-            if (props.onLoadEnd)
-                props.onLoadEnd();
-        };
+            if (!response.ok)
+                throw new Error('Error fetching OBJ files: ' + response.status);
 
-        worker.postMessage(
+            return (response.json());
+        })
+        .then((data) =>
+        {
+            const fetchPromises : Promise<any>[] = data.map((file : any) =>
             {
-                "Gun"          : OBJFiles.Gun    .object,
-                "Cube"         : OBJFiles.Cube   .object,
-                "Grenade"      : OBJFiles.Grenade.object,
-                "Jimmy Neutron": OBJFiles.Jimmy  .object,
-                "Mailbox"      : OBJFiles.Mailbox.object,
-            }
-        );
+                const downloadUrl      : string   = file.download_url;
+                const downloadUrlParts : string[] = downloadUrl.split("/");
 
-        return () => { worker.terminate(); };*/
+                if (downloadUrlParts.length !== 0)
+                    modelNames.push(downloadUrlParts[downloadUrlParts.length - 1].split(".")[0]);
+
+                return (fetch(file.download_url));
+            });
+
+            Promise.all(fetchPromises)
+            .then((responses) =>
+            {
+                return (Promise.all(responses.map((response) => { return (response.text()); })));
+            })
+            .then((fileContents : string[]) =>
+            {
+                worker.onmessage = (e : MessageEvent) =>
+                {
+                    console.log("worker result");
+
+                    setObjMeshes(e.data);
+                    
+                    if (props.onLoadEnd)
+                        props.onLoadEnd();
+                };
+
+                let workerMessageContent : {[modelName : string] : string} = {};
+
+                for (const [index, model] of fileContents.entries())
+                    workerMessageContent[modelNames[index]] = model;
+    
+                worker.postMessage(workerMessageContent);
+            })
+            .catch((error) => { console.error('Error fetching OBJ file contents:', error); });
+        })
+        .catch((error) => { console.error('Error fetching OBJ files:', error); });
+
+        return () => { worker.terminate(); };
     }, []);
 
     function HandleMouseEnter() : void { document.body.style.overflowY = "hidden"; };
