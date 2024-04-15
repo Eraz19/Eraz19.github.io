@@ -3,7 +3,6 @@ import * as ErazLib             from "eraz-lib";
 import * as ErazReactComponents from "eraz-react-components/dist";
 
 
-import * as OBJFiles   from "../../../OBJ_Files";
 import * as SidePanel  from "./SidePanel";
 import * as Types      from "./types";
 import      Style      from "./style.module.scss";
@@ -17,7 +16,7 @@ export function Component(props : Types.T_Props) : JSX.Element
 
     React.useEffect(() =>
     {    
-        const worker = new Worker(new URL("./worker.ts", import.meta.url));
+        /*const worker = new Worker(new URL("./worker.ts", import.meta.url));
 
         worker.onmessage = (e : MessageEvent) =>
         {
@@ -37,7 +36,7 @@ export function Component(props : Types.T_Props) : JSX.Element
             }
         );
 
-        return () => { worker.terminate(); };
+        return () => { worker.terminate(); };*/
     }, []);
 
     function HandleMouseEnter() : void { document.body.style.overflowY = "hidden"; };
