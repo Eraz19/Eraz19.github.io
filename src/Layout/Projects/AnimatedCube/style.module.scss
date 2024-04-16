@@ -1,0 +1,321 @@
+@mixin transition($args...)
+{
+	-webkit-transition: $args;
+	   -moz-transition: $args;
+		-ms-transition: $args;
+		 -o-transition: $args;
+			transition: $args;
+};
+@mixin transition-property($args...)
+{
+	-webkit-transition-property: $args;
+	   -moz-transition-property: $args;
+		-ms-transition-property: $args;
+		 -o-transition-property: $args;
+			transition-property: $args;
+};
+@mixin transition-duration($args...)
+{
+	-webkit-transition-duration: $args;
+	   -moz-transition-duration: $args;
+		-ms-transition-duration: $args;
+		 -o-transition-duration: $args;
+			transition-duration: $args;
+};
+@mixin transform($args)
+{
+	-webkit-transform: $args;
+	   -moz-transform: $args;
+		-ms-transform: $args;
+		 -o-transform: $args;
+			transform: $args;
+};
+@mixin transform-style($args)
+{
+	-webkit-transform-style: $args;
+	   -moz-transform-style: $args;
+		-ms-transform-style: $args;
+		 -o-transform-style: $args;
+			transform-style: $args;
+};
+@mixin transform-origin($args)
+{
+	-webkit-transform-origin: $args;
+	   -moz-transform-origin: $args;
+		-ms-transform-origin: $args;
+		 -o-transform-origin: $args;
+			transform-origin: $args;
+};
+@mixin animation-name($args)
+{
+	-webkit-animation-name: $args;
+	   -moz-animation-name: $args;
+		-ms-animation-name: $args;
+		 -o-animation-name: $args;
+			animation-name: $args;
+};
+@mixin animation-duration($args)
+{
+	-webkit-animation-duration: $args;
+	   -moz-animation-duration: $args;
+		-ms-animation-duration: $args;
+		 -o-animation-duration: $args;
+			animation-duration: $args;
+};
+@mixin animation-direction($args)
+{
+	-webkit-animation-direction: $args;
+	   -moz-animation-direction: $args;
+		-ms-animation-direction: $args;
+		 -o-animation-direction: $args;
+			animation-direction: $args;
+};
+@mixin animation-timing-function($args)
+{
+	-webkit-animation-timing-function: $args;
+	   -moz-animation-timing-function: $args;
+		-ms-animation-timing-function: $args;
+		 -o-animation-timing-function: $args;
+			animation-timing-function: $args;
+};
+@mixin animation-iteration-count($args)
+{
+	-webkit-animation-iteration-count: $args;
+	   -moz-animation-iteration-count: $args;
+		-ms-animation-iteration-count: $args;
+		 -o-animation-iteration-count: $args;
+			animation-iteration-count: $args;
+};
+@mixin animation-fill-mode($args)
+{
+	-webkit-animation-fill-mode: $args;
+	   -moz-animation-fill-mode: $args;
+		-ms-animation-fill-mode: $args;
+		 -o-animation-fill-mode: $args;
+		 	animation-fill-mode: $args;
+};
+@mixin keyframes($animationName)
+{
+    @-webkit-keyframes #{$animationName} { @content; };
+    @-moz-keyframes    #{$animationName} { @content; };
+    @-o-keyframes      #{$animationName} { @content; };
+    @keyframes         #{$animationName} { @content; };
+};
+@mixin perspective($args)
+{
+	-webkit-perspective: $args;
+	   -moz-perspective: $args;
+		-ms-perspective: $args;
+		 -o-perspective: $args;
+			perspective: $args;
+};
+@mixin backface-visibility($args)
+{
+	-webkit-backface-visibility: $args;
+	   -moz-backface-visibility: $args;
+		-ms-backface-visibility: $args;
+		 -o-backface-visibility: $args;
+			backface-visibility: $args;
+};
+@mixin user-select($args)
+{
+  -webkit-touch-callout: $args;
+	-webkit-user-select: $args;
+	   -moz-user-select: $args;
+		-ms-user-select: $args;
+		 -o-user-select: $args;
+			user-select: $args;
+};
+
+@keyframes spin
+{
+    from  {@include transform (rotateX(0deg) rotateY(0deg));    }
+    to    {@include transform (rotateX(360deg) rotateY(360deg));}
+}
+
+$box_faceExt_color : rgba(0, 0, 0, 0.6);
+$box_faceInt_color : rgba(0, 0, 0, 1);
+$box_edge_color    : rgba(117, 117, 117, 1);
+
+
+@mixin Cube($size)
+{
+    & > .CubeExt 
+    {
+        @include transform-style    (preserve-3d);
+        @include backface-visibility(hidden);
+       
+        position  : relative;
+        width     : $size;
+        height    : $size;
+        animation : spin 35s infinite linear;
+    
+        & > .FaceExt
+        {
+            position : absolute;
+            width    : $size;
+            height   : $size;
+    
+            &.Back 
+            {
+                @include transform          (rotateX(180deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include backface-visibility(hidden);
+    
+                background : $box_faceExt_color;
+                border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+            };
+            &.Front 
+            {
+                @include transform          (rotateX(0deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include backface-visibility(hidden);
+    
+                background : $box_faceExt_color;
+                border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+            };
+            &.Top 
+            {
+                @include transform          (rotateX(90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include backface-visibility(hidden);
+    
+                background : $box_faceExt_color;
+                border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+            };
+            &.Bottom 
+            {
+                @include transform          (rotateX(-90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include backface-visibility(hidden);
+    
+                background : $box_faceExt_color;
+                border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+            };
+            &.Left 
+            {
+                @include transform          (rotateY(90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include backface-visibility(hidden);
+    
+                background : $box_faceExt_color;
+                border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+            };
+            &.Right 
+            {
+                @include transform          (rotateY(-90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include backface-visibility(hidden);
+    
+                background : $box_faceExt_color;
+                border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+            };
+        };
+    
+        & > .CubeInt
+        {
+            @include transform-style    (preserve-3d);
+            @include transform          (translateX(calc($size / calc(20 / 2.5))) translateY(calc($size / calc(20 / 2.5))));
+            @include backface-visibility(hidden);
+    
+            position : relative;
+            width    : calc($size / calc(20 / 15));
+            height   : calc($size / calc(20 / 15));
+    
+            & > .FaceInt
+            {
+                position : absolute;
+                width    : calc($size / calc(20 / 15));
+                height   : calc($size / calc(20 / 15));  
+    
+                &.Back 
+                {
+                    @include transform          (rotateX(180deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include backface-visibility(hidden);
+        
+                    background : $box_faceInt_color;
+                    border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+                };
+                &.Front 
+                {
+                    @include transform          (rotateX(0deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include backface-visibility(hidden);
+                    
+                    background : $box_faceInt_color;
+                    border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+                };
+                &.Top 
+                {
+                    @include transform          (rotateX(90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include backface-visibility(hidden);
+                    
+                    background : $box_faceInt_color;
+                    border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+                };
+                &.Bottom 
+                {
+                    @include transform          (rotateX(-90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include backface-visibility(hidden);
+                    
+                    background : $box_faceInt_color;
+                    border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+                };
+                &.Left 
+                {
+                    @include transform          (rotateY(90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include backface-visibility(hidden);
+                    
+                    background : $box_faceInt_color;
+                    border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+                };
+                &.Right 
+                {
+                    @include transform          (rotateY(-90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include backface-visibility(hidden);
+                    
+                    background : $box_faceInt_color;
+                    border     : $box_edge_color solid calc($size / calc(20 / 0.2));
+                };
+            };
+        };
+    };
+};
+
+.Cube
+{
+    width           : 100%;
+    height          : 100%;
+    display         : flex;
+    justify-content : center;
+    align-items     : center;
+    margin-top      : 20px; 
+
+    @include Cube(330px);
+
+    @media screen and (max-width: 1650px)
+    {
+        @include Cube(300px);
+    };
+    @media screen and (max-width: 1500px)
+    {
+        @include Cube(330px);
+    };
+    @media screen and (max-width: 1200px)
+    {
+        @include Cube(300px);
+    };
+    @media screen and (max-width: 1000px)
+    {
+        @include Cube(280px);
+    };
+    @media screen and (max-width: 800px)
+    {
+        @include Cube(250px);
+    };
+    @media screen and (max-width: 700px)
+    {
+        @include Cube(210px);
+    };
+    @media screen and (max-width: 550px)
+    {
+        @include Cube(160px);
+    };
+    @media screen and (max-width: 500px)
+    {
+        @include Cube(120px);
+    };
+};

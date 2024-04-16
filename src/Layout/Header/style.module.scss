@@ -1,0 +1,208 @@
+@keyframes Typing
+{
+    from
+    {
+        opacity : 1;
+        width   : 0;
+    };
+    to { opacity : 1; };
+};
+
+@keyframes FadeIn
+{
+    0%   { opacity : 0; };
+    100% { opacity : 1; };
+};
+
+@keyframes FadeOut
+{
+    100% { opacity : 0; };
+};
+
+@keyframes Blink
+{
+    0%   { opacity: 0; };
+    50%  { opacity: 1; };
+    100% { opacity: 0; }; 
+};
+
+.Container
+{
+    position   : relative;
+    width      : 100vw;
+    height     : 110vh;
+    background : linear-gradient(var(--blue-color), var(--dark-blue-color) 30%);
+    clip-path  : polygon(0% 0%, 100% 0%, 100% 93%, 0% 100%);
+    padding    : 10% 8%;
+    box-sizing : border-box;
+    transition : height .5s ease-out;
+
+    & > .Image
+    {
+        position  : absolute;
+        right     : .5vmax;
+        height    : 90%;
+        top       : 0px;
+        opacity   : 0;
+        animation : FadeIn 1s ease-in 1.5s forwards;
+
+        & > img
+        {
+            width  : 100%;
+            height : 100%; 
+        };
+    };
+
+    & > .PresentationTitle
+    {
+        width       : 80%;
+        color       : var(--light-green);
+        font-size   : 7.5rem;
+        font-weight : 200;
+        transition  : font-size .5s ease-out;
+
+        & > .TitleContainer
+        {
+            position: relative;
+            display : inline-block;
+
+            & > .Title
+            {
+                width       : 100%;
+                white-space : nowrap;
+                white-space : nowrap;
+                overflow-x  : hidden;
+                opacity     : 0;
+    
+                &.Title1
+                {
+                    animation : Typing .5s steps(10) forwards;
+
+                    & > .Cursor
+                    {
+                        position     : absolute;
+                        top          : 0px;
+                        left         : 0%;
+                        height       : 100%;
+                        width        : 103%;
+                        border-right : var(--light-green) solid 3px;
+                        animation    : Typing .5s steps(10) forwards, Blink 1s infinite, FadeOut 0s .8s forwards;
+                    };
+                };
+                &.Title2
+                {
+                    animation : Typing .7s .8s steps(17) forwards;
+
+                    & > .Cursor
+                    {
+                        position     : absolute;
+                        top          : 0px;
+                        left         : 0%;
+                        height       : 100%;
+                        width        : 103%;
+                        border-right : var(--light-green) solid 3px;
+                        animation    : Typing .7s .8s steps(17) forwards, Blink 1s infinite, FadeOut 0s 1.9s forwards;
+                    };
+                };
+            };
+        };
+    };
+
+    & > .Name
+    {
+        font-size   : 5rem;
+        font-weight : 300;
+        color       : var(--dark-green);
+        opacity     : 0;
+        animation   : FadeIn 1.3s ease-in 2.4s forwards;
+        transition  : font-size .5s ease-out;
+    };
+
+    & > .MultiLanguage
+    {
+        position    : absolute;
+        display     : flex;
+        top         : 30px;
+        right       : 30px;
+        color       : #ffffff;
+        align-items : center;
+        gap         : 10px;
+
+        & > .MultiLanguageIcon
+        {
+            width  : 30px;
+            height : 30px;
+            cursor : pointer;
+        };
+    };
+
+    @media screen and (max-width: 1800px)
+    {
+        & > .PresentationTitle { font-size : 5rem;   };
+        & > .Name              { font-size : 4.5rem; };
+    };
+    @media screen and (max-width: 1500px)
+    {
+        & > .PresentationTitle
+        {
+            width     : 60%;
+            font-size : 4.5rem;
+        };
+
+        & > .Name { font-size : 3rem; };
+    };
+    @media screen and (max-width: 1400px)
+    {
+        height : 480px;
+
+        & > .Image { animation: FadeOut 1s forwards; };
+    };
+    @media screen and (max-width: 900px)
+    {
+        height : 380px;
+
+        & > .PresentationTitle { font-size : 3.5rem; };
+        & > .Name              { font-size : 3rem;   };
+    };
+    @media screen and (max-width: 750px)
+    {
+        height : 350px;
+
+        & > .PresentationTitle { font-size : 3rem;   };
+        & > .Name              { font-size : 2.5rem; };
+        & > .MultiLanguage
+        {
+            font-size: .9rem;
+    
+            & > .MultiLanguageIcon
+            {
+                width  : 25px;
+                height : 25px;
+            };
+        };
+    };
+    @media screen and (max-width: 650px)
+    {
+        height : 280px;
+
+        & > .PresentationTitle { font-size : 2.5rem; };
+        & > .Name              { font-size : 2rem;   };
+        & > .MultiLanguage
+        {
+            font-size: .85rem;
+    
+            & > .MultiLanguageIcon
+            {
+                width  : 23px;
+                height : 23px;
+            };
+        };
+    };
+    @media screen and (max-width: 500px)
+    {
+        height : 230px;
+
+        & > .PresentationTitle { font-size : 2rem;   };
+        & > .Name              { font-size : 1.5rem; };
+    };
+};
