@@ -58,8 +58,8 @@ export function Component() : JSX.Element
                 prev.map((proposition : Types.T_Proposition) : Types.T_Proposition =>
                 {
                     if      (proposition.title === "Front-End") return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionFrontEnd_FR : AppText.propositionFrontEnd_EN });
-                    else if (proposition.title === "Back-End" ) return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionFrontEnd_FR : AppText.propositionFrontEnd_EN });
-                    else                                        return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionFrontEnd_FR : AppText.propositionFrontEnd_EN });
+                    else if (proposition.title === "Back-End" ) return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionBackEnd_FR  : AppText.propositionBackEnd_EN  });
+                    else                                        return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionMobile_FR   : AppText.propositionMobile_EN   });
                 })
             );
         })

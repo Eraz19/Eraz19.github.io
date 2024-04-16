@@ -19,40 +19,43 @@ import      Style                from "./style.module.scss";
 const projectsModel : Types.T_ProjectModel[] =
 [
     {
-        title      : "Graph Collapse",
-        subtitle   : "Algorithmics",
-        text       : AppText.projectGraphCollapse_EN,
-        children   : <ProjectCollapseGraph.Component/>,
-        thumbnail  : GraphCollapseThumbnail,
-        needLoading: true,
-        clickable  : true,
-        link       :
+        title         : "Algorithmics",
+        subtitle      : "Graph Collapse",
+        text          : AppText.projectGraphCollapse_EN,
+        children      : <ProjectCollapseGraph.Component/>,
+        thumbnail     : GraphCollapseThumbnail,
+        childrenWidth : "55%",
+        needLoading   : true,
+        clickable     : true,
+        link          :
         {
             label : "Graph Collapse GitHub",
             url   : "https://github.com/Eraz19/Portfolio/tree/main/src/Layout/Projects/ProjectCollapseGraph",
         },
     },
     {
-        title      : "Rasterizer",
-        subtitle   : "Mathematics",
-        text       : AppText.projectRasterizer_EN,
-        children   : <ProjectRasterizer.Component/>,
-        thumbnail  : RasterizerThumbnail,
-        needLoading: true,
-        clickable  : true,
-        link       :
+        title         : "Mathematics",
+        subtitle      : "Rasterizer",
+        text          : AppText.projectRasterizer_EN,
+        children      : <ProjectRasterizer.Component/>,
+        childrenWidth : "55%",
+        thumbnail     : RasterizerThumbnail,
+        needLoading   : true,
+        clickable     : true,
+        link          :
         {
             label: "Rasterizer GitHub",
             url  : "https://github.com/Eraz19/ErazReactComponents/tree/master/src/Components/RasterizerDisplay",
         },
     },
     {
-        title      : "Animated Cube",
-        subtitle   : "CSS",
-        text       : AppText.projectAnimatedCube_EN,
-        children   : <AnimatedCube.Component/>,
-        needLoading: false,
-        clickable  : false,
+        title         : "CSS",
+        subtitle      : "Animated Cube",
+        text          : AppText.projectAnimatedCube_EN,
+        children      : <AnimatedCube.Component/>,
+        childrenWidth : "35%",
+        needLoading   : false,
+        clickable     : false,
     }
 ];
 
@@ -129,9 +132,36 @@ export function Component() : JSX.Element
             return (
                 prev.map((project : Types.T_ProjectModel) : Types.T_ProjectModel =>
                 {
-                    if      (project.title === "Graph Collapse") return ({...project, text: (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR : AppText.projectGraphCollapse_EN, subtitle: (context?.state?.language === "fr") ? "Algorithmiques" : "Algorithmics"});
-                    else if (project.title === "Rasterizer"    ) return ({...project, text: (context?.state?.language === "fr") ? AppText.projectRasterizer_FR    : AppText.projectRasterizer_EN   , subtitle: (context?.state?.language === "fr") ? "Mathematiques" : "Mathematics"});
-                    else                                         return ({...project, text: (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR  : AppText.projectAnimatedCube_EN , subtitle: (context?.state?.language === "fr") ? "CSS" : "CSS"});
+                    if (project.subtitle === "Graph Collapse")
+                    {
+                        return (
+                            {
+                                ...project,
+                                text : (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR : AppText.projectGraphCollapse_EN,
+                                title: (context?.state?.language === "fr") ? "Algorithmiques" : "Algorithmics",
+                            }
+                        );
+                    }
+                    else if (project.subtitle === "Rasterizer" )
+                    {
+                        return (
+                            {
+                                ...project,
+                                text : (context?.state?.language === "fr") ? AppText.projectRasterizer_FR : AppText.projectRasterizer_EN,
+                                title: (context?.state?.language === "fr") ? "Mathematiques" : "Mathematics",
+                            }
+                        );
+                    }
+                    else
+                    {
+                        return (
+                            {
+                                ...project,
+                                text : (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR  : AppText.projectAnimatedCube_EN,
+                                title: (context?.state?.language === "fr") ? "CSS" : "CSS",
+                            }
+                        );
+                    }
                 })
             );
         })
@@ -139,7 +169,7 @@ export function Component() : JSX.Element
     
     return (
         <div className={Style.Container}>
-            <div className={Style.Title}><div>PROJECTS</div></div>
+            <div className={Style.Title}><div>{(context?.state?.language === "fr") ? "QUELQUES PROJETS" : "SAMPLE PROJECTS"}</div></div>
             <div className={Style.Projects}>
             {
                 projects.map((project : Types.T_ProjectModel, index : number) : JSX.Element =>
@@ -151,13 +181,14 @@ export function Component() : JSX.Element
                             className = {Style.Project}
                         >
                             <Projet.Component
-                                isSelected = {(selectedProject === index) ? true : false}
-                                text       = {project.text}
-                                title      = {project.title}
-                                subtitle   = {project.subtitle}
-                                side       = {(index % 2) ? "right" : "left"}
-                                link       = {project.link}
-                                clickable  = {project.clickable}
+                                isSelected    = {(selectedProject === index) ? true : false}
+                                text          = {project.text}
+                                title         = {project.title}
+                                subtitle      = {project.subtitle}
+                                side          = {(index % 2) ? "right" : "left"}
+                                link          = {project.link}
+                                clickable     = {project.clickable}
+                                childrenWidth = {project.childrenWidth}
                             >
                             {
                                 (project.clickable)
@@ -171,7 +202,7 @@ export function Component() : JSX.Element
                                                 <div className={Style.ResizeBackground}>
                                                     <div className={Style.ResizeIcon}>
                                                         <Icons.Resize.Component/>
-                                                        <div className={Style.ResizeIconText}>Click to extends</div>
+                                                        <div className={Style.ResizeIconText}>{(context?.state?.language === "fr") ? "Clickez pour agrandir" : "Click to extends"}</div>
                                                     </div>
                                                 </div>
                                         </div>

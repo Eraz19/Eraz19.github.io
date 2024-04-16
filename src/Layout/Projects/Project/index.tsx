@@ -51,6 +51,7 @@ export function Component(props : Types.T_Props) : JSX.Element
                     ${Style.ProjectSection}
                     ${(selected === true) ? Style.Selected : "" }
                 `}
+                style={{ ["--project-size" as string] : props.childrenWidth }}
             >
             {
                 <div
@@ -72,6 +73,7 @@ export function Component(props : Types.T_Props) : JSX.Element
                     ${(props.side === "left") ? Style.Left     : Style.Right}
                     ${(selected   === true  ) ? Style.Selected : ""         }
                 `}
+                style={{ ["--project-size" as string] : props.childrenWidth }}
             >
                 <div
                     className=

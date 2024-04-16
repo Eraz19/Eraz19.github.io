@@ -25,7 +25,7 @@
     & > .ProjectSection
     {
         position        : absolute;
-        width           : 55%;
+        width           : var(--project-size);
         height          : 100%;
         display         : flex;
         justify-content : center;
@@ -67,7 +67,7 @@
     & > .Description
     {
         position       : relative;
-        width          : 45%;
+        width          : calc(100% - var(--project-size));
         padding        : 50px;
         height         : fit-content;
         box-sizing     : border-box;
@@ -79,7 +79,7 @@
 
         &.Left
         {
-            left: 55%;
+            left: var(--project-size);
 
             &.Selected
             {
@@ -91,7 +91,7 @@
         };
         &.Right
         {
-            right: 55%;
+            right: var(--project-size);
 
             &.Selected
             {
