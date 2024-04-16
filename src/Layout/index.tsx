@@ -11,7 +11,12 @@ import * as Types       from "./types";
 import      Style       from "./style.module.scss";
 
 
-export const MyContext = React.createContext<Types.T_Context|undefined>(undefined);
+export const MyContext = React.createContext<
+    {
+        state  : Types.T_Context | undefined;
+        update : React.Dispatch<React.SetStateAction<Types.T_Context | undefined>>;
+    } | undefined
+>(undefined);
 
 export function Component() : JSX.Element
 {
@@ -83,7 +88,7 @@ export function Component() : JSX.Element
     };
 
     return (
-        <MyContext.Provider value={context}>
+        <MyContext.Provider value={{ state: context, update: setContext }}>
             <div className={Style.Container}>
                 <Header.Component/>
                 <div className={Style.AboutMe       }><AboutMe.Component/></div>
@@ -100,3 +105,5 @@ export function Component() : JSX.Element
         </MyContext.Provider>
     );
 };
+
+export * as Types from "./types";

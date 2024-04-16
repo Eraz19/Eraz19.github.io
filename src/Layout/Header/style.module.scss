@@ -19,6 +19,13 @@
     100% { opacity : 0; };
 };
 
+@keyframes Blink
+{
+    0%   { opacity: 0; };
+    50%  { opacity: 1; };
+    100% { opacity: 0; }; 
+};
+
 .Container
 {
     position   : relative;
@@ -37,7 +44,7 @@
         height    : 90%;
         top       : 0px;
         opacity   : 0;
-        animation : FadeIn 1s ease-in 1s forwards;
+        animation : FadeIn 1s ease-in 1.5s forwards;
 
         & > img
         {
@@ -56,6 +63,7 @@
 
         & > .TitleContainer
         {
+            position: relative;
             display : inline-block;
 
             & > .Title
@@ -66,8 +74,36 @@
                 overflow-x  : hidden;
                 opacity     : 0;
     
-                &.Title1 { animation : Typing 1s      steps(10) forwards; };
-                &.Title2 { animation : Typing 1.5s 1s steps(17) forwards; };
+                &.Title1
+                {
+                    animation : Typing .5s steps(10) forwards;
+
+                    & > .Cursor
+                    {
+                        position     : absolute;
+                        top          : 0px;
+                        left         : 0%;
+                        height       : 100%;
+                        width        : 103%;
+                        border-right : var(--light-green) solid 3px;
+                        animation    : Typing .5s steps(10) forwards, Blink 1s infinite, FadeOut 0s .8s forwards;
+                    };
+                };
+                &.Title2
+                {
+                    animation : Typing .7s .8s steps(17) forwards;
+
+                    & > .Cursor
+                    {
+                        position     : absolute;
+                        top          : 0px;
+                        left         : 0%;
+                        height       : 100%;
+                        width        : 103%;
+                        border-right : var(--light-green) solid 3px;
+                        animation    : Typing .7s .8s steps(17) forwards, Blink 1s infinite, FadeOut 0s 1.9s forwards;
+                    };
+                };
             };
         };
     };
@@ -78,8 +114,26 @@
         font-weight : 300;
         color       : var(--dark-green);
         opacity     : 0;
-        animation   : FadeIn .5s linear 3s forwards;
+        animation   : FadeIn 1.3s ease-in 2.4s forwards;
         transition  : font-size .5s ease-out;
+    };
+
+    & > .MultiLanguage
+    {
+        position    : absolute;
+        display     : flex;
+        top         : 30px;
+        right       : 30px;
+        color       : #ffffff;
+        align-items : center;
+        gap         : 10px;
+
+        & > .MultiLanguageIcon
+        {
+            width  : 30px;
+            height : 30px;
+            cursor : pointer;
+        };
     };
 
     @media screen and (max-width: 1800px)
@@ -116,6 +170,16 @@
 
         & > .PresentationTitle { font-size : 3rem;   };
         & > .Name              { font-size : 2.5rem; };
+        & > .MultiLanguage
+        {
+            font-size: .9rem;
+    
+            & > .MultiLanguageIcon
+            {
+                width  : 25px;
+                height : 25px;
+            };
+        };
     };
     @media screen and (max-width: 650px)
     {
@@ -123,6 +187,16 @@
 
         & > .PresentationTitle { font-size : 2.5rem; };
         & > .Name              { font-size : 2rem;   };
+        & > .MultiLanguage
+        {
+            font-size: .85rem;
+    
+            & > .MultiLanguageIcon
+            {
+                width  : 23px;
+                height : 23px;
+            };
+        };
     };
     @media screen and (max-width: 500px)
     {

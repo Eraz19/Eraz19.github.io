@@ -1,22 +1,26 @@
 import * as React from "react";
 
 
+import * as Layout  from "../";
 import * as Icons   from "../../Icons";
 import * as Types   from "./types";
 import * as AppText from "../../AppText";
 import      Style   from "./style.module.scss";
 
 
-const propositions : Types.T_Proposition[] =
-[
-    { icon: <Icons.FrontEnd.Component/>      , title: "Front-End", text: AppText.propositionFrontEnd },
-    { icon: <Icons.BackEnd.Component/>       , title: "Back-End" , text: AppText.propositionBackEnd  },
-    { icon: <Icons.MobileTablette.Component/>, title: "Mobile"   , text: AppText.propositionMobile   },
-];
-
 export function Component() : JSX.Element
 {
+    const context = React.useContext(Layout.MyContext);
+
     const ref = React.useRef<HTMLDivElement>(null);
+
+    const [content, setContent] = React.useState<Types.T_Proposition[]>(
+        [
+            { icon: <Icons.FrontEnd.Component/>      , title: "Front-End", text: AppText.propositionFrontEnd_EN },
+            { icon: <Icons.BackEnd.Component/>       , title: "Back-End" , text: AppText.propositionBackEnd_EN  },
+            { icon: <Icons.MobileTablette.Component/>, title: "Mobile"   , text: AppText.propositionMobile_EN   },
+        ]
+    );
 
     React.useEffect(() =>
     {
@@ -44,7 +48,22 @@ export function Component() : JSX.Element
         SetObserver();
 
         return (RemoveObserver);
-    }, [])
+    }, []);
+
+    React.useEffect(() =>
+    {
+        setContent((prev : Types.T_Proposition[]) : Types.T_Proposition[] =>
+        {
+            return (
+                prev.map((proposition : Types.T_Proposition) : Types.T_Proposition =>
+                {
+                    if      (proposition.title === "Front-End") return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionFrontEnd_FR : AppText.propositionFrontEnd_EN });
+                    else if (proposition.title === "Back-End" ) return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionFrontEnd_FR : AppText.propositionFrontEnd_EN });
+                    else                                        return ({...proposition, text: (context?.state?.language === "fr") ? AppText.propositionFrontEnd_FR : AppText.propositionFrontEnd_EN });
+                })
+            );
+        })
+    }, [context?.state?.language]);
 
     return (
         <div
@@ -52,7 +71,7 @@ export function Component() : JSX.Element
             className = {Style.Container}
         >
         {
-            propositions.map((proposition : Types.T_Proposition, index : number) : JSX.Element =>
+            content.map((proposition : Types.T_Proposition, index : number) : JSX.Element =>
             {
                 return (
                     <div
@@ -61,7 +80,10 @@ export function Component() : JSX.Element
                     >
                         <div className={Style.Icon} >{proposition.icon} </div>
                         <div className={Style.Title}>{proposition.title}</div>
-                        <div className={Style.Text} dangerouslySetInnerHTML={{ __html: proposition.text }}/>
+                        <div
+                            className               = {Style.Text}
+                            dangerouslySetInnerHTML = {{ __html: proposition.text }}
+                        />
                     </div>
                 );
             })

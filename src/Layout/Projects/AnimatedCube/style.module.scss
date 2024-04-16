@@ -282,6 +282,7 @@ $box_edge_color    : rgba(117, 117, 117, 1);
     display         : flex;
     justify-content : center;
     align-items     : center;
+    margin-top      : 20px; 
 
     @include Cube(330px);
 

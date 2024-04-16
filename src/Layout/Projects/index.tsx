@@ -4,6 +4,7 @@ import * as React from "react";
 import RasterizerThumbnail    from "../../assets/RasterizerThumbnail.png";
 import GraphCollapseThumbnail from "../../assets/GraphCollapseThumbnail.png";
 
+import * as Layout               from "../";
 import * as Icons                from "../../Icons";
 import * as ProjectRasterizer    from "./ProjectRasterizer";
 import * as ProjectCollapseGraph from "./ProjectCollapseGraph";
@@ -15,12 +16,12 @@ import * as Types                from "./types";
 import      Style                from "./style.module.scss";
 
 
-const projects : Types.T_ProjectModel[] =
+const projectsModel : Types.T_ProjectModel[] =
 [
     {
         title      : "Graph Collapse",
         subtitle   : "Algorithmics",
-        text       : AppText.projectGraphCollapse,
+        text       : AppText.projectGraphCollapse_EN,
         children   : <ProjectCollapseGraph.Component/>,
         thumbnail  : GraphCollapseThumbnail,
         needLoading: true,
@@ -34,7 +35,7 @@ const projects : Types.T_ProjectModel[] =
     {
         title      : "Rasterizer",
         subtitle   : "Mathematics",
-        text       : AppText.projectRasterizer,
+        text       : AppText.projectRasterizer_EN,
         children   : <ProjectRasterizer.Component/>,
         thumbnail  : RasterizerThumbnail,
         needLoading: true,
@@ -48,7 +49,7 @@ const projects : Types.T_ProjectModel[] =
     {
         title      : "Animated Cube",
         subtitle   : "CSS",
-        text       : AppText.projectAnimatedCube,
+        text       : AppText.projectAnimatedCube_EN,
         children   : <AnimatedCube.Component/>,
         needLoading: false,
         clickable  : false,
@@ -57,9 +58,12 @@ const projects : Types.T_ProjectModel[] =
 
 export function Component() : JSX.Element
 {
-    const refs = React.useRef(projects.map(() => { return (React.createRef<HTMLDivElement>()); }));
+    const context = React.useContext(Layout.MyContext);
+
+    const refs = React.useRef(projectsModel.map(() => { return (React.createRef<HTMLDivElement>()); }));
 
     const [selectedProject, setSelectedProject] = React.useState<number>();
+    const [projects       , setProjects       ] = React.useState<Types.T_ProjectModel[]>(projectsModel);
 
     React.useEffect(() =>
     {
@@ -117,6 +121,21 @@ export function Component() : JSX.Element
 
         return (() => { window.removeEventListener("click", HandleClick);  });
     }, []);
+    
+    React.useEffect(() =>
+    {
+        setProjects((prev : Types.T_ProjectModel[]) : Types.T_ProjectModel[] =>
+        {
+            return (
+                prev.map((project : Types.T_ProjectModel) : Types.T_ProjectModel =>
+                {
+                    if      (project.title === "Graph Collapse") return ({...project, text: (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR : AppText.projectGraphCollapse_EN });
+                    else if (project.title === "Rasterizer"    ) return ({...project, text: (context?.state?.language === "fr") ? AppText.projectRasterizer_FR    : AppText.projectRasterizer_EN    });
+                    else                                         return ({...project, text: (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR  : AppText.projectAnimatedCube_EN  });
+                })
+            );
+        })
+    }, [context?.state?.language]);
     
     return (
         <div className={Style.Container}>

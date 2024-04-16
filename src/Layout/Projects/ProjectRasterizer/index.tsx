@@ -29,8 +29,8 @@ export function Component() : JSX.Element
                     mesh             =
                     {
                         {
-                            vertices: context?.rasterizerModels[selectedObj]?.vertices ?? [],
-                            edges   : (context?.rasterizerModels[selectedObj]?.edges   ?? []).map((edge : ErazLib.Parser.OBJ.Types.T_Edge) =>
+                            vertices: context?.state?.rasterizerModels[selectedObj]?.vertices ?? [],
+                            edges   : (context?.state?.rasterizerModels[selectedObj]?.edges   ?? []).map((edge : ErazLib.Parser.OBJ.Types.T_Edge) =>
                             {
                                 return (
                                     {
@@ -71,7 +71,7 @@ export function Component() : JSX.Element
             </div>
             <div className={Style.SidePanel}>
                 <SidePanel.Component
-                    OBJModelOptions   = {Object.keys(context?.rasterizerModels ?? {})}
+                    OBJModelOptions   = {Object.keys(context?.state?.rasterizerModels ?? {})}
                     getOBJModelOption = {setSelectedObj}
                     cameraDetails     = {cameraState}
                 />

@@ -2,6 +2,7 @@ import * as React   from "react";
 import * as Emailjs from "emailjs-com";
 
 
+import * as Layout      from "../";
 import * as Icons       from "../../Icons";
 import * as ContactForm from "./ContactForm";
 import * as AppText     from "../../AppText";
@@ -10,6 +11,8 @@ import      Style       from "./style.module.scss";
 
 export function Component() : JSX.Element
 {
+    const context = React.useContext(Layout.MyContext);
+
     const [openModal       , setOpenModal       ] = React.useState<boolean>(false);
     const [sendMailResponse, setSendMailResponse] = React.useState<[boolean, string]>();
 
@@ -56,11 +59,11 @@ export function Component() : JSX.Element
 
     return (
         <div className={Style.Container}>
-            <div className={Style.Title}>About Me</div>
+            <div className={Style.Title}>{(context?.state?.language === "fr") ? "A Propos": "About Me"}</div>
             <div className={Style.Content}>
                 <div className={Style.Text}>
-                    <div>{AppText.aboutMe_1}</div>
-                    <div>{AppText.aboutMe_2}</div>
+                    <div>{(context?.state?.language === "fr") ? AppText.aboutMe_1_FR : AppText.aboutMe_1_EN}</div>
+                    <div>{(context?.state?.language === "fr") ? AppText.aboutMe_2_FR : AppText.aboutMe_2_EN}</div>
                 </div>
 
                 <div className={Style.Contact}>
@@ -79,7 +82,7 @@ export function Component() : JSX.Element
                     >
                         <div className={Style.ContactIcon}><Icons.Gmail.Component/></div>
                         <div className={Style.ContactText}>
-                            <div className={Style.Text}>Contact me</div>
+                            <div className={Style.Text}>{(context?.state?.language === "fr") ? "Me Contacter" : "Contact me"}</div>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import * as React               from "react";
 import * as ErazReactComponents from "eraz-react-components";
 
 
+import * as Layout from "../../";
 import * as Icons from "../../../Icons";
 import * as Types from "./types";
 import      Style from "./style.module.scss";
@@ -50,6 +51,8 @@ const buttonStyle : ErazReactComponents.Button.Types.T_Style =
 
 export function Component(props : Types.T_Props) : JSX.Element
 {
+    const context = React.useContext(Layout.MyContext);
+
     const [email            , setEmail            ] = React.useState<string> ("");
     const [isEmailValid     , setIsEmailValid     ] = React.useState<boolean>(true);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState<string> ("");
@@ -119,7 +122,7 @@ export function Component(props : Types.T_Props) : JSX.Element
                 name        = {"message"}
                 rows        = {30}
                 cols        = {50}
-                placeholder = {"Type your message here..."}
+                placeholder = {(context?.state?.language === "fr") ? "Ecrire votre message ici..." : "Type your message here..."}
                 required    = {true}
                 className   = {Style.Text}
                 spellCheck  = {true}
@@ -145,7 +148,7 @@ export function Component(props : Types.T_Props) : JSX.Element
                         onClick = {CheckSubmition}
                     >
                         <div className={Style.ButtonContent}>
-                            <div>Send Email</div>
+                            <div>{(context?.state?.language === "fr") ? "Envoyer Email" : "Send Email"}</div>
                             {
                                 (props.status === Types.Status.FAILURE)
                                 ?   <div className={Style.ButtonIcon}><Icons.Failure.Component/> </div>

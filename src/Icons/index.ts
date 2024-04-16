@@ -12,6 +12,7 @@ export * as Gmail          from "./Gmail";
 export * as HTML           from "./HTML";
 export * as Js             from "./Js";
 export * as MobileTablette from "./MobileTablette";
+export * as MultiLanguage  from "./MultiLanguage";
 export * as NodeJs         from "./NodeJs";
 export * as Python         from "./Python";
 export * as ReactJs        from "./ReactJs";
