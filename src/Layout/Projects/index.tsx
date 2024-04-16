@@ -129,9 +129,9 @@ export function Component() : JSX.Element
             return (
                 prev.map((project : Types.T_ProjectModel) : Types.T_ProjectModel =>
                 {
-                    if      (project.title === "Graph Collapse") return ({...project, text: (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR : AppText.projectGraphCollapse_EN });
-                    else if (project.title === "Rasterizer"    ) return ({...project, text: (context?.state?.language === "fr") ? AppText.projectRasterizer_FR    : AppText.projectRasterizer_EN    });
-                    else                                         return ({...project, text: (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR  : AppText.projectAnimatedCube_EN  });
+                    if      (project.title === "Graph Collapse") return ({...project, text: (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR : AppText.projectGraphCollapse_EN, subtitle: (context?.state?.language === "fr") ? "Algorithmiques" : "Algorithmics"});
+                    else if (project.title === "Rasterizer"    ) return ({...project, text: (context?.state?.language === "fr") ? AppText.projectRasterizer_FR    : AppText.projectRasterizer_EN   , subtitle: (context?.state?.language === "fr") ? "Mathematiques" : "Mathematics"});
+                    else                                         return ({...project, text: (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR  : AppText.projectAnimatedCube_EN , subtitle: (context?.state?.language === "fr") ? "CSS" : "CSS"});
                 })
             );
         })
