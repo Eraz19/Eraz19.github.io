@@ -310,12 +310,8 @@ $box_edge_color    : rgba(117, 117, 117, 1);
     {
         @include Cube(210px);
     };
-    @media screen and (max-width: 550px)
-    {
-        @include Cube(160px);
-    };
     @media screen and (max-width: 500px)
     {
-        @include Cube(120px);
+        @include Cube(160px);
     };
 };

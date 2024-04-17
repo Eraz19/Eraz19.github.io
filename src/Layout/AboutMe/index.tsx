@@ -62,9 +62,9 @@ export function Component() : JSX.Element
             <div className={Style.Title}>{(context?.state?.language === "fr") ? "À Propos": "About Me"}</div>
             <div className={Style.Content}>
                 <div className={Style.Text}>
-                    <div>{(context?.state?.language === "fr") ? AppText.aboutMe_1_FR : AppText.aboutMe_1_EN}</div>
-                    <div>{(context?.state?.language === "fr") ? AppText.aboutMe_2_FR : AppText.aboutMe_2_EN}</div>
-                    <div>{(context?.state?.language === "fr") ? AppText.aboutMe_3_FR : AppText.aboutMe_3_EN}</div>
+                    <div dangerouslySetInnerHTML = {{ __html: (context?.state?.language === "fr") ? AppText.aboutMe_1_FR : AppText.aboutMe_1_EN }}/>
+                    <div dangerouslySetInnerHTML = {{ __html: (context?.state?.language === "fr") ? AppText.aboutMe_2_FR : AppText.aboutMe_2_EN }}/>
+                    <div dangerouslySetInnerHTML = {{ __html: (context?.state?.language === "fr") ? AppText.aboutMe_3_FR : AppText.aboutMe_3_EN }}/>
                 </div>
 
                 <div className={Style.Contact}>

@@ -59,7 +59,7 @@
         color       : var(--light-green);
         font-size   : 7.5rem;
         font-weight : 200;
-        transition  : font-size .5s ease-out;
+        transition  : font-size .5s ease-out, margin-top .5s linear;
 
         & > .TitleContainer
         {
@@ -76,7 +76,7 @@
     
                 &.Title1
                 {
-                    animation : Typing .5s steps(10) forwards;
+                    animation : Typing .5s steps(9) forwards;
 
                     & > .Cursor
                     {
@@ -86,7 +86,7 @@
                         height       : 100%;
                         width        : 103%;
                         border-right : var(--light-green) solid 3px;
-                        animation    : Typing .5s steps(10) forwards, Blink 1s infinite, FadeOut 0s .8s forwards;
+                        animation    : Typing .5s steps(9) forwards, Blink 1s infinite, FadeOut 0s .8s forwards;
                     };
                 };
                 &.Title2
@@ -204,5 +204,33 @@
 
         & > .PresentationTitle { font-size : 2rem;   };
         & > .Name              { font-size : 1.5rem; };
+    };
+    @media screen and (max-width: 400px)
+    {
+        & > .PresentationTitle
+        {
+            font-size  : 1.7rem;
+            margin-top : 25px;
+            transition : margin-top .5s linear;
+        };
+        & > .Name
+        {
+            font-size : 1.3rem;
+        };
+    };
+    @media screen and (max-width: 350px)
+    {
+        height : 200px;
+
+        & > .PresentationTitle
+        {
+            font-size  : 1.5rem;
+            margin-top : 35px;
+            transition : margin-top .5s linear;
+        };
+        & > .Name
+        {
+            font-size : 1.2rem;
+        };
     };
 };

@@ -184,4 +184,14 @@
 
         & > .Content > .Contact { margin-top : 40px; };
     };
+    @media screen and (max-width: 400px)
+    {
+        & > .Title           { font-size : 4.1rem; };
+        & > .Content > .Text { gap       : 3.2vw;  };
+    };
+    @media screen and (max-width: 350px)
+    {
+        & > .Title           { font-size : 3.6rem; };
+        & > .Content > .Text { gap       : 3.6vw;  };
+    };
 };

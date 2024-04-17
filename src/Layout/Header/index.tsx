@@ -20,7 +20,7 @@ export function Component() : JSX.Element
             <div className={Style.PresentationTitle}>
                 <div className={Style.TitleContainer}>
                     <div className={`${Style.Title} ${Style.Title1}`}>
-                        FULL-STACK
+                        FULLSTACK
                         <div className={Style.Cursor}/>
                     </div>
                 </div>

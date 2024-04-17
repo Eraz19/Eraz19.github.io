@@ -83,6 +83,14 @@
     {
         & > .Title > div { font-size: 3rem; };
     };
+    @media screen and (max-width: 450px)
+    {
+        & > .Projects { gap : 60px; };
+    };
+    @media screen and (max-width: 400px)
+    {
+        & > .Projects { gap : 90px; };
+    };
 };
 
 

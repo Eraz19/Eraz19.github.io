@@ -3,7 +3,9 @@ import * as ErazLib             from "eraz-lib";
 import * as ErazReactComponents from "eraz-react-components/dist";
 
 
+import * as Icons     from "../../../Icons";
 import * as Layout    from "../../../Layout";
+import * as AppText   from "../../../AppText";
 import * as SidePanel from "./SidePanel";
 import      Style     from "./style.module.scss";
 
@@ -15,8 +17,54 @@ export function Component() : JSX.Element
     const [selectedObj, setSelectedObj] = React.useState<string>("");
     const [cameraState, setCameraState] = React.useState<ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera>();
 
+    React.useEffect(() =>
+    {
+        function HandleOnKeyDown(e : KeyboardEvent) : void
+        {
+            if (e.key === "Alt")
+            {
+                context?.update((prev : Layout.Types.T_Context | undefined) =>
+                {
+                    if (prev?.showResterizerTutorial === true) return ({ ...prev, showResterizerTutorial: false });
+                    else                                       return (prev);
+                });
+            }
+        };
+
+        window.addEventListener("keydown", HandleOnKeyDown);
+
+        context?.update((prev : Layout.Types.T_Context | undefined) =>
+        {
+            console.log(prev?.showResterizerTutorial);
+
+            if (prev && prev.showResterizerTutorial == null) return ({ ...prev, showResterizerTutorial: true });
+            else                                             return (prev);
+        });
+
+        return (() => { window.removeEventListener("keydown", HandleOnKeyDown); });
+    }, []);
+
     function HandleMouseEnter() : void { document.body.style.overflowY = "hidden"; };
     function HandleMouseLeave() : void { document.body.style.overflowY = "auto";   };
+
+    function HandleActivateAltKeydown() : void
+    {   
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Alt", code: "AltLeft", altKey: true }));
+
+        if (context?.state?.showResterizerTutorial === true)
+        {
+            context?.update((prev : Layout.Types.T_Context | undefined) =>
+            {
+                if (prev) return ({ ...prev, showResterizerTutorial: false });
+                else      return (prev);
+            })    
+        }
+    };
+
+    function HandleDisactivateAltKeyup() : void
+    {               
+        window.dispatchEvent(new KeyboardEvent("keyup", { key: "Alt", code: "AltLeft", altKey: false }));
+    };
 
     return (
         <div className={Style.Container}>
@@ -32,12 +80,7 @@ export function Component() : JSX.Element
                             vertices: context?.state?.rasterizerModels[selectedObj]?.vertices ?? [],
                             edges   : (context?.state?.rasterizerModels[selectedObj]?.edges   ?? []).map((edge : ErazLib.Parser.OBJ.Types.T_Edge) =>
                             {
-                                return (
-                                    {
-                                        edge : edge,
-                                        color: { red: 0, green: 0, blue: 0 },
-                                    }
-                                );
+                                return ({ edge : edge, color: { red: 0, green: 0, blue: 0 } });
                             })
                         }
                     }
@@ -48,17 +91,12 @@ export function Component() : JSX.Element
                             minRadius: 0.5,
                         }
                     }
-                    keyboardSettings =
-                    {
-                        {
-                            enabled: true,
-                        }
-                    }
+                    keyboardSettings = {{ enabled: true }}
                     defaultCamera    =
                     {
                         {
                             anchor     : [0 ,0 ,0  ],
-                            polarCoord : [22,25,1.5]
+                            polarCoord : [22,25,1.5],
                         }
                     }
                     cameraDebug={(value: ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera) =>
@@ -76,6 +114,35 @@ export function Component() : JSX.Element
                     cameraDetails     = {cameraState}
                 />
             </div>
+            <div
+                className   = {Style.KeyboardIcon}
+                onMouseDown = {HandleActivateAltKeydown}
+                onMouseUp   = {HandleDisactivateAltKeyup}
+                onMouseOut  = {HandleDisactivateAltKeyup}
+            >
+                <Icons.Keyboard.Component/>
+            </div>
+            {
+                (context?.state?.showResterizerTutorial === null || context?.state?.showResterizerTutorial === true)
+                ?   
+                    <>
+                        <div className={Style.TutorialBackgroundKeybinding}/>
+                        <div className={Style.TutorialCurvedArrow}>
+                                <Icons.CurvedArrow.Component/>
+                            </div>
+                            <div
+                                className               = {Style.TutorialText}
+                                dangerouslySetInnerHTML = {
+                                    {
+                                        __html: (context?.state?.language === "fr")
+                                            ?   AppText.tutorial_FR.replace("Alt", "<div>Alt</div>")
+                                            :   AppText.tutorial_EN.replace("Alt", "<div>Alt</div>")
+                                    }
+                                }
+                            />
+                        </>
+                :   null
+            }
         </div>
     );
 };
