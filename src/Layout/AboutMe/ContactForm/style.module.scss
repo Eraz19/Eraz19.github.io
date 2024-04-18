@@ -1,58 +1,66 @@
+@import "../../..//Css/@keyframes.scss";
+@import "../../..//Css/@mixins.scss";
+
+
+$headerWidthDuration    : .5s;
+
+$fontSizeDuration       : .5s;
+
+$textAreaHeightDuration : .5s;
+
 .Container
 {
-    display        : flex;
-    flex-direction : column;
-    gap            : 30px;
-    width          : 70%;
-    height         : fit-content;
-    background     : #fff;
-    padding        : 50px;
-    border-radius  : 5px;
+    @include Padding_All(50px                                      );
+    @include Border     ($radius    : 5px                          );
+    @include Flex       ($direction : column, $gap    : 30px       );
+    @include Size       ($width     : 70%   , $height : fit-content);
+
+    background : var(--white);
 
     & > .Header
     {
-        display        : flex;
-        flex-direction : column;
-        gap            : 5px;
-        width          : 50%;
-        transition     : width .5s ease-in-out;
+        @include Size($width     : 50%               );
+        @include Flex($direction : column, $gap : 5px);
+
+        transition : width $headerWidthDuration ease-in-out;
 
         & > .Input
         {
-            position: relative;
+            @include Position();
 
             & > .Icon
             {
-                position : absolute;
-                top      : 23px;
-                right    : -42px;
-                width    : 32px;
-                height   : 32px;
+                @include Size_All(32px                                          );
+                @include Position($type  : absolute, $top : 23px, $right : -42px);
             };
         };
     };
 
     & > .Text
     {
-        font-size     : 1rem;
-        color         : rgb(35, 61, 77);
-        padding       : 10px;
-        border        : 2px solid rgb(35, 61, 77);
-        border-radius : 5px;
-        width         : 100%;
-        box-sizing    : border-box;
-        resize        : none;
-        outline       : none;
-        transition    : height .5s ease-in-out, font-size .5s ease-in-out;
+        @include Padding_All(10px                                                      );
+        @include Size       ($width : 100%                                             );
+        @include Font       ($color : rgb(35, 61, 77), $fontSize : 1rem              );
+        @include Border     ($color : rgb(35, 61, 77), $width    : 2px, $radius : 5px);
+
+        resize     : none;
+        outline    : none;
+        transition : height $textAreaHeightDuration ease-in-out, font-size $fontSizeDuration ease-in-out;
     };
 
     & > .Footer
     {   
-        width           : 100%;
-        display         : flex;
-        justify-content : end;
+        @include Size($width          : 100%);
+        @include Flex($justifyContent : end );
     };
 
+
+
+
+
+
+
+    
     @media screen and (max-width : 900px)
     {
         & > .Header
@@ -130,16 +138,12 @@
 
 .ButtonContent
 {
-    position: relative;
-    width : 100%;
-    height : 100%;
+    @include Position();
+    @include Size_All(100%);
 
     & > .ButtonIcon
     {
-        position : absolute;
-        width    : 20px;
-        height   : 20px;
-        bottom: 0px;
-        right    : -40px;
+        @include Size_All(20px);
+        @include Position($bottom : 0px, $right : -40px);
     };
 };

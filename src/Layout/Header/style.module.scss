@@ -1,140 +1,107 @@
-@keyframes Typing
+@import "../../Css/@keyframes.scss";
+@import "../../Css/@mixins.scss";
+
+
+@mixin TitleAnimation($typingDuration : 0s, $typingDelay : 0s, $numberLetter : 0, $fadeOutDelay : 0s)
 {
-    from
+    animation : Typing $typingDuration $typingDelay steps($numberLetter) forwards;
+
+    & > .Cursor
     {
-        opacity : 1;
-        width   : 0;
+        @include Size    ($width : 102%    , $height : 100%            );
+        @include Position($type  : absolute, $top    : 0px, $left : 0px);
+
+        border-right : var(--light-green) solid 3px;
+        animation    : Typing $typingDuration $typingDelay steps($numberLetter) forwards, Blink 1s infinite, FadeOut 0s $fadeOutDelay forwards;
     };
-    to { opacity : 1; };
 };
 
-@keyframes FadeIn
-{
-    0%   { opacity : 0; };
-    100% { opacity : 1; };
-};
 
-@keyframes FadeOut
-{
-    100% { opacity : 0; };
-};
+$heightTransition    : .5s;
 
-@keyframes Blink
-{
-    0%   { opacity: 0; };
-    50%  { opacity: 1; };
-    100% { opacity: 0; }; 
-};
+$imageFadeInDuration : 1s;
+$imageFadeInDelay    : 1.5s;
+
+$fontSizeDuration    : .5s;
+
+$nameFadeInDuration  : 1.3s;
+$nameFadeInDelay     : 2.4s;
 
 .Container
 {
-    position   : relative;
-    width      : 100vw;
-    height     : 110vh;
+    @include Size        ($width    : 100vw, $height     : 110vh);
+    @include Padding_Axis($vertical : 10%  , $horizontal : 8%   );
+    @include Position    ();
+
     background : linear-gradient(var(--blue-color), var(--dark-blue-color) 30%);
     clip-path  : polygon(0% 0%, 100% 0%, 100% 93%, 0% 100%);
-    padding    : 10% 8%;
-    box-sizing : border-box;
-    transition : height .5s ease-out;
+    transition : height $heightTransition ease-out;
 
     & > .Image
     {
-        position  : absolute;
-        right     : .5vmax;
-        height    : 90%;
-        top       : 0px;
-        opacity   : 0;
-        animation : FadeIn 1s ease-in 1.5s forwards;
+        @include Size    ($height : 90%                                  );
+        @include Position($type   : absolute, $right : .5vmax, $top : 0px);
 
-        & > img
-        {
-            width  : 100%;
-            height : 100%; 
-        };
+        opacity   : 0;
+        animation : FadeIn $imageFadeInDuration $imageFadeInDelay ease-in-out forwards;
+
+        & > img { @include Size_All(100%); };
     };
 
     & > .PresentationTitle
     {
-        width       : 80%;
-        color       : var(--light-green);
-        font-size   : 7.5rem;
-        font-weight : 200;
-        transition  : font-size .5s ease-out, margin-top .5s linear;
+        @include Size($width    : 80%                                                 );
+        @include Font($fontSize : 5.5rem, $fontWeight : 200, $color : var(--light-green));
+
+        transition : font-size $fontSizeDuration ease-out;
 
         & > .TitleContainer
         {
-            position: relative;
+            @include Position();
+
             display : inline-block;
 
             & > .Title
             {
-                width       : 100%;
-                white-space : nowrap;
-                white-space : nowrap;
-                overflow-x  : hidden;
+                @include Size    ($width : 100%  );
+                @include Overflow($x     : hidden);
+
                 opacity     : 0;
+                white-space : nowrap;
     
-                &.Title1
-                {
-                    animation : Typing .5s steps(9) forwards;
-
-                    & > .Cursor
-                    {
-                        position     : absolute;
-                        top          : 0px;
-                        left         : 0%;
-                        height       : 100%;
-                        width        : 103%;
-                        border-right : var(--light-green) solid 3px;
-                        animation    : Typing .5s steps(9) forwards, Blink 1s infinite, FadeOut 0s .8s forwards;
-                    };
-                };
-                &.Title2
-                {
-                    animation : Typing .7s .8s steps(17) forwards;
-
-                    & > .Cursor
-                    {
-                        position     : absolute;
-                        top          : 0px;
-                        left         : 0%;
-                        height       : 100%;
-                        width        : 103%;
-                        border-right : var(--light-green) solid 3px;
-                        animation    : Typing .7s .8s steps(17) forwards, Blink 1s infinite, FadeOut 0s 1.9s forwards;
-                    };
-                };
+                &.Title1 { @include TitleAnimation($typingDuration : .5s, $numberLetter : 9 , $fadeOutDelay : .8s                     ); };
+                &.Title2 { @include TitleAnimation($typingDuration : .7s, $numberLetter : 17, $fadeOutDelay : 1.9s, $typingDelay : .8s); };
             };
         };
     };
 
     & > .Name
     {
-        font-size   : 5rem;
-        font-weight : 300;
-        color       : var(--dark-green);
-        opacity     : 0;
-        animation   : FadeIn 1.3s ease-in 2.4s forwards;
-        transition  : font-size .5s ease-out;
+        @include Font($fontSize : 4.5rem, $fontWeight : 300, $color : var(--dark-green));
+
+        opacity    : 0;
+        animation  : FadeIn $nameFadeInDuration $nameFadeInDelay ease-out forwards;
+        transition : font-size $fontSizeDuration ease-out;
     };
 
     & > .MultiLanguage
     {
-        position    : absolute;
-        display     : flex;
-        top         : 30px;
-        right       : 30px;
-        color       : #ffffff;
-        align-items : center;
-        gap         : 10px;
+        @include Flex    ($alignItems : center  , $gap : 10px               );
+        @include Position($type       : absolute, $top : 30px, $right : 30px);
+
+        color : var(--white);
 
         & > .MultiLanguageIcon
         {
-            width  : 30px;
-            height : 30px;
+            @include Size_All(30px);
+
             cursor : pointer;
         };
     };
+
+
+
+
 
     @media screen and (max-width: 1800px)
     {

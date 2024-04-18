@@ -1,0 +1,269 @@
+@mixin LeftSlide_Animate($startPosition, $endPosition)
+{
+    left : $startPosition;
+
+    &.Animate { left : $endPosition; };
+};
+@mixin RightSlide_Animate($startPosition, $endPosition)
+{
+    right : $startPosition;
+
+    &.Animate { right : $endPosition; };
+};
+
+@mixin LeftSlide_Selected($startPosition, $endPosition)
+{
+    left : $startPosition;
+
+    &.Selected { left : $endPosition; };
+};
+@mixin RightSlide_Selected($startPosition, $endPosition)
+{
+    right : $startPosition;
+
+    &.Selected { right : $endPosition; };
+};
+
+
+.Container
+{
+    position    : relative;
+    display     : flex;
+    width       : 100%;
+    height      : fit-content;
+    align-items : center;
+
+    border     : black solid 3px;
+    box-sizing : border-box;
+
+    &.Left  { flex-direction : row;         };
+    &.Right { flex-direction : row-reverse; };
+
+    & > .ProjectSection
+    {
+        position        : relative;
+        display         : flex;
+        width           : var(--project-size);
+        height          : 550px;
+        justify-content : center;
+        align-items     : center;
+        transition      : width .5s ease-in-out, height .5s ease-in-out;
+
+        &.Selected
+        {
+            width      : 100%;
+            height     : 90vh;
+            transition : width .5s .6s ease-in-out, height .5s .6s ease-in-out;
+        };
+
+        & > .ProjectContainer
+        {
+            background: red;
+
+            position       : relative;
+            width          : 100%;
+            height         : 100%;
+            border-radius  : 10px;
+            transition     : left 1s ease-in-out, right 1s ease-in-out;
+
+            &.Left  { @include LeftSlide_Animate (-100%, 0%); };
+            &.Right { @include RightSlide_Animate(-100%, 0%); };
+        };
+    };
+
+    & > .Description
+    {
+        position       : relative;
+        display        : flex;
+        width          : calc(100% - var(--project-size));
+        height         : fit-content;
+        flex-direction : column;
+        box-sizing     : border-box;
+        padding        : 50px;
+        transition     : width 0s .6s, padding 0s .6s, left .5s .5s ease-in-out, right .5s .5s ease-in-out;
+
+        background: green;        
+
+        &.Selected
+        {
+            width      : 0%;
+            padding    : 0%;
+            transition : width 0s .6s, padding 0s .6s, left .5s ease-in-out, right .5s ease-in-out;
+        };
+
+        &.Left  { @include LeftSlide_Selected (0%, 100%); };
+        &.Right { @include RightSlide_Selected(0%, 100%); };
+
+
+
+
+        
+        
+    };
+
+
+
+
+
+    
+    @media screen and (max-width: 1650px)
+    {
+        & > .Description 
+        {
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 3rem;   };
+                & > .Subtitle    { font-size : 1.5rem; };
+            };
+        
+            & > .Text
+            {
+                font-size: 1.3rem;
+
+                & > .Contact { font-size : 1rem; };
+            }
+        };
+    };
+    @media screen and (max-width: 1500px)
+    {
+        height         : 1000px;
+        flex-direction : column;
+
+        & > .ProjectSection
+        {
+            width  : 100%;
+            height : 60%;
+            transition: height .5s ease-in-out;
+
+            &.Selected
+            {
+                height : 90vh;
+                transition: height .5s .5s ease-in-out;
+            };
+        };
+
+        & > .Description 
+        {        
+            width   : 100%;
+            padding : 30px;
+            top     : 60%;
+
+            &.Left  { left  : 0%; };
+            &.Right { right : 0%; };
+
+            & > .TitleContainer > .Title > div { font-size : 2.8rem; };
+        
+            & > .Text > .Contact { font-size : .9rem; };
+        };
+    };
+    @media screen and (max-width: 1200px)
+    {
+        height : 950px;
+
+        & > .Description
+        {
+            & > .Text { font-size : 1.3rem; };
+
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 2.7rem; };
+                & > .Subtitle    { font-size : 1.4rem; };
+            };
+        };
+    };
+    @media screen and (max-width: 1000px)
+    {
+        height : 850px;
+        
+        & > .ProjectSection { height : 55%; };
+
+        & > .Description
+        {
+            padding : 25px;
+            top     : 55%;
+
+            & > .TitleContainer > .Title > div { font-size : 2.6rem; }; 
+        
+            & > .Text
+            {
+                font-size : 1.1rem;
+
+                & > .Contact
+                {
+                    font-size  : .85rem;
+                    margin-top : 35px;
+                };
+            };
+        };
+    };
+    @media screen and (max-width: 800px)
+    {
+        height : 750px;
+
+        & > .Description 
+        {        
+            padding : 20px;
+            top     : 56%;
+
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 2.5rem; };
+                & > .Subtitle    { font-size : 1.3rem; };
+            };
+        
+            & > .Text
+            {
+                font-size : 1rem;
+
+                & > .Contact
+                {
+                    font-size  : .8rem;
+                    margin-top : 40px;
+                };
+            };
+        };
+    };
+    @media screen and (max-width: 700px)
+    {
+        height : 700px;
+        
+        & > .ProjectSection { height : 50%; };
+
+        & > .Description 
+        {        
+            padding : 10px;
+            top     : 53%;
+
+            & > .TitleContainer > .Title > div { font-size  : 2.4rem; }; 
+            & > .Text > .Contact               { margin-top : 28px;   };
+        };
+    };
+    @media screen and (max-width: 550px)
+    {
+        height : 650px;
+        
+        & > .ProjectSection { height : 40%; };
+
+        & > .Description
+        {
+            top : 43%;
+
+            & > .TitleContainer
+            {
+                & > .Title > div { font-size : 2.4rem; };
+                & > .Subtitle    { font-size : 1.2rem; };
+            };
+
+            & > .Text
+            {
+                padding : 0% 4%;
+
+                & > .Contact { margin-top : 30px; }
+            };
+        };
+    };
+    @media screen and (max-width: 400px)
+    {
+        height : 580px;
+    };
+};

@@ -1,0 +1,47 @@
+@import "../../Css/@mixins.scss";
+
+
+@keyframes Typing
+{
+    from
+    {
+        opacity : 1;
+        width   : 0;
+    };
+    to { opacity : 1; };
+};
+@keyframes FadeIn
+{
+    100% { opacity : 1; };
+};
+
+@keyframes FadeOut
+{
+    100% { opacity : 0; };
+};
+
+@keyframes Blink
+{
+    0%   { opacity: 0; };
+    50%  { opacity: 1; };
+    100% { opacity: 0; }; 
+};
+
+@keyframes SlideInFromBottom
+{
+    from { transform : translateY(100%); };
+    to   { transform : translateY(0%);   };
+};
+
+@keyframes Pulse
+{
+    0%   { scale : 1.2; }
+    50%  { scale : 1;   }
+    100% { scale : 1.2; }
+};
+
+@keyframes spin
+{
+    from  {@include transform (rotateX(0deg) rotateY(0deg));     }
+    to    {@include transform (rotateX(360deg) rotateY(360deg)); }
+};

@@ -8,9 +8,9 @@ import * as Layout               from "../";
 import * as Icons                from "../../Icons";
 import * as ProjectRasterizer    from "./ProjectRasterizer";
 import * as ProjectCollapseGraph from "./ProjectCollapseGraph";
-import * as AnimatedCube         from "./AnimatedCube";
-import * as LoadingProject       from "./LoadingProject";
-import * as Projet               from "./Project";
+import * as AnimatedCube         from "./ProjectAnimatedCube";
+import * as LoadingProject       from "./ProjectLoading";
+import * as Projet               from "./ProjectLayout";
 import * as AppText              from "../../AppText";
 import * as Types                from "./types";
 import      Style                from "./style.module.scss";
@@ -169,7 +169,7 @@ export function Component() : JSX.Element
     
     return (
         <div className={Style.Container}>
-            <div className={Style.Title}><div>{(context?.state?.language === "fr") ? "QUELQUES PROJETS" : "SAMPLE PROJECTS"}</div></div>
+            <div className={Style.Title}>{(context?.state?.language === "fr") ? "QUELQUES PROJETS" : "SAMPLE PROJECTS"}</div>
             <div className={Style.Projects}>
             {
                 projects.map((project : Types.T_ProjectModel, index : number) : JSX.Element =>

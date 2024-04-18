@@ -1,0 +1,157 @@
+@import "../../../Css/@keyframes.scss";
+@import "../../../Css/@mixins.scss";
+
+
+@mixin Cube($size)
+{
+    & > .CubeExt 
+    {
+        @include Position           ();
+        @include Size_All           ($size);
+        @include backface-visibility(hidden);
+        @include transform-style    (preserve-3d);
+       
+        animation : spin 35s infinite linear;
+    
+        & > .FaceExt
+        {
+            @include Position($type : absolute);
+            @include Size_All($size);
+    
+            &.Back 
+            {
+                @include backface-visibility(hidden);
+                @include transform          (rotateX(180deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+    
+                background : $box_faceExt_color;
+            };
+            &.Front 
+            {
+                @include backface-visibility(hidden);
+                @include transform          (rotateX(0deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+    
+                background : $box_faceExt_color;
+            };
+            &.Top 
+            {
+                @include backface-visibility(hidden);
+                @include transform          (rotateX(90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+    
+                background : $box_faceExt_color;
+            };
+            &.Bottom 
+            {
+                @include backface-visibility(hidden);
+                @include transform          (rotateX(-90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+    
+                background : $box_faceExt_color;
+            };
+            &.Left 
+            {
+                @include backface-visibility(hidden);
+                @include transform          (rotateY(90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+    
+                background : $box_faceExt_color;
+            };
+            &.Right 
+            {
+                @include backface-visibility(hidden);
+                @include transform          (rotateY(-90deg) translateZ(calc($size / calc(20 / 10.15))));
+                @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+    
+                background : $box_faceExt_color;
+            };
+        };
+    
+        & > .CubeInt
+        {
+            @include backface-visibility(hidden);
+            @include transform-style    (preserve-3d);
+            @include transform          (translateX(calc($size / calc(20 / 2.5))) translateY(calc($size / calc(20 / 2.5))));
+    
+            @include Position();
+            @include Size_All(calc($size / calc(20 / 15)));
+    
+            & > .FaceInt
+            {
+                @include Position($type : absolute);
+                @include Size_All(calc($size / calc(20 / 15)));
+    
+                &.Back 
+                {
+                    @include backface-visibility(hidden);
+                    @include transform          (rotateX(180deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+        
+                    background : $box_faceInt_color;
+                };
+                &.Front 
+                {
+                    @include backface-visibility(hidden);
+                    @include transform          (rotateX(0deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+                    
+                    background : $box_faceInt_color;
+                };
+                &.Top 
+                {
+                    @include backface-visibility(hidden);
+                    @include transform          (rotateX(90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+                    
+                    background : $box_faceInt_color;
+                };
+                &.Bottom 
+                {
+                    @include backface-visibility(hidden);
+                    @include transform          (rotateX(-90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+                    
+                    background : $box_faceInt_color;
+                };
+                &.Left 
+                {
+                    @include backface-visibility(hidden);
+                    @include transform          (rotateY(90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+                    
+                    background : $box_faceInt_color;
+                };
+                &.Right 
+                {
+                    @include backface-visibility(hidden);
+                    @include transform          (rotateY(-90deg) translateZ(calc($size / calc(20 / 7.55))));
+                    @include Border             ($color : $box_edge_color, $width : calc($size / calc(20 / 0.2)));
+                    
+                    background : $box_faceInt_color;
+                };
+            };
+        };
+    };
+};
+
+$box_faceExt_color : rgba(0  , 0  , 0  , 0.6);
+$box_faceInt_color : rgba(254, 127, 45 , 1  );
+$box_edge_color    : rgba(117, 117, 117, 1  );
+
+.Cube
+{
+    @include Size_All(100%);
+    @include Flex    ($justifyContent : center, $alignItems : center);
+
+
+    @include Cube(330px);
+
+    @media screen and (max-width: 1650px) { @include Cube(300px); };
+    @media screen and (max-width: 1500px) { @include Cube(330px); };
+    @media screen and (max-width: 1200px) { @include Cube(300px); };
+    @media screen and (max-width: 1000px) { @include Cube(280px); };
+    @media screen and (max-width: 800px ) { @include Cube(250px); };
+    @media screen and (max-width: 700px ) { @include Cube(210px); };
+    @media screen and (max-width: 500px ) { @include Cube(160px); };
+};

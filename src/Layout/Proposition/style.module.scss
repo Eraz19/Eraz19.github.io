@@ -1,59 +1,55 @@
-@keyframes SlideInFromBottom
-{
-    from { transform : translateY(100%); };
-    to   { transform : translateY(0%);   };
-};
+@import "../../Css/@keyframes.scss";
+@import "../../Css/@mixins.scss";
+
 
 .Container
 {
-    display         : flex;
-    justify-content : center;
-    padding         : 0 10%; 
-    gap             : 30px;
-    overflow-y      : hidden;
-    transition      : flex-direction .5s ease-in-out, align-items .5s ease-in-out, gap .5s ease-in-out, padding .5s ease-in-out;
+    @include Padding_Axis($horizontal     : 10%                );
+    @include Overflow    ($y              : hidden             );
+    @include Flex        ($justifyContent : center, $gap : 30px);
+
+    transition : gap .5s ease-in-out, padding .5s ease-in-out;
 
     & > .Proposition
     {
-        width          : calc(calc(100% / 3) - 20px);
-        display        : flex;
-        align-items    : center;
-        flex-direction : column;
-        gap            : 20px;
-        transform      : translateY(100%);
-        transition     : width .5s ease-in-out;
+        @include Size($width     : calc(calc(100% / 3) - 20px)              );
+        @include Flex($direction : column, $alignItems : center, $gap : 20px);
+
+        transform  : translateY(100%);
+        transition : width .5s ease-in-out;
 
         & > .Icon
         {
-            width      : 70px;
-            height     : 70px;
+            @include Size_All(70px);
+
             transition : width .5s ease-in-out, height .5s ease-in-out;
         };
 
         & > .Title
         {
-            font-size   : 1.4rem;
-            font-weight : 600;
-            color       : var(--orange-color);
-            transition  : font-size .5s ease-in-out;
+            @include Font($fontSize : 1.5rem , $fontWeight : 600, $color : var(--orange-color));
+
+            transition : font-size .5s ease-in-out;
         };
 
         & > .Text
         {
-            font-size   : 1.3rem;
-            font-weight : 200;
-            text-align  : center; 
-            transition  : font-size .5s ease-in-out;
+            @include Font($fontSize : 1.1rem, $fontWeight : 200, $textAlign : center);
+            
+            transition : font-size .5s ease-in-out;
         };
     };
 
     &.Animate
     {
-        & > div:nth-of-type(1) { animation : SlideInFromBottom .8s ease-out 0s   forwards; };
-        & > div:nth-of-type(2) { animation : SlideInFromBottom .8s ease-out 1.2s forwards; };
-        & > div:nth-of-type(3) { animation : SlideInFromBottom .8s ease-out 2.4s forwards; };
+        & > div:nth-of-type(1) { animation : SlideInFromBottom .8s 0s   ease-out forwards; };
+        & > div:nth-of-type(2) { animation : SlideInFromBottom .8s 1.2s ease-out forwards; };
+        & > div:nth-of-type(3) { animation : SlideInFromBottom .8s 2.4s ease-out forwards; };
     };
 
+
+
+    
     @media screen and (max-width: 1550px)
     {
         padding : 0 6%; 

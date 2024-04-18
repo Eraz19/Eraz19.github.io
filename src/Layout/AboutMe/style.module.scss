@@ -1,70 +1,66 @@
+@import "../../Css/@keyframes.scss";
+@import "../../Css/@mixins.scss";
+
+
+$fontSizeDuration        : .5s;
+
+$textContentWidth        : .5s;
+
+$buttonPaddingDuration   : .5s;
+$buttonTopDuration       : .4s;
+$buttonIconWidthDuration : .5s;
+
 .Container
 {
-    position       : relative;
-    padding        : 0% 5%;
-    display        : flex;
-    flex-direction : row;
-    gap            : 20px;
+    @include Position    ();
+    @include Padding_Axis($horizontal : 5%  );
+    @include Flex        ($gap        : 20px);
 
     & > .Title
     {
-        color        : var(--light-green);
-        opacity      : .2;
-        writing-mode : vertical-rl;
-        transform    : rotate(180deg);
-        font-size    : 8rem;
-        font-weight  : 500;
-        transition   : font-size .5s ease-in-out;
+        @include Font($fontSize : var(--font-size-900), $fontWeight : 500, $direction : vertical-rl, $color : var(--light-green));
+
+        opacity    : .2;
+        transform  : rotate(180deg);
+        transition : font-size $fontSizeDuration ease-in-out;
     };
 
     & > .Content
     {
-        width      : 60%;
-        transition : width .5s ease-in-out;
+        @include Size($width     : 90ch                );
+        @include Flex($direction : column, $gap : 100px);
+
+        transition : width $textContentWidth ease-in-out;
 
         & > .Text
         {
-            display        : flex;
-            flex-direction : column;
-            gap            : 2.6vw;
-            color          : var(--dark-green);
-            font-weight    : 200;
-            font-size      : 1.5rem;
-            margin         : 5% 0%;
-            transition     : width .5s ease-in-out, font-size .5s ease-in-out;
+            @include Flex($direction : column, $gap        : 2.6vw);
+            @include Font($fontSize  : 1.5rem, $fontWeight : 200  , $color : var(--dark-green));
+
+            transition : width $textContentWidth ease-in-out, font-size $fontSizeDuration ease-in-out;
         };
     
         & > .Contact
         {
-            display         : flex;
-            width           : 100%;
-            justify-content : end;
-            align-items     : center;
-            font-size       : 1.1rem;
-            margin-top      : 100px;
-            gap             : 20px;
-            font-weight     : 400;
-            transition      : width .5s ease-in-out, margin-top .5S ease-in-out, padding .5s ease-in-out;
+            @include Flex($justifyContent : end   , $alignItems : center, $gap : 20px);
+            @include Font($fontSize       : 1.1rem                                   );
+            @include Size($width          : 100%                                     );
     
             & > .Button
             {
-                position      : relative;
-                display       : flex;
-                width         : fit-content;
-                align-items   : center;
-                gap           : 8px;
-                cursor        : pointer;
-                border        : var(--light-green) solid 1px;
-                border-radius : 1px;
-                top           : 0;
-                padding       : 5px 8px;
-                transition    : font-size .5s ease-in-out, padding .5s ease-in-out, top .4s ease-in-out;
+                @include Size        ($width      : fit-content                           );
+                @include Flex        ($alignItems : center             , $gap        : 8px);
+                @include Padding_Axis($vertical   : 5px                , $horizontal : 8px);
+                @include Border      ($color      : var(--light-green) , $radius     : 1px);
+
+                cursor     : pointer;
+                transition : font-size $fontSizeDuration ease-in-out, padding $buttonPaddingDuration ease-in-out, transform $buttonTopDuration ease-in-out;
     
                 & > .ContactIcon
                 {
-                    height     : 25px;
-                    width      : 25px;
-                    transition : width .5s ease-in-out;
+                    @include Size_All(25px);
+
+                    transition : width $buttonIconWidthDuration ease-in-out;
     
                     & > svg { color : var(--light-green); };
                 };
@@ -73,8 +69,8 @@
     
                 &:hover
                 {
-                    top        : -6px;
-                    transition : top .4s ease-in-out;
+                    transform  : translateY(-4px);
+                    transition : transform $buttonTopDuration ease-in-out;
                 };
             };
         };
@@ -82,17 +78,16 @@
 
     & > .Modal
     {
-        position        : fixed;
-        width           : 100vw;
-        height          : 100vh;
-        top             : 0;
-        left            : 0;
-        z-index         : 100;
-        background      : rgba(0, 0, 0, .3);
-        display         : flex;
-        justify-content : center;
-        align-items     : center;
+        @include Flex    ($justifyContent : center, $alignItems : center                     );
+        @include Size    ($width          : 100vw , $height     : 100vh                      );
+        @include Position($type           : fixed , $top        : 0, $left : 0, $zIndex : 100);
+
+        background : rgba(0, 0, 0, .3);
     };
+
+
+
+
 
     @media screen and (max-width: 1650px)
     {

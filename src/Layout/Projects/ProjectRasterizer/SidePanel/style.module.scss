@@ -1,8 +1,8 @@
 .Container
 {
+    display        : flex;
     width          : 100%;
     height         : 100%;
-    display        : flex;
     flex-direction : column;
     padding        : 5px;
     box-sizing     : border-box;
@@ -10,21 +10,21 @@
 
     & > .Separator
     {
-        height : 0px;
         width  : 100%;
+        height : 0px;
         color  : #575656;
     };
 
     & > .Section
     {
-        width   : 100%;
-        padding : 0px 10px;
-        box-sizing: border-box;
+        width      : 100%;
+        padding    : 0px 10px;
+        box-sizing : border-box;
 
         & > .Title
         {
-            margin-bottom   : 25px;
             display         : flex;
+            margin-bottom   : 25px;
             justify-content : space-between;
             align-items     : center;
 
@@ -41,10 +41,7 @@
                 color  : var(--light-green);
                 cursor : pointer;
 
-                &.Folded
-                {
-                    transform: rotate(-180deg);
-                };
+                &.Folded { transform: rotate(-180deg); };
             };
         };
 
@@ -62,8 +59,8 @@
 
             & > .Value
             {
-                display : flex;
-                align-items: center;
+                display     : flex;
+                align-items : center;
 
                 & > div:nth-of-type(1)
                 {
@@ -88,19 +85,19 @@
 
         & > .OBJModelsList
         {
-            height         : fit-content;
             display        : flex;
+            height         : fit-content;
             flex-direction : column;
             padding        : 5px;
-            gap            : 5px;
             box-sizing     : border-box;
+            gap            : 5px;
             
             &.Folded
             {
                 height   : 0px;
                 padding  : 0px;
                 overflow : hidden;
-            }
+            };
 
             & > .OBJModelOption
             {
@@ -116,10 +113,7 @@
 
                 &:hover { background : #414141; };
                 
-                &.Selected
-                {
-                    background : var(--light-green);
-                };
+                &.Selected { background : var(--light-green); };
             };
         };
     };
