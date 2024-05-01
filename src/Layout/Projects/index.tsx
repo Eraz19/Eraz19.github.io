@@ -1,219 +1,134 @@
-import * as React from "react";
+import * as React   from "react";
 
 
-import RasterizerThumbnail    from "../../assets/RasterizerThumbnail.png";
-import GraphCollapseThumbnail from "../../assets/GraphCollapseThumbnail.png";
-
-import * as Layout               from "../";
-import * as Icons                from "../../Icons";
+import * as Layout               from "..";
 import * as ProjectRasterizer    from "./ProjectRasterizer";
 import * as ProjectCollapseGraph from "./ProjectCollapseGraph";
 import * as AnimatedCube         from "./ProjectAnimatedCube";
-import * as LoadingProject       from "./ProjectLoading";
-import * as Projet               from "./ProjectLayout";
 import * as AppText              from "../../AppText";
 import * as Types                from "./types";
 import      Style                from "./style.module.scss";
 
 
-const projectsModel : Types.T_ProjectModel[] =
-[
-    {
-        title         : "Algorithmics",
-        subtitle      : "Graph Collapse",
-        text          : AppText.projectGraphCollapse_EN,
-        children      : <ProjectCollapseGraph.Component/>,
-        thumbnail     : GraphCollapseThumbnail,
-        childrenWidth : "55%",
-        needLoading   : true,
-        clickable     : true,
-        link          :
-        {
-            label : "Graph Collapse GitHub",
-            url   : "https://github.com/Eraz19/Portfolio/tree/main/src/Layout/Projects/ProjectCollapseGraph",
-        },
-    },
-    {
-        title         : "Mathematics",
-        subtitle      : "Rasterizer",
-        text          : AppText.projectRasterizer_EN,
-        children      : <ProjectRasterizer.Component/>,
-        childrenWidth : "55%",
-        thumbnail     : RasterizerThumbnail,
-        needLoading   : true,
-        clickable     : true,
-        link          :
-        {
-            label: "Rasterizer GitHub",
-            url  : "https://github.com/Eraz19/ErazReactComponents/tree/master/src/Components/RasterizerDisplay",
-        },
-    },
-    {
-        title         : "CSS",
-        subtitle      : "Animated Cube",
-        text          : AppText.projectAnimatedCube_EN,
-        children      : <AnimatedCube.Component/>,
-        childrenWidth : "35%",
-        needLoading   : false,
-        clickable     : false,
-    }
-];
-
 export function Component() : JSX.Element
 {
     const context = React.useContext(Layout.MyContext);
 
-    const refs = React.useRef(projectsModel.map(() => { return (React.createRef<HTMLDivElement>()); }));
-
-    const [selectedProject, setSelectedProject] = React.useState<number>();
-    const [projects       , setProjects       ] = React.useState<Types.T_ProjectModel[]>(projectsModel);
-
-    React.useEffect(() =>
-    {
-        function HandleClick(e : MouseEvent)
-        {
-            function IsClickInsideElement(element : Element) : boolean
+    const [projects, setProjects] = React.useState<Types.T_Projects>(
+        [
             {
-                const elemBounds : DOMRect = element.getBoundingClientRect();
-
-                if (e.clientX >= elemBounds.left && e.clientX <= elemBounds.left + elemBounds.width && e.clientY >= elemBounds.top && e.clientY <= elemBounds.top + elemBounds.height)
-                    return (true);
-
-                return (false);
-            };
-
-            function IndexOfElementClicked(elements : (Element | null | undefined)[]) : number | undefined
-            {
-                for (const [index, element] of elements.entries())
+                title   : AppText.projectGraphCollapseTitle_EN,
+                subtitle: AppText.projectGraphCollapseSubtitle,
+                text    : AppText.projectGraphCollapse_EN,
+                link    :
                 {
-                    if (element && IsClickInsideElement(element))
-                        return (index);
-                }
-
-                return (undefined);
-            };
-
-            if (refs.current != null)
+                    label: `${AppText.projectGraphCollapseSubtitle} GitHub`,
+                    url  : AppText.projectGraphCollapseUrl,
+                } 
+            },
             {
-                const indexElement : number | undefined = IndexOfElementClicked(refs.current.map((ref : React.RefObject<HTMLDivElement>) => { return (ref.current?.children[0]?.children[0]); }));
-
-                if (indexElement != null && projects[indexElement].clickable && window.innerWidth > 1100)
+                title   : AppText.projectAnimatedCubeTitle,
+                subtitle: AppText.projectAnimatedCubeSubtitle,
+                text    : AppText.projectRasterizer_EN,
+            },
+            {
+                title   : AppText.projectRasterizerTitle_EN,
+                subtitle: AppText.projectRasterizerSubtitle,
+                text    : AppText.projectRasterizer_EN,
+                link    :
                 {
-                    setSelectedProject(indexElement);
-
-                    setTimeout(() =>
-                    {
-                        if (refs.current)
-                        {
-                            const selectedElement : HTMLDivElement | null = refs.current[indexElement].current;
-
-                            setTimeout(() =>
-                            {
-                                if (selectedElement)
-                                    window.scrollTo({ top: selectedElement.offsetTop - ((window.innerHeight) * 5 / 100), behavior : "smooth" });
-                            }, 530);
-                        }                            
-                    }, 500);
-                }
-                else
-                    setSelectedProject(undefined);
+                    label: `${AppText.projectRasterizerSubtitle} GitHub`,
+                    url  : AppText.projectAnimatedCubeUrl,
+                } 
             }
-        };
-
-        window.addEventListener("click", HandleClick);
-
-        return (() => { window.removeEventListener("click", HandleClick);  });
-    }, []);
+        ]
+    );
     
     React.useEffect(() =>
     {
-        setProjects((prev : Types.T_ProjectModel[]) : Types.T_ProjectModel[] =>
+        setProjects((prev : Types.T_Projects) : Types.T_Projects =>
         {
             return (
-                prev.map((project : Types.T_ProjectModel) : Types.T_ProjectModel =>
-                {
-                    if (project.subtitle === "Graph Collapse")
+                [
                     {
-                        return (
-                            {
-                                ...project,
-                                text : (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR : AppText.projectGraphCollapse_EN,
-                                title: (context?.state?.language === "fr") ? "Algorithmiques" : "Algorithmics",
-                            }
-                        );
-                    }
-                    else if (project.subtitle === "Rasterizer" )
+                        ...prev[0],
+                        text : (context?.state?.language === "fr") ? AppText.projectGraphCollapse_FR      : AppText.projectGraphCollapse_EN,
+                        title: (context?.state?.language === "fr") ? AppText.projectGraphCollapseTitle_FR : AppText.projectGraphCollapseTitle_EN,
+                    },
                     {
-                        return (
-                            {
-                                ...project,
-                                text : (context?.state?.language === "fr") ? AppText.projectRasterizer_FR : AppText.projectRasterizer_EN,
-                                title: (context?.state?.language === "fr") ? "Mathematiques" : "Mathematics",
-                            }
-                        );
-                    }
-                    else
+                        ...prev[1],
+                        text : (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR   : AppText.projectAnimatedCube_EN,
+                        title: (context?.state?.language === "fr") ? AppText.projectAnimatedCubeTitle : AppText.projectAnimatedCubeTitle,
+                    },
                     {
-                        return (
-                            {
-                                ...project,
-                                text : (context?.state?.language === "fr") ? AppText.projectAnimatedCube_FR  : AppText.projectAnimatedCube_EN,
-                                title: (context?.state?.language === "fr") ? "CSS" : "CSS",
-                            }
-                        );
+                        ...prev[2],
+                        text : (context?.state?.language === "fr") ? AppText.projectRasterizer_FR      : AppText.projectRasterizer_EN,
+                        title: (context?.state?.language === "fr") ? AppText.projectRasterizerTitle_FR : AppText.projectRasterizerTitle_EN,
                     }
-                })
+                ]
             );
         })
     }, [context?.state?.language]);
+
+    function HandleOpenGitHubPage(url : string | undefined) : void
+    {
+        if (url)
+        {
+            const newWindow : Window | null = window.open(url);
+
+            if (newWindow)
+                newWindow.focus();   
+        }
+    };
     
     return (
         <div className={Style.Container}>
-            <div className={Style.Title}>{(context?.state?.language === "fr") ? "QUELQUES PROJETS" : "SAMPLE PROJECTS"}</div>
-            <div className={Style.Projects}>
-            {
-                projects.map((project : Types.T_ProjectModel, index : number) : JSX.Element =>
-                {
-                    return (
-                        <div
-                            key       = {`Project_${index}`}
-                            ref       = {refs.current[index]}
-                            className = {Style.Project}
-                        >
-                            <Projet.Component
-                                isSelected    = {(selectedProject === index) ? true : false}
-                                text          = {project.text}
-                                title         = {project.title}
-                                subtitle      = {project.subtitle}
-                                side          = {(index % 2) ? "right" : "left"}
-                                link          = {project.link}
-                                clickable     = {project.clickable}
-                                childrenWidth = {project.childrenWidth}
-                            >
-                            {
-                                (project.clickable)
-                                ?   (selectedProject === index)
-                                    ?   <LoadingProject.Component>{project.children}</LoadingProject.Component>
-                                    :   <div className={Style.Thumbnail}>
-                                            
-                                                <div className={Style.ThumbnailImage}>
-                                                    <img src={project.thumbnail}/>
-                                                </div>
-                                                <div className={Style.ResizeBackground}>
-                                                    <div className={Style.ResizeIcon}>
-                                                        <Icons.Resize.Component/>
-                                                        <div className={Style.ResizeIconText}>{(context?.state?.language === "fr") ? "Clickez pour agrandir" : "Click to extends"}</div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                :   project.children
-                                
-                            }
-                            </Projet.Component>
-                        </div>
-                    )
-                })          
-            }
+
+            <div className={`${Style.Project} ${Style.Graph}`}>
+                <ProjectCollapseGraph.Component/>
+                <div className={Style.TitleContainer}>
+                    <div className={Style.Title   }>{projects[0].title}   </div>
+                    <div className={Style.Subtitle}>{projects[0].subtitle}</div>
+                </div>
+                <div className={Style.TextContainer}>
+                    <div className={Style.Text}>{projects[0].text}</div>
+                    <hr className={Style.Separator}/>
+                    <div
+                        className = {Style.Button}
+                        onClick   = {() => { HandleOpenGitHubPage(projects[0].link?.url); }}
+                    >
+                        {projects[0].link?.label}
+                    </div>
+                </div>
+            </div>
+            <div className={`${Style.Project} ${Style.Cube}`}>
+                <div className={Style.TitleContainer}>
+                    <div className={Style.Title   }>{projects[1].title}   </div>
+                    <div className={Style.Subtitle}>{projects[1].subtitle}</div>
+                </div>
+                <div className={Style.TextContainer}>
+                    <div className={Style.Text}>{projects[1].text}</div>
+                </div>
+                <AnimatedCube.Component/>
+            </div>
+            <div className={`${Style.Project} ${Style.Rasterizer}`}>
+                <div className={Style.TitleContainer}>
+                    <div className={Style.Title   }>{projects[2].title}   </div>
+                    <div className={Style.Subtitle}>{projects[2].subtitle}</div>
+                </div>
+                <div className={Style.TextContainer}>
+                    <div className={Style.Text}>{projects[2].text}</div>
+                    <hr className={Style.Separator}/>
+                    <div
+                        className = {Style.Button}
+                        onClick   = {() => { HandleOpenGitHubPage(projects[2].link?.url); }}
+                    >
+                        {projects[2].link?.label}
+                    </div>
+                </div>
+                <div className={Style.Element}>
+                    <ProjectRasterizer.Component/>
+                </div>
             </div>
         </div>
     );

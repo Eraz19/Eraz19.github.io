@@ -9,16 +9,16 @@
     height : $all; 
 };
 
-@mixin Padding_Axis($vertical : 0px, $horizontal : 0px, $extends : false)
+@mixin Padding($left : 0px, $top : 0px, $right : 0px, $bottom : 0px, $extends : false)
 {
-    padding : $vertical $horizontal;
+    padding : $top $right $bottom $left;
 
     @if $extends == false { box-sizing: border-box; }
     @else                 { box-sizing: initial;    }
 };
-@mixin Padding($left : 0px, $top : 0px, $right : 0px, $bottom : 0px, $extends : false)
+@mixin Padding_Axis($vertical : 0px, $horizontal : 0px, $extends : false)
 {
-    padding : $top $right $bottom $left;
+    padding : $vertical $horizontal;
 
     @if $extends == false { box-sizing: border-box; }
     @else                 { box-sizing: initial;    }
@@ -30,6 +30,43 @@
     @if $extends == false { box-sizing: border-box; }
     @else                 { box-sizing: initial;    }
 };
+@mixin Padding_Horizontal($horizontal : 0px, $top : 0px, $bottom : 0px, $extends : false)
+{
+    padding : $top $horizontal $bottom $horizontal;
+
+    @if $extends == false { box-sizing: border-box; }
+    @else                 { box-sizing: initial;    }
+};
+@mixin Padding_Vertical($vertical : 0px, $left : 0px, $right : 0px, $extends : false)
+{
+    padding : $vertical $right $vertical $left;
+
+    @if $extends == false { box-sizing: border-box; }
+    @else                 { box-sizing: initial;    }
+};
+
+
+@mixin Margin($left : 0px, $top : 0px, $right : 0px, $bottom : 0px)
+{
+    margin : $top $right $bottom $left;
+};
+@mixin Margin_Axis($vertical : 0px, $horizontal : 0px)
+{
+    margin : $vertical $horizontal;
+};
+@mixin Margin_All($all : 0px)
+{
+    margin : $all;
+};
+@mixin Margin_Horizontal($horizontal : 0px, $top : 0px, $bottom : 0px)
+{
+    margin : $top $horizontal $bottom $horizontal;
+};
+@mixin Margin_Vertical($vertical : 0px, $left : 0px, $right : 0px)
+{
+    margin : $vertical $right $vertical $left;
+};
+
 
 @mixin Position($type : relative, $left : auto, $top : auto, $right : auto, $bottom : auto, $zIndex : auto)
 {
@@ -41,12 +78,11 @@
     z-index  : $zIndex;
 };
 
-@mixin Font($fontSize : 1rem, $fontWeight : 400, $textAlign : left, $direction : horizontal-tb, $color : #000000)
+@mixin Font($fontSize : 1rem, $fontWeight : 400, $textAlign : left, $color : #000000)
 {
     font-size    : $fontSize;
     font-weight  : $fontWeight;
     text-align   : $textAlign;
-    writing-mode : $direction;
     color        : $color;
 };
 
@@ -59,10 +95,20 @@
     gap             : $gap;
 };
 
-@mixin Border($color : #000000, $width : 1px, $style : solid, $radius : 0px)
+@mixin Border($color : #000000, $width : 0px, $style : solid, $radius : 0px)
 {
     border        : $color $style $width;
     border-radius : $radius;
+    box-sizing    : border-box;
+};
+@mixin Border_Segment($top : #000000 0px solid, $right : #000000 0px solid, $bottom : #000000 0px solid, $left : #000000 0px solid, $radius : 0px)
+{
+    border-top    : $top;
+    border-right  : $right;
+    border-bottom : $bottom;
+    border-left   : $left;
+    border-radius : $radius;
+    box-sizing    : border-box;
 };
 
 @mixin Overflow($x : visible, $y : visible)
@@ -93,131 +139,13 @@
     };
 };
 
-@mixin transition($args...)
+@mixin RemoveScrollBar()
 {
-	-webkit-transition: $args;
-	   -moz-transition: $args;
-		-ms-transition: $args;
-		 -o-transition: $args;
-			transition: $args;
-};
-@mixin transition-property($args...)
-{
-	-webkit-transition-property: $args;
-	   -moz-transition-property: $args;
-		-ms-transition-property: $args;
-		 -o-transition-property: $args;
-			transition-property: $args;
-};
-@mixin transition-duration($args...)
-{
-	-webkit-transition-duration: $args;
-	   -moz-transition-duration: $args;
-		-ms-transition-duration: $args;
-		 -o-transition-duration: $args;
-			transition-duration: $args;
-};
-@mixin transform($args)
-{
-	-webkit-transform: $args;
-	   -moz-transform: $args;
-		-ms-transform: $args;
-		 -o-transform: $args;
-			transform: $args;
-};
-@mixin transform-style($args)
-{
-	-webkit-transform-style: $args;
-	   -moz-transform-style: $args;
-		-ms-transform-style: $args;
-		 -o-transform-style: $args;
-			transform-style: $args;
-};
-@mixin transform-origin($args)
-{
-	-webkit-transform-origin: $args;
-	   -moz-transform-origin: $args;
-		-ms-transform-origin: $args;
-		 -o-transform-origin: $args;
-			transform-origin: $args;
-};
-@mixin animation-name($args)
-{
-	-webkit-animation-name: $args;
-	   -moz-animation-name: $args;
-		-ms-animation-name: $args;
-		 -o-animation-name: $args;
-			animation-name: $args;
-};
-@mixin animation-duration($args)
-{
-	-webkit-animation-duration: $args;
-	   -moz-animation-duration: $args;
-		-ms-animation-duration: $args;
-		 -o-animation-duration: $args;
-			animation-duration: $args;
-};
-@mixin animation-direction($args)
-{
-	-webkit-animation-direction: $args;
-	   -moz-animation-direction: $args;
-		-ms-animation-direction: $args;
-		 -o-animation-direction: $args;
-			animation-direction: $args;
-};
-@mixin animation-timing-function($args)
-{
-	-webkit-animation-timing-function: $args;
-	   -moz-animation-timing-function: $args;
-		-ms-animation-timing-function: $args;
-		 -o-animation-timing-function: $args;
-			animation-timing-function: $args;
-};
-@mixin animation-iteration-count($args)
-{
-	-webkit-animation-iteration-count: $args;
-	   -moz-animation-iteration-count: $args;
-		-ms-animation-iteration-count: $args;
-		 -o-animation-iteration-count: $args;
-			animation-iteration-count: $args;
-};
-@mixin animation-fill-mode($args)
-{
-	-webkit-animation-fill-mode: $args;
-	   -moz-animation-fill-mode: $args;
-		-ms-animation-fill-mode: $args;
-		 -o-animation-fill-mode: $args;
-		 	animation-fill-mode: $args;
-};
-@mixin keyframes($animationName)
-{
-    @-webkit-keyframes #{$animationName} { @content; };
-    @-moz-keyframes    #{$animationName} { @content; };
-    @-o-keyframes      #{$animationName} { @content; };
-    @keyframes         #{$animationName} { @content; };
-};
-@mixin perspective($args)
-{
-	-webkit-perspective: $args;
-	   -moz-perspective: $args;
-		-ms-perspective: $args;
-		 -o-perspective: $args;
-			perspective: $args;
-};
-@mixin backface-visibility($args)
-{
-	-webkit-backface-visibility: $args;
-	   -moz-backface-visibility: $args;
-		-ms-backface-visibility: $args;
-		 -o-backface-visibility: $args;
-			backface-visibility: $args;
-};
-@mixin user-select($args)
-{
-  -webkit-touch-callout: $args;
-	-webkit-user-select: $args;
-	   -moz-user-select: $args;
-		-ms-user-select: $args;
-		 -o-user-select: $args;
-			user-select: $args;
+    &
+    {
+        -ms-overflow-style : none;  /* IE and Edge */
+        scrollbar-width    : none;  /* Firefox */
+    };
+
+    &::-webkit-scrollbar { display: none; }
 };

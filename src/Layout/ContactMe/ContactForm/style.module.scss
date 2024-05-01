@@ -1,0 +1,86 @@
+@import "../../../Css/@keyframes.scss";
+@import "../../../Css/@mixins.scss";
+
+
+.Container
+{
+    @include Size_All(100%                            );
+    @include Flex    ($direction : column, $gap : 30px);
+
+    & > .Header
+    {
+        @include Size($width     : 50%               );
+        @include Flex($direction : column, $gap : 5px);
+
+        & > .Label
+        {
+            @include Font($fontSize : 1rem, $color : var(--blue-color));
+
+            & > .InputContainer
+            {
+                @include Position   ();
+                @include Flex       ($alignItems : center);
+                @include Margin_Axis($vertical   : 5px   );
+
+                & > .Input
+                {
+                    @include Size        ($width    : 100%                                               );
+                    @include Font        ($fontSize : 1rem                                               );
+                    @include Padding_Axis($vertical : 6px              , $horizontal : 6px               );
+                    @include Border      ($color    : var(--blue-color), $width      : 2px, $radius : 2px);
+
+                    outline: none;
+                };
+                & > .ErrorIcon
+                {
+                    @include Position($type : absolute, $right : -35px);
+                    @include Size_All(30px);
+                };
+            };
+        };
+    };
+
+    & > .Text
+    {
+        @include Padding_All(10px                                                      );
+        @include Size       ($width : 100%             , $height   : 500px             );
+        @include Font       ($color : var(--blue-color), $fontSize : 1rem              );
+        @include Border     ($color : var(--blue-color), $width    : 2px, $radius : 5px);
+
+        resize  : none;
+        outline : none;
+    };
+
+    & > .Footer
+    {   
+        @include Size($width          : 100%);
+        @include Flex($justifyContent : end );
+
+        & > .Button
+        {   
+            @include Border      ($radius   : 5px                     );
+            @include Padding_Axis($vertical : 10px, $horizontal : 50px);
+            
+            background : var(--light-green);
+            cursor     : pointer;
+
+            .ButtonContent
+            {
+                @include Position();
+                @include Size_All(100%);
+
+                & > .ButtonText { @include Font($fontSize : 1rem, $color : var(--white)); };
+                & > .ButtonIcon
+                {
+                    @include Size_All(20px);
+                    @include Position($type : absolute, $bottom: 0px, $right : -40px);
+
+                    color : var(--white);
+                };
+            };
+
+            &:hover  { background : var(--light-green-2); };
+            &:active { background : var(--light-green-3); }
+        };
+    };
+};

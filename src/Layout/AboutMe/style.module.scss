@@ -2,191 +2,75 @@
 @import "../../Css/@mixins.scss";
 
 
-$fontSizeDuration        : .5s;
 
-$textContentWidth        : .5s;
-
-$buttonPaddingDuration   : .5s;
-$buttonTopDuration       : .4s;
-$buttonIconWidthDuration : .5s;
+@keyframes SplashAnimation
+{
+    0%
+    {
+        mask-position         : 0% 0%;
+        -webkit-mask-position : 0% 0%;
+    }
+    100%
+    {
+        mask-position        : 100% 0%;
+        -webkit-mask-position: 100% 0%;
+    }    
+}
 
 .Container
 {
     @include Position    ();
-    @include Padding_Axis($horizontal : 5%  );
-    @include Flex        ($gap        : 20px);
+    @include Size        ($height    : 100%               );
+    @include Padding_Axis($horizontal: 5%                 );
+    @include Flex        ($alignItems: center, $gap : 50px);
 
-    & > .Title
+    & > .TextContainer
     {
-        @include Font($fontSize : var(--font-size-900), $fontWeight : 500, $direction : vertical-rl, $color : var(--light-green));
-
-        opacity    : .2;
-        transform  : rotate(180deg);
-        transition : font-size $fontSizeDuration ease-in-out;
-    };
-
-    & > .Content
-    {
-        @include Size($width     : 90ch                );
-        @include Flex($direction : column, $gap : 100px);
-
-        transition : width $textContentWidth ease-in-out;
-
-        & > .Text
-        {
-            @include Flex($direction : column, $gap        : 2.6vw);
-            @include Font($fontSize  : 1.5rem, $fontWeight : 200  , $color : var(--dark-green));
-
-            transition : width $textContentWidth ease-in-out, font-size $fontSizeDuration ease-in-out;
-        };
-    
-        & > .Contact
-        {
-            @include Flex($justifyContent : end   , $alignItems : center, $gap : 20px);
-            @include Font($fontSize       : 1.1rem                                   );
-            @include Size($width          : 100%                                     );
-    
-            & > .Button
-            {
-                @include Size        ($width      : fit-content                           );
-                @include Flex        ($alignItems : center             , $gap        : 8px);
-                @include Padding_Axis($vertical   : 5px                , $horizontal : 8px);
-                @include Border      ($color      : var(--light-green) , $radius     : 1px);
-
-                cursor     : pointer;
-                transition : font-size $fontSizeDuration ease-in-out, padding $buttonPaddingDuration ease-in-out, transform $buttonTopDuration ease-in-out;
-    
-                & > .ContactIcon
-                {
-                    @include Size_All(25px);
-
-                    transition : width $buttonIconWidthDuration ease-in-out;
-    
-                    & > svg { color : var(--light-green); };
-                };
-    
-                & > .ContactText { color : var(--light-green); };
-    
-                &:hover
-                {
-                    transform  : translateY(-4px);
-                    transition : transform $buttonTopDuration ease-in-out;
-                };
-            };
-        };
-    };
-
-    & > .Modal
-    {
-        @include Flex    ($justifyContent : center, $alignItems : center                     );
-        @include Size    ($width          : 100vw , $height     : 100vh                      );
-        @include Position($type           : fixed , $top        : 0, $left : 0, $zIndex : 100);
-
-        background : rgba(0, 0, 0, .3);
-    };
-
-
-
-
-
-    @media screen and (max-width: 1650px)
-    {
-        & .Content > .Contact { font-size : 1rem; }
-    };
-    @media screen and (max-width: 1500px)
-    {
-        & > .Content
-        {
-            width      : 70%;
-            transition : width .5s ease-in-out;
-
-            & > .Contact { font-size : .9rem; };
-        };
-    };
-    @media screen and (max-width: 1200px)
-    {
-        & > .Title { font-size : 6rem; };
-
-        & > .Content
-        {
-            width : 80%;
-
-            & > .Text { font-size : 1.3rem; };
-
-            & > .Contact
-            {
-                margin-top : 60px;
-
-                & > .Button > .ContactIcon
-                {
-                    width  : 22px;
-                    height : 22px;
-                };
-            };
-        };
-    };
-    @media screen and (max-width: 1000px)
-    {
-        & > .Title { font-size : 5rem; };
-
-        & > .Content
-        {
-            width : 100%;
-            
-            & > .Text { font-size : 1.1rem; };
-
-            & > .Contact
-            {
-                font-size : .85rem;
-
-                & > .Button > .ContactIcon
-                {
-                    width  : 20px;
-                    height : 20px;
-                };
-            };
-        };
-    };
-    @media screen and (max-width: 800px)
-    {
-        & > .Title { font-size : 4.5rem; };
-
-        & > .Content
-        {
-            & > .Text { font-size : 1rem; };
-
-            & > .Contact
-            {
-                font-size  : .8rem;
-                margin-top : 45px;
-            };
-        };
-    };
-    @media screen and (max-width: 700px)
-    {
-        flex-direction : column;
-        gap            : 3px;
+        @include Flex($direction : column, $gap : 30px);
 
         & > .Title
         {
-            writing-mode : unset;
-            transform    : unset;
+            @include Font($fontSize : 6.5rem, $fontWeight : 500, $color : var(--light-green));
+    
+            opacity : .5;
+        };
+    
+        & > .Content
+        {
+            @include Size        ($width      : 100ch               );
+            @include Padding_Axis($horizontal : 2.5%                );
+            @include Flex        ($direction  : column, $gap : 100px);
+
+            & > .Text
+            {
+                @include Flex($direction : column, $gap        : 2.6vw);
+                @include Font($fontSize  : 1.5rem, $fontWeight : 200  , $color : var(--blue-color));
+            };
         };
     };
-    @media screen and (max-width: 550px)
-    {
-        & > .Title { font-size : 4.5rem; };
 
-        & > .Content > .Contact { margin-top : 40px; };
-    };
-    @media screen and (max-width: 400px)
+    & > .ImageContainer
     {
-        & > .Title           { font-size : 4.1rem; };
-        & > .Content > .Text { gap       : 3.2vw;  };
+        position : relative;
+        flex-grow: 1;
+        display : flex;
+        justify-content: center;
+        align-items: center;
+
+        & > .Layer {  position : absolute; };
+
+        & > .First, & > .Third
+        {
+            -webkit-mask-position : 0% 0%;
+            -webkit-mask-image    : url(../../assets/Mask.png);
+            mask-size             : cover;
+            -webkit-mask-size     : cover;
+        };
     };
-    @media screen and (max-width: 350px)
+
+
+    &.Animate > .ImageContainer
     {
-        & > .Title           { font-size : 3.6rem; };
-        & > .Content > .Text { gap       : 3.6vw;  };
-    };
+        & > .First, & > .Third { animation: SplashAnimation 1.1s steps(32) forwards; };
+    }
 };

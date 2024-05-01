@@ -1,0 +1,19 @@
+@import "../../Css/@keyframes.scss";
+@import "../../Css/@mixins.scss";
+
+
+.Container
+{
+    @include Size($height         : 150px , $width      : 100%               );
+    @include Flex($justifyContent : center, $alignItems : center, $gap : 15px);
+
+    background: var(--light-green);
+
+    & > .Icon
+    {
+        @include Size_All(30px);
+        
+        color  : var(--white);
+        cursor : pointer;
+    };
+};

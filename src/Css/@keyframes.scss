@@ -1,4 +1,3 @@
-@import "../../Css/@mixins.scss";
 
 
 @keyframes Typing
@@ -38,10 +37,4 @@
     0%   { scale : 1.2; }
     50%  { scale : 1;   }
     100% { scale : 1.2; }
-};
-
-@keyframes spin
-{
-    from  {@include transform (rotateX(0deg) rotateY(0deg));     }
-    to    {@include transform (rotateX(360deg) rotateY(360deg)); }
 };

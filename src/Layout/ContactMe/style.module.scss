@@ -1,0 +1,11 @@
+@import "../../Css/@keyframes.scss";
+@import "../../Css/@mixins.scss";
+
+
+.Container
+{
+    @include Padding_Vertical(50px                                                     );
+    @include Flex            ($alignItems : center, $justifyContent : center, $gap : 5%);
+
+    & > .Form { @include Size($width : 65%); };
+};

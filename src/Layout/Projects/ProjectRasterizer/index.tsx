@@ -5,7 +5,6 @@ import * as ErazReactComponents from "eraz-react-components/dist";
 
 import * as Icons     from "../../../Icons";
 import * as Layout    from "../../../Layout";
-import * as AppText   from "../../../AppText";
 import * as SidePanel from "./SidePanel";
 import      Style     from "./style.module.scss";
 
@@ -15,6 +14,7 @@ export function Component() : JSX.Element
     const context = React.useContext(Layout.MyContext);
 
     const [selectedObj, setSelectedObj] = React.useState<string>("");
+    const [focused    , setFocused    ] = React.useState<boolean>(false);
     const [cameraState, setCameraState] = React.useState<ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera>();
 
     React.useEffect(() =>
@@ -23,7 +23,7 @@ export function Component() : JSX.Element
         {
             if (e.key === "Alt")
             {
-                context?.update((prev : Layout.Types.T_Context | undefined) =>
+                context?.update((prev : Layout.Types.T_ContextState | undefined) =>
                 {
                     if (prev?.showResterizerTutorial === true) return ({ ...prev, showResterizerTutorial: false });
                     else                                       return (prev);
@@ -33,10 +33,8 @@ export function Component() : JSX.Element
 
         window.addEventListener("keydown", HandleOnKeyDown);
 
-        context?.update((prev : Layout.Types.T_Context | undefined) =>
+        context?.update((prev : Layout.Types.T_ContextState | undefined) =>
         {
-            console.log(prev?.showResterizerTutorial);
-
             if (prev && prev.showResterizerTutorial == null) return ({ ...prev, showResterizerTutorial: true });
             else                                             return (prev);
         });
@@ -44,8 +42,11 @@ export function Component() : JSX.Element
         return (() => { window.removeEventListener("keydown", HandleOnKeyDown); });
     }, []);
 
-    function HandleMouseEnter() : void { document.body.style.overflowY = "hidden"; };
-    function HandleMouseLeave() : void { document.body.style.overflowY = "auto";   };
+    function HandleMouseLeave() : void
+    {
+        setFocused(false);
+        document.body.style.overflowY = "auto";
+    };
 
     function HandleActivateAltKeydown() : void
     {   
@@ -53,7 +54,7 @@ export function Component() : JSX.Element
 
         if (context?.state?.showResterizerTutorial === true)
         {
-            context?.update((prev : Layout.Types.T_Context | undefined) =>
+            context?.update((prev : Layout.Types.T_ContextState | undefined) =>
             {
                 if (prev) return ({ ...prev, showResterizerTutorial: false });
                 else      return (prev);
@@ -67,13 +68,23 @@ export function Component() : JSX.Element
     };
 
     return (
-        <div className={Style.Container}>
-            <div
-                className    = {Style.Rasterizer}
-                onMouseEnter = {HandleMouseEnter}
-                onMouseLeave = {HandleMouseLeave}
-            >
+        <div
+            className    = {Style.Container}
+            onMouseLeave = {HandleMouseLeave}
+        >
+            <div className={Style.Rasterizer}>
                 <ErazReactComponents.RasterizerDisplay.Component
+                    dragSettings     = {{ enabled: (focused) ? true : false }}
+                    rotateSettings   = {{ enabled: (focused) ? true : false }}
+                    keyboardSettings = {{ enabled: (focused) ? true : false }}
+                    zoomSettings     = 
+                    {
+                        {
+                            enabled  : (focused) ? true : false,
+                            maxRadius: 5,
+                            minRadius: 0.5,
+                        }
+                    }
                     mesh             =
                     {
                         {
@@ -84,27 +95,18 @@ export function Component() : JSX.Element
                             })
                         }
                     }
-                    zoomSettings     = 
-                    {
-                        {
-                            maxRadius: 5,
-                            minRadius: 0.5,
-                        }
-                    }
-                    keyboardSettings = {{ enabled: true }}
                     defaultCamera    =
                     {
                         {
                             anchor     : [0 ,0 ,0  ],
-                            polarCoord : [22,25,1.5],
+                            polarCoord : [22,25,0.8],
                         }
                     }
-                    cameraDebug={(value: ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera) =>
-                        {
-                            if (value)
-                                setCameraState({...value});
-                        }
-                    }
+                    cameraDebug      = {(value: ErazReactComponents.RasterizerDisplay.Rasterizer.Types.T_PolarCamera) =>
+                    {
+                        if (value)
+                            setCameraState({...value});
+                    }}
                 />
             </div>
             <div className={Style.SidePanel}>
@@ -122,27 +124,16 @@ export function Component() : JSX.Element
             >
                 <Icons.Keyboard.Component/>
             </div>
-            {
-                (context?.state?.showResterizerTutorial === null || context?.state?.showResterizerTutorial === true)
-                ?   
-                    <>
-                        <div className={Style.TutorialBackgroundKeybinding}/>
-                        <div className={Style.TutorialCurvedArrow}>
-                                <Icons.CurvedArrow.Component/>
-                            </div>
-                            <div
-                                className               = {Style.TutorialText}
-                                dangerouslySetInnerHTML = {
-                                    {
-                                        __html: (context?.state?.language === "fr")
-                                            ?   AppText.tutorial_FR.replace("Alt", "<div>Alt</div>")
-                                            :   AppText.tutorial_EN.replace("Alt", "<div>Alt</div>")
-                                    }
-                                }
-                            />
-                        </>
-                :   null
-            }
+            <div
+                className = {`${Style.IndicativPanel} ${(focused) ? Style.Focused : ""}`}
+                onClick   = {() =>
+                {
+                    setFocused(true);
+                    document.body.style.overflowY = "hidden";
+                }}
+            >
+                {(context?.state?.language === "fr") ? "Clickez pour utiliser" : "Click to start"}
+            </div>
         </div>
     );
 };

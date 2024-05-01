@@ -8,80 +8,85 @@
 
     & > .Cursor
     {
-        @include Size    ($width : 102%    , $height : 100%            );
-        @include Position($type  : absolute, $top    : 0px, $left : 0px);
+        @include Border_Segment($right : var(--light-green) solid 3px                            );
+        @include Size          ($width : 102%                        , $height : 100%            );
+        @include Position      ($type  : absolute                    , $top    : 0px, $left : 0px);
 
-        border-right : var(--light-green) solid 3px;
-        animation    : Typing $typingDuration $typingDelay steps($numberLetter) forwards, Blink 1s infinite, FadeOut 0s $fadeOutDelay forwards;
+        animation : Typing $typingDuration $typingDelay steps($numberLetter) forwards, Blink 1s infinite, FadeOut 0s $fadeOutDelay forwards;
     };
 };
 
-
-$heightTransition    : .5s;
-
-$imageFadeInDuration : 1s;
-$imageFadeInDelay    : 1.5s;
-
-$fontSizeDuration    : .5s;
-
-$nameFadeInDuration  : 1.3s;
-$nameFadeInDelay     : 2.4s;
-
 .Container
 {
-    @include Size        ($width    : 100vw, $height     : 110vh);
-    @include Padding_Axis($vertical : 10%  , $horizontal : 8%   );
     @include Position    ();
+    @include Padding_Axis($vertical : 10%  , $horizontal : 8%   );
+    @include Size        ($width    : 100vw, $height     : 110vh);
 
     background : linear-gradient(var(--blue-color), var(--dark-blue-color) 30%);
     clip-path  : polygon(0% 0%, 100% 0%, 100% 93%, 0% 100%);
-    transition : height $heightTransition ease-out;
 
-    & > .Image
+    & > .Main
     {
-        @include Size    ($height : 90%                                  );
-        @include Position($type   : absolute, $right : .5vmax, $top : 0px);
+        @include Flex  ();
+        @include Size  ($height : 90% );
 
-        opacity   : 0;
-        animation : FadeIn $imageFadeInDuration $imageFadeInDelay ease-in-out forwards;
-
-        & > img { @include Size_All(100%); };
-    };
-
-    & > .PresentationTitle
-    {
-        @include Size($width    : 80%                                                 );
-        @include Font($fontSize : 5.5rem, $fontWeight : 200, $color : var(--light-green));
-
-        transition : font-size $fontSizeDuration ease-out;
-
-        & > .TitleContainer
+        & > .Menu
         {
-            @include Position();
+            @include Padding_Axis($horizontal : 50px, $vertical : 50px);
 
-            display : inline-block;
+            align-self: flex-end;
 
-            & > .Title
+            & > .MenuItem
             {
-                @include Size    ($width : 100%  );
-                @include Overflow($x     : hidden);
-
-                opacity     : 0;
+                @include Padding_Vertical($vertical : 10px                                                        );
+                @include Font            ($fontSize : 2.5rem, $fontWeight : 300, $color : rgba(97, 155, 138, .5));
+                
                 white-space : nowrap;
-    
-                &.Title1 { @include TitleAnimation($typingDuration : .5s, $numberLetter : 9 , $fadeOutDelay : .8s                     ); };
-                &.Title2 { @include TitleAnimation($typingDuration : .7s, $numberLetter : 17, $fadeOutDelay : 1.9s, $typingDelay : .8s); };
+                cursor      : pointer;
+
+                &:hover { @include Font($fontSize : 2.5rem, $fontWeight : 300, $color : var(--light-green)); };
             };
         };
-    };
 
-    & > .Name
-    {
-        @include Font($fontSize : 4.5rem, $fontWeight : 300, $color : var(--dark-green));
+        & > .Separator { color : var(--light-green); };
 
-        opacity    : 0;
-        animation  : FadeIn $nameFadeInDuration $nameFadeInDelay ease-out forwards;
-        transition : font-size $fontSizeDuration ease-out;
+        & > .Text
+        {
+            @include Padding_Axis($horizontal : 80px);
+
+            & > .PresentationTitle
+            {
+                @include Size($width    : 80%                                                   );
+                @include Font($fontSize : 5.5rem, $fontWeight : 200, $color : var(--light-green));
+        
+                & > .TitleContainer
+                {
+                    @include Position();
+        
+                    display : inline-block;
+        
+                    & > .Title
+                    {
+                        @include Size    ($width : 100%  );
+                        @include Overflow($x     : hidden);
+        
+                        opacity     : 0;
+                        white-space : nowrap;
+            
+                        &.Title1 { @include TitleAnimation($typingDuration : .5s, $numberLetter : 9 , $fadeOutDelay : .8s , $typingDelay : .4s  ); };
+                        &.Title2 { @include TitleAnimation($typingDuration : .7s, $numberLetter : 17, $fadeOutDelay : 1.9s, $typingDelay : 1.1s ); };
+                    };
+                };
+            };
+        
+            & > .Name
+            {
+                @include Font($fontSize : 4rem, $fontWeight : 300, $color : var(--dark-green));
+        
+                opacity   : 0;
+                animation : FadeIn 1.3s 2.1s ease-out forwards;
+            };
+        };
     };
 
     & > .MultiLanguage
@@ -96,108 +101,6 @@ $nameFadeInDelay     : 2.4s;
             @include Size_All(30px);
 
             cursor : pointer;
-        };
-    };
-
-
-
-
-
-    @media screen and (max-width: 1800px)
-    {
-        & > .PresentationTitle { font-size : 5rem;   };
-        & > .Name              { font-size : 4.5rem; };
-    };
-    @media screen and (max-width: 1500px)
-    {
-        & > .PresentationTitle
-        {
-            width     : 60%;
-            font-size : 4.5rem;
-        };
-
-        & > .Name { font-size : 3rem; };
-    };
-    @media screen and (max-width: 1400px)
-    {
-        height : 480px;
-
-        & > .Image { animation: FadeOut 1s forwards; };
-    };
-    @media screen and (max-width: 900px)
-    {
-        height : 380px;
-
-        & > .PresentationTitle { font-size : 3.5rem; };
-        & > .Name              { font-size : 3rem;   };
-    };
-    @media screen and (max-width: 750px)
-    {
-        height : 350px;
-
-        & > .PresentationTitle { font-size : 3rem;   };
-        & > .Name              { font-size : 2.5rem; };
-        & > .MultiLanguage
-        {
-            font-size: .9rem;
-    
-            & > .MultiLanguageIcon
-            {
-                width  : 25px;
-                height : 25px;
-            };
-        };
-    };
-    @media screen and (max-width: 650px)
-    {
-        height : 280px;
-
-        & > .PresentationTitle { font-size : 2.5rem; };
-        & > .Name              { font-size : 2rem;   };
-        & > .MultiLanguage
-        {
-            font-size: .85rem;
-    
-            & > .MultiLanguageIcon
-            {
-                width  : 23px;
-                height : 23px;
-            };
-        };
-    };
-    @media screen and (max-width: 500px)
-    {
-        height : 230px;
-
-        & > .PresentationTitle { font-size : 2rem;   };
-        & > .Name              { font-size : 1.5rem; };
-    };
-    @media screen and (max-width: 400px)
-    {
-        & > .PresentationTitle
-        {
-            font-size  : 1.7rem;
-            margin-top : 25px;
-            transition : margin-top .5s linear;
-        };
-        & > .Name
-        {
-            font-size : 1.3rem;
-        };
-    };
-    @media screen and (max-width: 350px)
-    {
-        height : 200px;
-
-        & > .PresentationTitle
-        {
-            font-size  : 1.5rem;
-            margin-top : 35px;
-            transition : margin-top .5s linear;
-        };
-        & > .Name
-        {
-            font-size : 1.2rem;
         };
     };
 };

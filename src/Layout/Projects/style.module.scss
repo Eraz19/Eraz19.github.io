@@ -2,158 +2,145 @@
 @import "../../Css/@mixins.scss";
 
 
-.Container
+@keyframes Levitate
 {
-    @include Padding_Axis($horizontal : 70px                );
-    @include Flex        ($direction  : column, $gap : 170px);
-
-    & >.Title
-    {
-        @include Font($fontSize : var(--font-size-800), $fontWeight : 10, $color : var(--light-green), $textAlign : right);
-        
-        transition : font-size .5s ease-in-out;
-    };
-
-    & > .Projects
-    {
-        @include Size_All(100%                            );
-        @include Flex    ($direction : column, $gap : 80px);
-    };
-
-
-
-
-
-
-    @media screen and (max-width: 1500px)
-    {
-        & > .Projects { gap : 50px; };
-    };
-    @media screen and (max-width: 1300px)
-    {
-        & > .Title > div { font-size : 6rem; };
-    };
-    @media screen and (max-width: 1200px)
-    {
-        & > .Title > div { font-size: 5.5rem; };
-    };
-    @media screen and (max-width: 1000px)
-    {
-        & > .Title > div { font-size : 5rem; };
-        & > .Projects    { gap       : 30px; };
-    };
-    @media screen and (max-width: 900px)
-    {
-        & > .Title > div { font-size: 4.5rem; };
-    };
-    @media screen and (max-width: 850px)
-    {
-        & > .Title > div { font-size : 4rem; };
-    };
-    @media screen and (max-width: 650px)
-    {
-        & > .Title > div { font-size: 3.5rem; };
-    };
-    @media screen and (max-width: 500px)
-    {
-        & > .Title > div { font-size: 3rem; };
-    };
-    @media screen and (max-width: 450px)
-    {
-        & > .Projects { gap : 60px; };
-    };
-    @media screen and (max-width: 400px)
-    {
-        & > .Projects { gap : 90px; };
-    };
+    0%   { transform : translateX(0px);  }
+    50%  { transform : translateX(-4px); }
+    100% { transform : translateX(0px);  }
 };
 
-
-.Thumbnail
+.Container
 {
-    @include Position    ();
-    @include Size_All    (100%          );
-    @include Overflow_All(hidden        );
-    @include Border      ($radius : 10px);
-
-    cursor : pointer;
-
-    & > .ThumbnailImage
+    & >.Title
     {
-        @include Size_All(100%);
-
-        & > img
-        {
-            @include Size_All(100%          );
-            @include Border  ($radius : 10px);
-
-            object-fit : cover;
-        };
+        @include Padding_Axis($horizontal : 70px                                                                                   );
+        @include Margin      ($bottom     : 70px                                                                                   );
+        @include Font        ($fontSize   : var(--font-size-800), $fontWeight : 10, $color : var(--light-green), $textAlign : right);
     };
 
-    & > .ResizeBackground
+    & > .Project
     {
-        @include Size_All(100%                                                      );
-        @include Flex    ($justifyContent : center  , $alignItems : center          );
-        @include Position($type           : absolute, $top        : 0px, $left : 0px);
+        @include Position();
+        @include Size    ($width : 100%);
 
-        background : rgba(97, 155, 138, .7);
-        transform  : translateY(-100%);
-        transition : transform .5s;
-
-        & > .ResizeIcon
+        &.Graph
         {
-            @include Position();
-            @include Size_All(60px);
+            @include Size($height : 100vh);
 
-            color      : white;
-            transition : width .5s ease-in-out, height .5s ease-in-out;
-
-            & > svg { animation : Pulse 2s ease-out infinite; };
-
-            & > .ResizeIconText
+            & > .TitleContainer
             {
-                @include Position($type    : absolute, $bottom    : 45px  , $left  : 50%         );
-                @include Font    ($fontSize: 1rem    , $textAlign : center, $color : var(--white));
+                @include Position($type : absolute, $top : 120px, $left : 100px, $zIndex : 1000);
 
-                white-space : nowrap;
-                transform   : translate(-50%, -50%);
-                transition  : left .5S ease-in-out;
+                & > .Title    { @include Font($fontSize : 4.5rem, $fontWeight : 300, $color : var(--white)); };
+                & > .Subtitle { @include Font($fontSize : 3rem  , $fontWeight : 300, $color : var(--white)); };
+            };
+
+            & > .TextContainer
+            {
+                @include Flex    ($direction : row-reverse, $gap    : 20px               );
+                @include Position($type      : absolute   , $bottom : 80px, $right : 50px);
+
+                & > .Text
+                {
+                    @include Size($width : 35ch        );
+                    @include Font($color : var(--white));
+                };
+                & > .Separator { color : var(--white); };  
+                & > .Button
+                {
+                    @include Margin_All  (20px                                                        );
+                    @include Font        ($fontSize : 1rem        , $color      : var(--white)        );
+                    @include Padding_Axis($vertical : 8px         , $horizontal : 10px                );
+                    @include Border      ($color    : var(--white), $width      : 1px , $radius : 5px );
+
+                    align-self : end;
+                    transform  : translateY(0px);
+                    cursor     : pointer;
+                    transition : all 1s;
+
+                    &:hover
+                    {
+                        transform  : translateY(-6px);
+                        transition : all 1s;
+                    };
+                };
             };
         };
-    };
-
-    &:hover
-    {
-        & > .ResizeBackground
+        &.Cube
         {
-            transform  : translateY(0%);
-            transition : transform .5s;
-        };
-    };
+            @include Size($height : 100vh);
+            @include Flex($justifyContent : center, $alignItems : center);
 
-
-
-
-
-
-    @media screen and (max-width: 1300px)
-    {
-        & > .ResizeBackground > .ResizeIcon
-        {
-            width  : 50px;
-            height : 50px;
-
-            & > .ResizeIconText
+            & > .TitleContainer
             {
-                font-size : .95rem;
+                @include Position($type : absolute, $top : 120px, $right: 100px, $zIndex : 1000);
+
+                & > .Title    { @include Font($fontSize : 4.5rem, $fontWeight : 300, $color : var(--blue-color)); };
+                & > .Subtitle { @include Font($fontSize : 3rem  , $fontWeight : 300, $color : var(--blue-color)); };
+            };
+
+            & > .TextContainer
+            {
+                @include Position($type : absolute, $bottom : 100px, $left : 50px);
+
+                & > .Text { @include Size($width : 45ch); };
             };
         };
-    };
-    @media screen and (max-width: 1100px)
-    {
-        cursor : unset;
+        &.Rasterizer
+        {
+            @include Flex($justifyContent : center);
+            @include Size($height         : 150vh );
 
-        & > .ResizeBackground { display : none; }
+            & > .TitleContainer
+            {
+                @include Position($type : absolute, $top : 80px, $left: 100px, $zIndex : 1000);
+
+                & > .Title    { @include Font($fontSize : 4.5rem, $fontWeight : 300, $color : var(--white)); };
+                & > .Subtitle { @include Font($fontSize : 3rem  , $fontWeight : 300, $color : var(--white)); };
+            };
+
+            & > .TextContainer
+            {
+                @include Flex    ($direction : row     , $gap : 20px               );
+                @include Position($type      : absolute, $left: 50% , $bottom : 0px);
+                
+                transform: translate(-50%, -50%); 
+
+                & > .Text
+                {
+                    @include Size($width : 45ch        );
+                    @include Font($color : var(--white));
+                };
+                & > .Separator { color : var(--white); };  
+                & > .Button
+                {
+                    @include Margin_All  (20px                                                       );
+                    @include Font        ($fontSize : 1rem        , $color      : var(--white)       );
+                    @include Padding_Axis($vertical : 8px         , $horizontal : 10px               );
+                    @include Border      ($color    : var(--white), $width      : 1px, $radius : 5px );
+
+                    align-self : end;
+                    transform  : translateY(0px);
+                    cursor     : pointer;
+                    transition : all 1s;
+
+                    &:hover
+                    {
+                        transform  : translateY(-6px);
+                        transition : all 1s;
+                    };
+                };
+            };
+
+            & > .Element
+            {
+                @include Position($top    : 280px            );
+                @include Size    ($height : 58%, $width : 90%);
+            };
+        };
+
+        &:nth-child(1) { background : linear-gradient(var(--dark-blue-color), var(--blue-color) 70%); };
+        &:nth-child(2) { background : #ffffff;                                                      };
+        &:nth-child(3) { background : var(--blue-color);                                              };
     };
 };

@@ -4,81 +4,113 @@
 
 .Container
 {
-    @include Flex       ();
-    @include Size       ($width   : 100%                                             );
-    @include Overflow   ($x       : scroll, $y        : hidden                       );
-    @include Scroll_Snap($visible : false , $snapType : x mandatory, $snapAlign : end);
+    @include Overflow          ($y              : hidden                          );
+    @include Flex              ($justifyContent : center, $gap    : 30px          );
+    @include Padding_Horizontal($horizontal     : 10%   , $bottom : 100px, $top : 100px);
 
-    background : var(--blue-color);
-
-    & > .CardContainer
+    & > .SkillCategoryContainer
     {
-        transform  : scale(1);
-        transition : transform .5s, width 1s;
+        @include Size($width     : calc(calc(100% / 3) - 20px)                                               );
+        @include Flex($direction : column, $alignItems : center, $justifyContent : space-between, $gap : 50px);
 
-        & > .Card
+        transform : translateY(150%);
+
+        & > .SkillCategory
         {
-            @include Padding_All(40px                                                  );
-            @include Flex       ($direction : column, $alignItems : center, $gap : 20px);
+            @include Flex($direction : column, $alignItems : center, $gap : 20px);
 
-            & > .CardIcon
+            & > .Icon  { @include Size_All(70px                                                                   ); };
+            & > .Title { @include Font    ($fontSize : 1.5rem, $fontWeight : 600, $color     : var(--orange-color)); };
+            & > .Text  { @include Font    ($fontSize : 1.1rem, $fontWeight : 200, $textAlign : center             ); };
+        };
+
+        & > .Button
+        {
+            @include Size        ($width    : fit-content            );
+            @include Margin_Axis ($vertical : 15px                   );
+            @include Border      ($width    : 1px, $radius     : 5px );
+            @include Padding_Axis($vertical : 5px, $horizontal : 10px);
+            
+            transform  : translateY(0px);
+            cursor     : pointer;
+            transition : all 1s;
+ 
+            &.Selected
             {
-                @include Size_All(90px);
-
-                transition : width .5s ease-in-out, height .5s ease-in-out;
+                @include Font  ($color : var(--orange-color));
+                @include Border($color : var(--orange-color), $width : 1px, $radius : 5px );
             };
 
-            & > .CardTitle { @include Font($fontSize : 1.1rem, $color : var(--white)); };
+            &:hover
+            {
+                transform  : translateY(-6px);
+                transition : all 1s;
+            };
+        };
+    };
+
+    &.Animate
+    {
+        & > div:nth-of-type(1) { animation : SlideInFromBottom .8s 0s   ease-out forwards; };
+        & > div:nth-of-type(2) { animation : SlideInFromBottom .8s 1.2s ease-out forwards; };
+        & > div:nth-of-type(3) { animation : SlideInFromBottom .8s 2.4s ease-out forwards; };
+    };
+};
+
+.Skills
+{
+    @include Flex              ($justifyContent : center, $gap    : 35px);
+    @include Padding_Horizontal($horizontal     : 0px   , $bottom : 150px);
+
+    & > .Skill
+    {
+        @include Position();
+        @include Flex    ($direction : column);
+
+        & > .IconCircle
+        {
+            @include Padding_All(20px                                                           );
+            @include Flex       ($justifyContent: center      , $alignItems : center            );
+            @include Border     ($color         : var(--color), $width      : 3px, $radius : 50%);
+
+            transition : transform .8s;
+
+            & > .Icon { @include Size_All(80px); };
+        };
+        & > .IconShadow
+        {
+            @include Padding_All(20px                                                           );
+            @include Position   ($type          : absolute    , $bottom     : -110px            );
+            @include Flex       ($justifyContent: center      , $alignItems : center            );
+            @include Border     ($color         : var(--color), $width      : 3px, $radius : 50%);
+
+            transform      : rotate(.5turn) scale(.8, 0.15);
+            opacity        : .4;
+            transition     : transform .8s;
+            pointer-events : none;
+
+            & > .Icon { @include Size_All(80px); };
         };
 
         &:hover
         {
-            transform  : scale(1.06);
-            transition : transform .5s;
-        };
-    };
-
-
-
-
-    
-    @media screen and (max-width: 1400px)
-    {
-        & > .CardContainer > .Card 
-        {
-            padding : 30px 30px;
-
-            &> .CardIcon
+            & > .IconCircle { transform : scale(1.2) translateY(-15px); };
+            & > .IconShadow
             {
-                width  : 80px;
-                height : 80px;
+                transform : rotate(.5turn) scale(.7, 0.14);
+                opacity   : .38;
             };
         };
-    };
-    @media screen and (max-width: 1000px)
-    {
-        & > .CardContainer > .Card
+        
+        &:has(+ .Skill:hover),
+        &:hover + .Skill
         {
-            padding : 27px 27px;
-
-            &  > .CardIcon
+            & > .IconCircle { transform: scale(1.1) translateY(-5px); };
+            & > .IconShadow
             {
-                width  : 70px;
-                height : 70px;
+                transform : rotate(.5turn) scale(.78, 0.145);
+                opacity   : .36;
             };
-        };
-    };
-    @media screen and (max-width: 700px)
-    {
-        & > .CardContainer > .Card
-        {
-            padding : 25px 25px;
-
-            & > .CardIcon
-            {
-                width  : 60px;
-                height : 60px;
-            };
-        };
+        }
     };
 };

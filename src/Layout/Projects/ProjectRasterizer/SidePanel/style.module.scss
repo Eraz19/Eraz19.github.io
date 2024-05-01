@@ -1,43 +1,38 @@
+@import "../../../../Css/@keyframes.scss";
+@import "../../../../Css/@mixins.scss";
+
+
 .Container
 {
-    display        : flex;
-    width          : 100%;
-    height         : 100%;
-    flex-direction : column;
-    padding        : 5px;
-    box-sizing     : border-box;
-    gap            : 10px;
+    @include RemoveScrollBar();
+    @include Size_All       (100%                            );
+    @include Padding_All    (5px                             );
+    @include Flex           ($direction : column, $gap : 10px);
+
+    overflow : scroll;
 
     & > .Separator
     {
-        width  : 100%;
-        height : 0px;
-        color  : #575656;
+        @include Size($width : 100%, $height : 0px);
+        
+        color : var(--dark-grey);
     };
 
     & > .Section
     {
-        width      : 100%;
-        padding    : 0px 10px;
-        box-sizing : border-box;
+        @include Size        ($width      : 100%);
+        @include Padding_Axis($horizontal : 10px);
 
         & > .Title
         {
-            display         : flex;
-            margin-bottom   : 25px;
-            justify-content : space-between;
-            align-items     : center;
+            @include Margin($bottom       : 25px                               );
+            @include Flex($justifyContent : space-between, $alignItems : center);
 
-            & > div:nth-of-type(1)
-            {
-                font-size     : .9rem;
-                font-weight   : 200;
-                color         : var(--light-green);
-            };
+            & > div:nth-of-type(1) { @include Font($fontSize : 1rem, $fontWeight : 200, $color : var(--light-green)); };
             & > div:nth-of-type(2)
             {
-                width  : 30px;
-                height : 30px;
+                @include Size_All(30px);
+
                 color  : var(--light-green);
                 cursor : pointer;
 
@@ -47,72 +42,61 @@
 
         & > .Values
         {
-            display        : flex;
-            flex-direction : column;
-            gap            : 20px;
+            @include Flex($direction : column, $gap : 20px);
 
             &.Folded
             {
-                height   : 0px;
+                @include Size($height : 0px);
+                
                 overflow : hidden;
             };
 
             & > .Value
             {
-                display     : flex;
-                align-items : center;
+                @include Flex($alignItems : center);
 
                 & > div:nth-of-type(1)
                 {
-                    flex        : .6;
-                    color       : #ffffff;
-                    font-size   : .7rem;
-                    font-weight : 300;
-                    text-align  : center;
+                    @include Font($fontSize : .5rem, $fontWeight : 300, $textAlign : center, $color : var(--white));
+
+                    flex : .6;
                 };
                 & > div:nth-of-type(2)
                 {
+                    @include Padding_Axis($vertical : 6px                                                                );
+                    @include Font        ($fontSize : 1rem, $fontWeight : 300, $textAlign : center, $color : var(--white));
+
                     flex       : 1;
-                    background : #575656;
-                    padding    : 6px 0px;
-                    color      : #ffffff;
-                    font-size   : 1rem;
-                    font-weight : 300;
-                    text-align  : center;
+                    background : var(--dark-grey);
                 };
             };
         };
 
         & > .OBJModelsList
         {
-            display        : flex;
-            height         : fit-content;
-            flex-direction : column;
-            padding        : 5px;
-            box-sizing     : border-box;
-            gap            : 5px;
+            @include Padding_All(5px                            );
+            @include Size       ($height    : fit-content       );
+            @include Flex       ($direction : column, $gap : 5px);
             
             &.Folded
             {
-                height   : 0px;
-                padding  : 0px;
+                @include Padding_All(0px          );
+                @include Size       ($height : 0px);
+
                 overflow : hidden;
             };
 
             & > .OBJModelOption
             {
-                width         : 100%;
-                background    : #474747;
-                color         : #ffffff;
-                border-radius : 3px;
-                padding       : 12px 20px;
-                box-sizing    : border-box;
-                font-size     : 1rem;
-                font-weight   : 300;
-                cursor        : pointer;
+                @include Size        ($width    : 100%                                          );
+                @include Border      ($radius   : 3px                                           );
+                @include Padding_Axis($vertical : 12px, $horizontal : 20px                      );
+                @include Font        ($fontSize : 1rem, $fontWeight : 300, $color : var(--white));
 
-                &:hover { background : #414141; };
-                
+                background : var(--dark-grey);
+                cursor     : pointer;
+
+                &:hover    { background : var(--dark-grey2);  };
                 &.Selected { background : var(--light-green); };
             };
         };

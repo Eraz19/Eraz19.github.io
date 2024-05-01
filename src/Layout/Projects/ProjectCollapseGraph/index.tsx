@@ -43,7 +43,7 @@ export function Component() : JSX.Element
                 setTimeout(() =>
                 {
                     Utils.RenderCanvas(context, /*prevCanvasSize.current, */PERCENT_VERTEX, PERCENT_EDGES, mouseMovementX, mouseMovementY); 
-                }, 1000);  
+                }, 500);  
             }
         }
 
